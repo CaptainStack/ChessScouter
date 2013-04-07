@@ -44,6 +44,74 @@ $ grunt server
 
 That will file up a node server, open a browser pointing to it, and set up live reload. If you edit a file, the page will automatically refresh. Woo!
 
+### File layout
+
+````
+ChessScouter/
+    # Your app lives here
+    app/ 
+            
+        # Installed bower packages
+        components/
+        
+        # Page for 404s
+        404.html  
+        
+        # The icon for your site
+        favicon.ico	
+        
+        # Base html file that is served when someone visits your app
+        index.html	
+        
+        # Tells web crawlers how to interact with your site
+        robots.txt	
+        
+        # JS for your app
+        scripts/		
+            # Initializes your angularjs app
+            app.js
+            
+            # Contains angularjs controllers
+            controllers/
+        
+        # Styles for your app
+        styles/		
+        
+            # styles provided by bootstrap (http://twitter.github.io/bootstrap/)
+            bootstrap.css
+        
+            # your styles
+            main.css
+        
+        # Templates for your app
+        views/
+        
+            # a sample template
+            main.html
+    
+    # Declaration of npm dependencies
+    package.json
+    
+    # Installed npm packages
+    node_modules/
+    
+    # Tests for your app
+    test/
+    
+    # Config for bower
+    .bowerrc
+    
+    # Declaration of bower dependencies
+    component.json
+    
+    
+    # Grunt config - determines what tasks like `grunt server` do
+    Gruntfile.js
+    
+    # Helpful documentation
+    README.md
+````
+
 ### Git workflow
 
 While we're at it, here is a simple git workflow. It assumes that everyone has their own fork of the repo,
