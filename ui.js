@@ -1,57 +1,85 @@
 "use strict"
+var BOARD_SIZE = 350;
+var firstClick = null;
+var secondClick = null;
 
 $(document).ready(function(){
     layoutBoard();
 	$("#turnSpace").html("It is " + myGame.getTurn() + "'s turn");
-    $("#submitMove").click(changeTurnHeading);    
+    $("#submitMove").click(changeTurnHeading);
 });
+
+$(document).on("click", "td", function() {
+    if(firstClick == null){
+        firstClick = $(this);
+    }else{
+        secondClick = $(this);
+        movePiece(firstClick, secondClick);
+        firstClick = null;
+        secondClick = null;
+    }
+})
+function movePiece(first, second){
+    var firstX = first.context.cellIndex;
+    var firstY = first.context.parentNode.rowIndex;
+    var secondX = second.context.cellIndex;
+    var secondY = second.context.parentNode.rowIndex;
+    myGame.gameBoard.movePiece(myGame.gameBoard.getPiece(firstX, firstY).id, secondX, secondY);
+    layoutBoard();
+    // myGame.gameBoard.removePiece(myGame.gameBoard.getPiece(div.context.cellIndex, div.context.parentNode.rowIndex).id);
+    // layoutBoard();
+}
 
 function changeTurnHeading(){
     myGame.makeMove();
 	$("#turnSpace").html("It is " + myGame.getTurn() + "'s turn");
-    // updateBoard();
 }
 
 function layoutBoard(){
-	for(var i = 0; i < 64; i++){
-		$("<div>")
-			//.text(getText(i))
-            // .css("background-image", "url("+ "Assets/"+ getImage(i) + ")")
-            .css("background-image", "url("+ "Assets/"+ getImage(i) + ")")
+    $("#board").empty();
+    for(var i = 0; i < 8; i++){
+        $("<tr>").attr("id", "tr" + i).appendTo($("#board"));
+        for(var j = 0; j < 8; j++){
+            $("<td>")
+            .css("background-image", "url("+ "Assets/"+ getImage(j, i) + ")")
+            .addClass(occupied(j ,i))
+            .css("color", "white")
+            .css("width", BOARD_SIZE / 8)
+            .css("height", BOARD_SIZE / 8)
             .css("background-position", "center")
             .css("background-repeat", "no-repeat")
-            .css("background-color", getBackgroundColor(i))
-			.css("left", i%8 * 100 + "px")
-			.css("top", parseInt(i/8) * 100 + "px")
-			.addClass("puzzlepiece")
-			.appendTo($("#board"));
-	}
+            .appendTo("#tr" + i);
+        }
+    }
 }
 
-function getText(id){
-    var y = Math.floor(id/8);
-    var x = Math.floor(id%8);
+function getText(x, y){
+    // var y = Math.floor(id/8);
+    // var x = Math.floor(id%8);
     if(myGame.gameBoard.getPiece(x, y) != null && !myGame.gameBoard.getPiece(x, y).captured){
         return myGame.gameBoard.getPiece(x, y).getSymbol();
     }else{
         return "";
     }
 }
-function getImage(id){
-    var y = Math.floor(id/8);
-    var x = Math.floor(id%8);
+function getImage(x, y){
+    // var y = Math.floor(id/8);
+    // var x = Math.floor(id%8);
     if(myGame.gameBoard.getPiece(x, y) != null && !myGame.gameBoard.getPiece(x, y).captured){
         return myGame.gameBoard.getPiece(x, y).getImage();
     }else{
         return "";
     }
 }
-function getBackgroundColor(id){
-    var y = Math.floor(id/8);
-    var x = Math.floor(id%8);
-    if((y%2 == 0 && x%2 == 0) || (y%2 != 0 && x%2 != 0)){
-        return "whire";
+function getBackgroundColor(x, y){
+    // var y = Math.floor(id/8);
+    // var x = Math.floor(id%8);
+    if((x%2 == 0 && y%2 == 0) || (x%2 != 0 && y%2 != 0)){
+        return "white";
     }else{
         return "lightgrey";
     }
+}
+function occupied(x, y){
+    return myGame.gameBoard.getPiece(x, y);
 }

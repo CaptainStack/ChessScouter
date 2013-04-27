@@ -8,14 +8,26 @@ body, button {
 	text-align: center;
 }
 
-/* The area that holds the 15 puzzle pieces. */
+/* The area that holds the board and pieces. */
 #board {
-	font-size: 40pt;
-	width: 400px;
-	height: 400px;
 	margin-left: auto;
 	margin-right: auto;
 	position: relative;
+}
+/*Gives the board its checkboard pattern*/
+tr td
+{
+    background-color: white;
+}
+
+tr:nth-child(even) td:nth-child(odd)
+{
+    background-color: #DDDDDD;
+}
+
+tr:nth-child(odd) td:nth-child(even)
+{
+    background-color: #DDDDDD;
 }
 
 /* This class should be applied to each of the 15 puzzle pieces. */
@@ -24,11 +36,6 @@ body, button {
 	width: 90px;
 	height: 90px;
 	position: absolute;
-}
-
-/* This class should be applied to a puzzle piece that can be moved. */
-div:hover {
-	border-color: red;
 }
 
 #throbber {
@@ -55,4 +62,17 @@ div:hover {
 .invalid {
 	background-color: #f88;
 }
+td{
+    border: 2px solid black;
+    margin: 100px;
+    padding: 10px;    
+    border-spacing: 10px 5px;
+}
+table{
+    margin-left: auto;
+    margin-right: auto;
+}
 
+td:hover {
+	border-color: red;
+}

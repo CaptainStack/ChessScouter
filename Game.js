@@ -1,5 +1,5 @@
-function Game() {
-    "use strict";
+"use strict";
+function Game() {    
     this.turn = 1;
     var temp = [
     new Piece(0, "black", "rook", 0, 0, false, false),

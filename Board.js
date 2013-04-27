@@ -1,19 +1,14 @@
-function Board(pieces) {
-    "use strict";
+"use strict";
+function Board(pieces) {    
     this.pieces = pieces;
 }
-Board.prototype.showPieces = function showPieces() {
-    "use strict";
-    /*global alert */
+Board.prototype.showPieces = function showPieces() {    
 	var message = "The current pieces on the board are: ";
     for (var i = 0; i < this.pieces.length; i++ ) {
         if(!this.pieces[i].captured){
             message += this.pieces[i].color + " " + this.pieces[i].type + ", ";
         }
     }
-    alert(message);
-}
-Board.prototype.testFunction = function testFunction(message) {
     alert(message);
 }
 Board.prototype.removePiece = function removePiece(id) {
@@ -28,11 +23,17 @@ Board.prototype.removePiece = function removePiece(id) {
 //Error thrown if square does not exist.
 Board.prototype.getPiece = function getPiece(x, y){
     for (var i = 0; i < this.pieces.length; i++ ) {
-        if(this.pieces[i].x == x && this.pieces[i].y == y){
+        if(this.pieces[i].x == x && this.pieces[i].y == y && !this.pieces[i].captured){
             return this.pieces[i];
         }
     }
     return null;
 };
-// var temp = [new Piece("white", "pawn", 0, 1, false, false), new Piece("black", "queen", 0, 1, false, false)];
-// var gameBoard  =  new Board(temp);
+Board.prototype.movePiece = function movePiece(id, x, y){
+    for(var i = 0; i < this.pieces.length; i++ ){
+        if(this.pieces[i].id === id){
+            this.pieces[i].x = x;
+            this.pieces[i].y = y;
+        }
+    }
+};

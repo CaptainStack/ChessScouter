@@ -1,5 +1,5 @@
-function Piece(id, color, type, x, y, captured, hasMoved) {
-    "use strict";
+"use strict";
+function Piece(id, color, type, x, y, captured, hasMoved) {    
     this.color = color;
     this.type = type;
     this.x = x;
@@ -10,10 +10,8 @@ function Piece(id, color, type, x, y, captured, hasMoved) {
     this.image = color + "_" + type + ".svg";
 }
 Piece.prototype.movePiece = function movePiece(newX, newY) {
-    "use strict";
     this.x = newX;
     this.y = newY;
-    /*global alert */
     alert("you moved me! to " + this.x + " " + this.y);
 }
 Piece.prototype.getSymbol = function getSymbol(){
@@ -29,4 +27,7 @@ Piece.prototype.getImage = function getImage(){
     }else{
         return this.image;
     }
+}
+Piece.prototype.isCaptured = function isCaptured(){
+    return this.captured;
 };
