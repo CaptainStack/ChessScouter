@@ -1,6 +1,6 @@
 "use strict";
-function Square() {
+function Square(x, y, piece) {
     this.x = x;
     this.y = y
-    this.contents = contents;
+    this.piece = piece;
 };

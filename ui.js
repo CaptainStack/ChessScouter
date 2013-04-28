@@ -7,18 +7,19 @@ $(document).ready(function(){
     layoutBoard();
 	$("#turnSpace").html("It is " + myGame.getTurn() + "'s turn");
     $("#submitMove").click(changeTurnHeading);
+    
+    $("#board").on("click", "td", function() {
+        if(firstClick == null){
+            firstClick = $(this);
+        }else{
+            secondClick = $(this);
+            movePiece(firstClick, secondClick);
+            firstClick = null;
+            secondClick = null;
+        }
+    })
 });
 
-$(document).on("click", "td", function() {
-    if(firstClick == null){
-        firstClick = $(this);
-    }else{
-        secondClick = $(this);
-        movePiece(firstClick, secondClick);
-        firstClick = null;
-        secondClick = null;
-    }
-})
 function movePiece(first, second){
     var firstX = first.context.cellIndex;
     var firstY = first.context.parentNode.rowIndex;
@@ -54,8 +55,6 @@ function layoutBoard(){
 }
 
 function getText(x, y){
-    // var y = Math.floor(id/8);
-    // var x = Math.floor(id%8);
     if(myGame.gameBoard.getPiece(x, y) != null && !myGame.gameBoard.getPiece(x, y).captured){
         return myGame.gameBoard.getPiece(x, y).getSymbol();
     }else{
@@ -63,8 +62,6 @@ function getText(x, y){
     }
 }
 function getImage(x, y){
-    // var y = Math.floor(id/8);
-    // var x = Math.floor(id%8);
     if(myGame.gameBoard.getPiece(x, y) != null && !myGame.gameBoard.getPiece(x, y).captured){
         return myGame.gameBoard.getPiece(x, y).getImage();
     }else{
@@ -72,8 +69,6 @@ function getImage(x, y){
     }
 }
 function getBackgroundColor(x, y){
-    // var y = Math.floor(id/8);
-    // var x = Math.floor(id%8);
     if((x%2 == 0 && y%2 == 0) || (x%2 != 0 && y%2 != 0)){
         return "white";
     }else{

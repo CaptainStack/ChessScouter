@@ -1,7 +1,3 @@
-/*
-CSE 190 M, Homework 7 (Fifteen Puzzle)
-*/
-
 body, button {
 	font-family: Helvetica;
 	font-size: 14pt;
@@ -30,7 +26,6 @@ tr:nth-child(odd) td:nth-child(even)
     background-color: #DDDDDD;
 }
 
-/* This class should be applied to each of the 15 puzzle pieces. */
 .puzzlepiece {
 	border: 5px solid black;
 	width: 90px;
