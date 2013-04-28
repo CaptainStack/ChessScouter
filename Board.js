@@ -1,7 +1,6 @@
 "use strict";
 function Board(pieces) {    
     this.pieces = pieces;
-    this.squares = squares;
 }
 Board.prototype.showPieces = function showPieces() {    
 	var message = "The current pieces on the board are: ";
