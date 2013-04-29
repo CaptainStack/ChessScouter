@@ -61,6 +61,16 @@ function Game() {
     grid[0][5] = new Square(0, 5, new Piece("black", "bishop", 0, 5, false, false));
     grid[0][6] = new Square(0, 6, new Piece("black", "knight", 0, 6, false, false));
     grid[0][7] = new Square(0, 7, new Piece("black", "rook", 0, 7, false, false));
+    
+    grid[1][0] = new Square(1, 0, new Piece("black", "pawn", 0, 1, false, false));
+    grid[1][1] = new Square(1, 1, new Piece("black", "pawn", 1, 1, false, false));
+    grid[1][2] = new Square(1, 2, new Piece("black", "pawn", 2, 1, false, false));
+    grid[1][3] = new Square(1, 3, new Piece("black", "pawn", 3, 1, false, false));
+    grid[1][4] = new Square(1, 4, new Piece("black", "pawn", 4, 1, false, false));
+    grid[1][5] = new Square(1, 5, new Piece("black", "pawn", 5, 1, false, false));
+    grid[1][6] = new Square(1, 6, new Piece("black", "pawn", 6, 1, false, false));
+    grid[1][7] = new Square(1, 7, new Piece("black", "pawn", 7, 1, false, false));
+    
     console.log(grid);
     this.gameBoard = new Board(grid);
 }
