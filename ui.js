@@ -1,11 +1,12 @@
-"use strict"
+"use strict";
 var BOARD_SIZE = 350;
-var firstClick = null;
-var secondClick = null;
-
+var firstClick;
+var secondClick;
+var myGame;
 $(function(){
+    myGame = new Game();
     layoutBoard();
-	$("#turnSpace").html("It is " + myGame.getTurn() + "'s turn");
+	$("#turnSpace").text("It is " + myGame.whoseTurn() + "'s turn");
     $("#submitMove").click(changeTurnHeading);
     
     $("#board").on("click", "td", function() {
@@ -23,17 +24,22 @@ $(function(){
 function movePiece(first, second){
     var firstX = first.context.cellIndex;
     var firstY = first.context.parentNode.rowIndex;
-    var secondX = second.context.cellIndex;
-    var secondY = second.context.parentNode.rowIndex;
-    myGame.gameBoard.movePiece(firstX, firstY, secondX, secondY);
-    layoutBoard();
+    var piece = myGame.gameBoard.getPiece(firstX, firstY);
+    if(myGame.whoseTurn() == piece.color){
+        var secondX = second.context.cellIndex;
+        var secondY = second.context.parentNode.rowIndex;
+        myGame.gameBoard.movePiece(firstX, firstY, secondX, secondY);
+        layoutBoard();
+    } else {
+        alert('It\'s not your turn');
+    }
     // myGame.gameBoard.removePiece(myGame.gameBoard.getPiece(div.context.cellIndex, div.context.parentNode.rowIndex).id);
     // layoutBoard();
 }
 
 function changeTurnHeading(){
     myGame.makeMove();
-	$("#turnSpace").html("It is " + myGame.getTurn() + "'s turn");
+	$("#turnSpace").html("It is " + myGame.whoseTurn() + "'s turn");
 }
 
 function layoutBoard(){
@@ -52,6 +58,7 @@ function layoutBoard(){
             .appendTo("#tr" + i);
         }
     }
+    $("#turnSpace").text("It is " + myGame.whoseTurn() + "'s turn");
 }
 
 function getText(x, y){

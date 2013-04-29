@@ -25,9 +25,10 @@ Board.prototype.removePiece = function removePiece(id) {
 //Error thrown if square does not exist.
 Board.prototype.getPiece = function getPiece(x, y){
     return this.grid[x][y].piece;
-};
+}
 Board.prototype.movePiece = function movePiece(oldX, oldY, newX, newY){
-    var piece = this.grid[x][y].square.piece;
-    this.grid[oldX][oldY].square = null;
-    this.grid[newX][newY].square = piece;
+    var piece = this.grid[oldX][oldY].piece;
+    this.grid[oldX][oldY].piece = null;
+    this.grid[newX][newY].piece = piece;
+    myGame.turn++;
 };

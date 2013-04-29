@@ -57,6 +57,10 @@ Game.prototype.whoseTurn = function whoseTurn(){
     }
 }
 Game.prototype.makeMove = function makeMove(){
+    if(whoseTurn() == "white"){
+        
+    }else{
+    
+    }
     this.turn++;
 };
-var myGame = new Game();
