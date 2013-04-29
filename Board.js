@@ -6,8 +6,8 @@ Board.prototype.showPieces = function showPieces() {
 	var message = "The current pieces on the board are: ";
     for (var i = 0; i < this.grid.length; i++ ) {
         for(var j = 0; j < this.grid[i].length; j++){
-            if(this.grid[i][j].piece != null && !this.grid[i][j].piece.captured){
-                message += this.grid[i][j].piece.color + " " + this.grid[i][j].piece.type + ", ";
+            if(this.grid[j][i].piece != null && !this.grid[j][i].piece.captured){
+                message += this.grid[j][i].piece.color + " " + this.grid[j][i].piece.type + ", ";
             }
         }
     }

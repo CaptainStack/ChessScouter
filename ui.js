@@ -42,7 +42,7 @@ function layoutBoard(){
         $("<tr>").attr("id", "tr" + i).appendTo($("#board"));
         for(var j = 0; j < myGame.gameBoard.grid[i].length; j++){
             $("<td>")
-            .css("background-image", "url("+ "Assets/"+ getImage(i, j) + ")")
+            .css("background-image", "url("+ "Assets/"+ getImage(j, i) + ")")
             .addClass(occupied(j ,i))
             .css("color", "white")
             .css("width", BOARD_SIZE / 8)
