@@ -38,11 +38,11 @@ function changeTurnHeading(){
 
 function layoutBoard(){
     $("#board").empty();
-    for(var i = 0; i < 8; i++){
+    for(var i = 0; i < myGame.gameBoard.grid.length; i++){
         $("<tr>").attr("id", "tr" + i).appendTo($("#board"));
-        for(var j = 0; j < 8; j++){
+        for(var j = 0; j < myGame.gameBoard.grid[i].length; j++){
             $("<td>")
-            .css("background-image", "url("+ "Assets/"+ getImage(j, i) + ")")
+            .css("background-image", "url("+ "Assets/"+ getImage(i, j) + ")")
             .addClass(occupied(j ,i))
             .css("color", "white")
             .css("width", BOARD_SIZE / 8)

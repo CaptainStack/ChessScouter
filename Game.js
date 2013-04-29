@@ -49,13 +49,19 @@ function Game() {
         }
         grid[i] = row;
     }
+    // for(var i = 0; i < temp.length; i++){
+        // var piece = temp[i];
+        // grid[x][y] = new Square(x, y, piece);
+    // }
+    grid[0][0] = new Square(0, 0, new Piece("black", "rook", 0, 0, false, false));
+    grid[0][1] = new Square(0, 1, new Piece("black", "knight", 0, 1, false, false));
+    grid[0][2] = new Square(0, 2, new Piece("black", "bishop", 0, 2, false, false));
+    grid[0][3] = new Square(0, 3, new Piece("black", "queen", 0, 3, false, false));
+    grid[0][4] = new Square(0, 4, new Piece("black", "king", 0, 4, false, false));
+    grid[0][5] = new Square(0, 5, new Piece("black", "bishop", 0, 5, false, false));
+    grid[0][6] = new Square(0, 6, new Piece("black", "knight", 0, 6, false, false));
+    grid[0][7] = new Square(0, 7, new Piece("black", "rook", 0, 7, false, false));
     console.log(grid);
-    for(var i = 0; i < temp.length; i++){
-        var piece = temp[i];
-        var x = piece.getPosition().x;
-        var y = piece.getPosition().y;
-        grid[x, y] = new Square(x, y, piece);
-    }
     this.gameBoard = new Board(grid);
 }
 Game.prototype.getTurn = function getTurn(){
