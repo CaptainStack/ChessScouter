@@ -49,7 +49,7 @@ function Game() {
 
     this.gameBoard = new Board(grid);
 }
-Game.prototype.getTurn = function getTurn(){
+Game.prototype.whoseTurn = function whoseTurn(){
     if(this.turn % 2 === 0){
         return "black";
     }else{
