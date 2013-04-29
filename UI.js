@@ -7,7 +7,6 @@ $(function(){
     myGame = new Game();
     layoutBoard();
 	$("#turnSpace").text("It is " + myGame.whoseTurn() + "'s turn");
-    $("#submitMove").click(changeTurnHeading);
     
     $("#board").on("click", "td", function() {
         if(firstClick == null){
@@ -24,6 +23,9 @@ $(function(){
 function movePiece(first, second){
     var firstX = first.context.cellIndex;
     var firstY = first.context.parentNode.rowIndex;
+    if(myGame.gameBoard.getPiece(firstX, firstY)){
+        firstClick = null;
+    }
     var piece = myGame.gameBoard.getPiece(firstX, firstY);
     if(myGame.whoseTurn() == piece.color){
         var secondX = second.context.cellIndex;
@@ -33,13 +35,6 @@ function movePiece(first, second){
     } else {
         alert('It\'s not your turn');
     }
-    // myGame.gameBoard.removePiece(myGame.gameBoard.getPiece(div.context.cellIndex, div.context.parentNode.rowIndex).id);
-    // layoutBoard();
-}
-
-function changeTurnHeading(){
-    myGame.makeMove();
-	$("#turnSpace").html("It is " + myGame.whoseTurn() + "'s turn");
 }
 
 function layoutBoard(){
