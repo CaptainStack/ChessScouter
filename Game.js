@@ -1,7 +1,7 @@
 "use strict";
 function Game() {    
     this.turn = 1;
-    var temp = [
+    var temp = [    
     new Piece(0, "black", "rook", 0, 0, false, false),
     new Piece(1, "black", "knight", 1, 0, false, false),
     new Piece(2, "black", "bishop", 2, 0, false, false),
@@ -39,6 +39,16 @@ function Game() {
     ];
     
     this.gameBoard = new Board(temp);
+    
+    var grid = [];
+    for(var i = 0; i < 8; i++){
+        var row = [];
+        for(var j = 0; j < 8; j++){        
+            row[j] = new Square(i, j, null);
+        }
+        grid[i] = row;
+    }
+    console.log(grid);
 }
 Game.prototype.getTurn = function getTurn(){
     if(this.turn % 2 === 0){

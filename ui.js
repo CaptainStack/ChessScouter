@@ -3,7 +3,7 @@ var BOARD_SIZE = 350;
 var firstClick = null;
 var secondClick = null;
 
-$(document).ready(function(){
+$(function(){
     layoutBoard();
 	$("#turnSpace").html("It is " + myGame.getTurn() + "'s turn");
     $("#submitMove").click(changeTurnHeading);

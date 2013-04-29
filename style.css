@@ -26,37 +26,6 @@ tr:nth-child(odd) td:nth-child(even)
     background-color: #DDDDDD;
 }
 
-.puzzlepiece {
-	border: 5px solid black;
-	width: 90px;
-	height: 90px;
-	position: absolute;
-}
-
-#throbber {
-	visibility: hidden;
-	height: 30px;
-	width: 30px;
-	vertical-align: middle;
-}
-
-
-
-/* grading styles -- for TAs only; not required by students */
-#gradingarea {
-	position: fixed;
-	right: 0px;
-	top: 0px;
-	z-index: 999999;
-}
-
-.valid {
-	background-color: #bfb;
-}
-
-.invalid {
-	background-color: #f88;
-}
 td{
     border: 2px solid black;
     margin: 100px;
