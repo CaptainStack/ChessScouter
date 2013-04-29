@@ -1,31 +1,25 @@
-body, button {
+body, button{
 	font-family: Helvetica;
 	font-size: 14pt;
 	text-align: center;
 }
 
 /* The area that holds the board and pieces. */
-#board {
+#board{
 	margin-left: auto;
 	margin-right: auto;
 	position: relative;
 }
 /*Gives the board its checkboard pattern*/
-tr td
-{
+tr td{
     background-color: white;
 }
-
-tr:nth-child(even) td:nth-child(odd)
-{
+tr:nth-child(even) td:nth-child(odd){
     background-color: #DDDDDD;
 }
-
-tr:nth-child(odd) td:nth-child(even)
-{
+tr:nth-child(odd) td:nth-child(even){
     background-color: #DDDDDD;
 }
-
 td{
     border: 2px solid black;
     margin: 100px;
@@ -36,7 +30,6 @@ table{
     margin-left: auto;
     margin-right: auto;
 }
-
 td:hover {
 	border-color: red;
 }
