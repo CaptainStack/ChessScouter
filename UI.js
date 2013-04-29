@@ -33,14 +33,15 @@ function movePiece(first, second){
         myGame.gameBoard.movePiece(firstX, firstY, secondX, secondY);
         layoutBoard();
     } else {
-        alert('It\'s not your turn');
+        alert('It\'s not your turn!');
     }
 }
 
 function layoutBoard(){
     $("#board").empty();
     for(var i = 0; i < myGame.gameBoard.grid.length; i++){
-        $("<tr>").attr("id", "tr" + i).appendTo($("#board"));
+        $("<tr>").attr("id", "tr" + i).addClass("gridLabel").appendTo($("#board"));
+         $("<div>").text(i + 1).css("vertical-align", "text-middle").css("line-height", BOARD_SIZE / 8 + 24 + "px").appendTo($("#tr" + i));
         for(var j = 0; j < myGame.gameBoard.grid[i].length; j++){
             $("<td>")
             .css("background-image", "url("+ "Assets/"+ getImage(j, i) + ")")
@@ -52,6 +53,12 @@ function layoutBoard(){
             .css("background-repeat", "no-repeat")
             .appendTo("#tr" + i);
         }
+    }
+    $("<th>").addClass("gridLabel").appendTo($("#board"));
+    //Change to be dynamic with number of columns
+    for(var i = 0; i < 8; i++){
+        // $("<th>").text(String.fromCharCode(97 + i).appendTo("#board"));
+        $("<th>").text(String.fromCharCode(97 + i)).addClass("gridLabel").appendTo($("#board"));
     }
     $("#turnSpace").text("It is " + myGame.whoseTurn() + "'s turn");
 }

@@ -11,6 +11,9 @@ body, button{
 	position: relative;
 }
 /*Gives the board its checkboard pattern*/
+tr{
+    vertical-align: middle;
+}
 tr td{
     background-color: white;
 }
@@ -32,4 +35,7 @@ table{
 }
 td:hover {
 	border-color: red;
+}
+.gridLabel{
+    font-weight: bold;
 }
