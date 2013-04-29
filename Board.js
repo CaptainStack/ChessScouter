@@ -26,7 +26,7 @@ Board.prototype.removePiece = function removePiece(id) {
 Board.prototype.getPiece = function getPiece(x, y){
     return this.grid[x][y].piece;
 };
-Board.prototype.movePiece = function movePiece(id, x, y){
+Board.prototype.movePiece = function movePiece(oldX, oldY, newX, newY){
     // for(var i = 0; i < this.grid.length; i++ ){
         // for(var j = 0; j < this.grid[i].length; j++){
             // if(this.grid[i, j].id === id){
@@ -35,4 +35,7 @@ Board.prototype.movePiece = function movePiece(id, x, y){
             // }
         // }
     // }
+    var piece = this.grid[x][y].square.piece;
+    this.grid[oldX][oldY].square = null;
+    this.grid[newX][newY].square = piece;
 };

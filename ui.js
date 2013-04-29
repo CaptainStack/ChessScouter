@@ -25,7 +25,7 @@ function movePiece(first, second){
     var firstY = first.context.parentNode.rowIndex;
     var secondX = second.context.cellIndex;
     var secondY = second.context.parentNode.rowIndex;
-    myGame.gameBoard.movePiece(myGame.gameBoard.getPiece(firstX, firstY).id, secondX, secondY);
+    myGame.gameBoard.movePiece(firstX, firstY, secondX, secondY);
     layoutBoard();
     // myGame.gameBoard.removePiece(myGame.gameBoard.getPiece(div.context.cellIndex, div.context.parentNode.rowIndex).id);
     // layoutBoard();
