@@ -38,8 +38,6 @@ function Game() {
     new Piece(31, "white", "pawn", 7, 6, false, false)
     ];
     
-    this.gameBoard = new Board(temp);
-    
     var grid = [];
     for(var i = 0; i < 8; i++){
         var row = [];
@@ -49,6 +47,13 @@ function Game() {
         grid[i] = row;
     }
     console.log(grid);
+    for(var i = 0; i < temp.length; i++){
+        var piece = temp[i];
+        var x = piece.getPosition().x;
+        var y = piece.getPosition().y;
+        grid[x, y] = new Square(x, y, piece);
+    }
+    this.gameBoard = new Board(grid);
 }
 Game.prototype.getTurn = function getTurn(){
     if(this.turn % 2 === 0){
@@ -60,6 +65,4 @@ Game.prototype.getTurn = function getTurn(){
 Game.prototype.makeMove = function makeMove(){
     this.turn++;
 };
-// var temp = [new Piece("white", "pawn", 0, 1, false, false), new Piece("black", "queen", 0, 1, false, false)];
-// var gameBoard  =  new Board(temp);
 var myGame = new Game();

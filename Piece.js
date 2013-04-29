@@ -22,12 +22,11 @@ Piece.prototype.getSymbol = function getSymbol(){
     }
 }
 Piece.prototype.getImage = function getImage(){
-    if(this.type.charAt(0) != "k"){
-        return this.image;
-    }else{
-        return this.image;
-    }
+    return this.image;
 }
 Piece.prototype.isCaptured = function isCaptured(){
     return this.captured;
+}
+Piece.prototype.getPosition = function getPosition(){
+    return {x : this.x, y : this.y};
 };
