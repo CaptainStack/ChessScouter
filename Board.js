@@ -1,3 +1,5 @@
+//This object acts as a data structure that is made up of square that store all the pieces. 
+//It has functions that can return information about the board.
 "use strict";
 function Board(grid) {    
     this.grid = grid;
@@ -22,7 +24,6 @@ Board.prototype.removePiece = function removePiece(id) {
     }
 }
 //Pass me a square's x and y coordinates and I'll return the piece on that square. Null if not any
-//Error thrown if square does not exist.
 Board.prototype.getPiece = function getPiece(x, y){
     return this.grid[x][y].piece;
 }

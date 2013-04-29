@@ -1,3 +1,4 @@
+//This object specifies basic information about pieces.
 "use strict";
 function Piece(color, type, captured, hasMoved) {    
     this.color = color;

@@ -1,3 +1,4 @@
+//This object initializes a board and pieces and manages the state of the game.
 "use strict";
 function Game() {    
     this.turn = 1;
@@ -10,7 +11,6 @@ function Game() {
         }
         grid[i] = row;
     }
-
     grid[0][0] = new Square(0, 0, new Piece("black", "rook", false, false));
     grid[1][0] = new Square(1, 0, new Piece("black", "knight", false, false));
     grid[2][0] = new Square(2, 0, new Piece("black", "bishop", false, false));
