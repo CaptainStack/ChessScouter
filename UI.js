@@ -58,11 +58,6 @@ function layoutBoard(){
             .appendTo("#tr" + i);
         }
     }
-    $("<th>").addClass("gridLabel").appendTo($("#board"));
-    //Change to be dynamic with number of columns
-    for(var i = 0; i < 8; i++){
-        $("<th>").text(String.fromCharCode(97 + i)).addClass("gridLabel").appendTo($("#board"));
-    }
     $("#turnSpace").text("It is " + myGame.whoseTurn() + "'s turn");
 }
 
