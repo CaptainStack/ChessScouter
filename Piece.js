@@ -7,9 +7,21 @@ function Piece(color, type, captured, hasMoved) {
     this.hasMoved = hasMoved;
     this.image = color + "_" + type + ".svg";
 }
+Piece.prototype.setMoved = function setMoved(movedState){
+    this.hasMoved = movedState;
+}
 Piece.prototype.getImage = function getImage(){
     return this.image;
 }
 Piece.prototype.isCaptured = function isCaptured(){
     return this.captured;
+}
+Piece.prototype.getPotentialMoves = function getPotentialMoves(x, y){
+    var potentialMoves = [];
+    for(var i = 0; i < 8; i++){
+        for(var j = 0; j < 8; j++){
+            potentialMoves.push(new Position(i, j));
+        }
+    }
+    return potentialMoves;
 };
