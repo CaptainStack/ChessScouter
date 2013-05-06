@@ -13,9 +13,9 @@ $(function(){
 	$("#turnSpace").text("It is " + myGame.whoseTurn() + "'s turn");
     
     $("#board").on("click", "td", function() {
-        if(firstClick == null){
+        if(firstClick == null && myGame.gameBoard.getPiece($(this).context.cellIndex, $(this).context.parentNode.rowIndex) != null){
             firstClick = $(this);
-        }else{
+        }else if(firstClick != null){
             secondClick = $(this);
             movePiece(firstClick, secondClick);
             firstClick = null;

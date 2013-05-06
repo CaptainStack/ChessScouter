@@ -39,3 +39,18 @@ td:hover {
 .gridLabel{
     font-weight: bold;
 }
+
+.chess-piece {
+    -webkit-animation-duration: 1s;
+    -webkit-animation-name: pulse;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+}
+@-webkit-keyframes pulse {
+    from {
+        opacity: 0.5;
+    }
+    to {
+        opacity: 1;
+    }
+}

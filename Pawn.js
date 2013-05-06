@@ -30,4 +30,11 @@ Pawn.prototype.getPotentialMoves = function getPotentialMoves(x, y){
         }
     }
     return potentialMoves;
+}
+Pawn.prototype.getLegalMoves = function getLegalMoves(oldX, newX, oldY, newY){
+    if(this.color == "white"){
+        
+    }else{
+        
+    }
 };

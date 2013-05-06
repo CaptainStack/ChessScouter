@@ -29,13 +29,8 @@ Board.prototype.getPiece = function getPiece(x, y){
 }
 Board.prototype.movePiece = function movePiece(oldX, oldY, newX, newY){
     var piece = this.grid[oldX][oldY].piece;
-    var legal = piece.getPotentialMoves(oldX, oldY);
-    for(var i = 0; i < legal.length; i++){
-        if((newX == legal[i].x && newY == legal[i].y) && (this.getPiece(newX, newY) == null || this.getPiece(newX, newY).getColor() != myGame.whoseTurn())){
-            this.grid[oldX][oldY].piece = null;
-            this.grid[newX][newY].piece = piece;
-            this.grid[newX][newY].piece.setMoved(true);
-            myGame.turn++;
-        }
-    }
+    this.grid[oldX][oldY].piece = null;
+    this.grid[newX][newY].piece = piece;
+    this.grid[newX][newY].piece.setMoved(true);
+    myGame.turn++;
 };

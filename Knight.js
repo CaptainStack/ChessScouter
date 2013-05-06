@@ -33,4 +33,23 @@ Knight.prototype.getPotentialMoves = function getPotentialMoves(x, y){
         }
     }
     return potentialMoves;
+}
+Knight.prototype.getLegalMoves = function getLegalMoves(currentPosition, gameBoard){
+    var x = currentPosition.x;
+    var y = currentPosition.y;
+    var potentialMoves = [
+                        new Position(x - 2, y + 1), 
+                        new Position(x - 2, y - 1), 
+                        new Position(x + 1, y - 2), 
+                        new Position(x - 1, y - 2), 
+                        new Position(x + 2, y + 1), 
+                        new Position(x + 2, y - 1), 
+                        new Position(x - 1, y + 2), 
+                        new Position(x + 1, y + 2)
+                    ];
+    for(var i = potentialMoves.length; i > potentialMoves.length; i--){
+        if(potentialMoves[i].x < 0 || potentialMoves[i].x > 7 || potentialMoves[i].y < 0 || potentialMoves[i].y > 7){
+            potentialMoves.splice(i, 1);
+        }
+    }
 };
