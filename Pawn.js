@@ -31,10 +31,36 @@ Pawn.prototype.getPotentialMoves = function getPotentialMoves(x, y){
     }
     return potentialMoves;
 }
-Pawn.prototype.getLegalMoves = function getLegalMoves(oldX, newX, oldY, newY){
+Pawn.prototype.getLegalMoves = function getLegalMoves(currentPosition){
+    var potentialMoves = [];
+    var x = currentPosition.x;
+    var y = currentPosition.y;
     if(this.color == "white"){
-        
+        if(myGame.gameBoard.occupiedBy(x, y - 1) != myGame.whoseTurn()){
+            potentialMoves.push(new Position(x, y - 1));
+            if(!this.hasMoved && myGame.gameBoard.occupiedBy(x, y - 2) != myGame.whoseTurn()){
+                potentialMoves.push(new Position(x, y - 2));
+            }
+        }
+        if(myGame.gameBoard.occupiedBy(x - 1, y - 1) == "black"){
+            potentialMoves.push(new Position(x - 1, y - 1));
+        }
+        if(myGame.gameBoard.occupiedBy(x + 1, y - 1) == "black"){
+            potentialMoves.push(new Position(x + 1, y - 1));
+        }
     }else{
-        
+        if(myGame.gameBoard.occupiedBy(x, y + 1) != myGame.whoseTurn()){
+            potentialMoves.push(new Position(x, y + 1));
+            if(!this.hasMoved && myGame.gameBoard.occupiedBy(x, y + 2) != myGame.whoseTurn()){
+                potentialMoves.push(new Position(x, y + 2));
+            }
+        }
+        if(myGame.gameBoard.occupiedBy(x - 1, y + 1) == "white"){
+            potentialMoves.push(new Position(x - 1, y + 1));
+        }
+        if(myGame.gameBoard.occupiedBy(x + 1, y + 1) == "white"){
+            potentialMoves.push(new Position(x + 1, y + 1));
+        }
     }
+    return potentialMoves;
 };

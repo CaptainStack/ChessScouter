@@ -10,13 +10,16 @@ function Piece(color, type, captured, hasMoved) {
 Piece.prototype.setMoved = function setMoved(movedState){
     this.hasMoved = movedState;
 }
+Piece.prototype.getColor = function getColor(){
+    return this.color;
+}
 Piece.prototype.getImage = function getImage(){
     return this.image;
 }
 Piece.prototype.isCaptured = function isCaptured(){
     return this.captured;
 }
-Piece.prototype.getPotentialMoves = function getPotentialMoves(x, y){
+Piece.prototype.getLegalMoves = function getLegalMoves(x, y){
     var potentialMoves = [];
     for(var i = 0; i < 8; i++){
         for(var j = 0; j < 8; j++){

@@ -10,6 +10,6 @@ Square.prototype.getContents = function getContents(){
 	if(this.piece != null){
 		return this.piece;
 	}else{
-		return "unoccupied";
+		return null;
 	}
 };

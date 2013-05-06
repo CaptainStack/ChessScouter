@@ -77,7 +77,7 @@ function getText(x, y){
     }
 }
 function getImage(x, y){
-    if(myGame.gameBoard.getPiece(x, y) != "unoccupied" && !myGame.gameBoard.getPiece(x, y).captured){
+    if(myGame.gameBoard.getPiece(x, y) != null && !myGame.gameBoard.getPiece(x, y).captured){
         return myGame.gameBoard.getPiece(x, y).getImage();
     }else{
         return "";

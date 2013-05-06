@@ -29,8 +29,25 @@ Board.prototype.getPiece = function getPiece(x, y){
 }
 Board.prototype.movePiece = function movePiece(oldX, oldY, newX, newY){
     var piece = this.grid[oldX][oldY].piece;
-    this.grid[oldX][oldY].piece = null;
-    this.grid[newX][newY].piece = piece;
-    this.grid[newX][newY].piece.setMoved(true);
-    myGame.turn++;
+    var legalMoves = piece.getLegalMoves(new Position(oldX, oldY));
+    var moved = false;
+    for(var i = 0; i < legalMoves.length; i++){
+        if(legalMoves[i].x == newX && legalMoves[i].y == newY){
+            this.grid[oldX][oldY].piece = null;
+            this.grid[newX][newY].piece = piece;
+            this.grid[newX][newY].piece.setMoved(true);
+            myGame.turn++;
+            moved = true;
+        }
+    }
+    if(!moved){
+        alert("that's not a legal move!");
+    }
+}
+Board.prototype.occupiedBy = function occupiedBy(x, y){
+    if(this.getPiece(x, y) == null){
+        return null;
+    }else{
+        return this.getPiece(x, y).getColor();
+    }
 };

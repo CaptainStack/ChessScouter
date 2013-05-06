@@ -48,7 +48,12 @@ Knight.prototype.getLegalMoves = function getLegalMoves(currentPosition){
                         new Position(x + 1, y + 2)
                     ];
     for(var i = potentialMoves.length - 1; i >= 0; i--){
-        if(potentialMoves[i].x < 0 || potentialMoves[i].x > 7 || potentialMoves[i].y < 0 || potentialMoves[i].y > 7 || myGame.gameBoard.getPiece(potentialMoves[i].x, potentialMoves[i].y).color == myGame.whoseTurn()){
+        if(potentialMoves[i].x < 0 || 
+            potentialMoves[i].x > 7 || 
+            potentialMoves[i].y < 0 || 
+            potentialMoves[i].y > 7 || 
+            myGame.gameBoard.occupiedBy(potentialMoves[i].x, potentialMoves[i].y) == myGame.whoseTurn())
+        {
             potentialMoves.splice(i, 1);
         }
     }
