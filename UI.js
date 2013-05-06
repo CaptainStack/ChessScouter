@@ -20,7 +20,7 @@ $(function(){
             var piece = myGame.gameBoard.getPiece(firstX, firstY);
             var legalMoves = piece.getLegalMoves(new Position(firstX, firstY));
             for(var i = 0; i < legalMoves.length; i++){
-                getTableData(legalMoves[i].x, legalMoves[i].y).css("background-color", "orange");
+                getTableData(legalMoves[i].x, legalMoves[i].y).css("background-color", "lightskyblue");
             }
         }else if(firstClick != null){
             secondClick = $(this);
@@ -45,6 +45,7 @@ function movePiece(first, second){
         layoutBoard();
     } else {
         alert('It\'s not your turn!');
+        layoutBoard();
     }
 }
 
