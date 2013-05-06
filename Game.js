@@ -20,23 +20,6 @@ function Game() {
     grid[6][0] = new Square(6, 0, new Knight("black"));
     grid[7][0] = new Square(7, 0, new Piece("black", "rook", false, false));
     
-    // grid[0][1] = new Square(0, 1, new Piece("black", "pawn", false, false));
-    // grid[1][1] = new Square(1, 1, new Piece("black", "pawn", false, false));
-    // grid[2][1] = new Square(2, 1, new Piece("black", "pawn", false, false));
-    // grid[3][1] = new Square(3, 1, new Piece("black", "pawn", false, false));
-    // grid[4][1] = new Square(4, 1, new Piece("black", "pawn", false, false));
-    // grid[5][1] = new Square(5, 1, new Piece("black", "pawn", false, false));
-    // grid[6][1] = new Square(6, 1, new Piece("black", "pawn", false, false));
-    // grid[7][1] = new Square(7, 1, new Piece("black", "pawn", false, false));
-    
-    // grid[0][6] = new Square(0, 6, new Piece("white", "pawn", false, false));
-    // grid[1][6] = new Square(1, 6, new Piece("white", "pawn", false, false));
-    // grid[2][6] = new Square(2, 6, new Piece("white", "pawn", false, false));
-    // grid[3][6] = new Square(3, 6, new Piece("white", "pawn", false, false));
-    // grid[4][6] = new Square(4, 6, new Piece("white", "pawn", false, false));
-    // grid[5][6] = new Square(5, 6, new Piece("white", "pawn", false, false));
-    // grid[6][6] = new Square(6, 6, new Piece("white", "pawn", false, false));
-    // grid[7][6] = new Square(7, 6, new Piece("white", "pawn", false, false));
     grid[0][1] = new Square(0, 1, new Pawn("black"));
     grid[1][1] = new Square(1, 1, new Pawn("black"));
     grid[2][1] = new Square(2, 1, new Pawn("black"));
