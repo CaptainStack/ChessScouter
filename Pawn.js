@@ -38,7 +38,7 @@ Pawn.prototype.getLegalMoves = function getLegalMoves(currentPosition){
     if(this.color == "white"){
         if(myGame.gameBoard.occupiedBy(x, y - 1) == null){
             potentialMoves.push(new Position(x, y - 1));
-            if(!this.hasMoved && myGame.gameBoard.occupiedBy(x, y - 2) != myGame.whoseTurn()){
+            if(!this.hasMoved && myGame.gameBoard.occupiedBy(x, y - 2) == null){
                 potentialMoves.push(new Position(x, y - 2));
             }
         }
@@ -51,7 +51,7 @@ Pawn.prototype.getLegalMoves = function getLegalMoves(currentPosition){
     }else{
         if(myGame.gameBoard.occupiedBy(x, y + 1) == null){
             potentialMoves.push(new Position(x, y + 1));
-            if(!this.hasMoved && myGame.gameBoard.occupiedBy(x, y + 2) != myGame.whoseTurn()){
+            if(!this.hasMoved && myGame.gameBoard.occupiedBy(x, y + 2) == null){
                 potentialMoves.push(new Position(x, y + 2));
             }
         }
