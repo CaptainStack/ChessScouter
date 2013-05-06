@@ -3,7 +3,7 @@ function Pawn(color) {
     this.color = color;
     this.captured = false;
     this.hasMoved = false;
-    this.image = color + "_Pawn.svg";
+    this.image = color + "_pawn.svg";
 }
 Pawn.prototype.getColor = function getColor(){
     return this.color;
@@ -36,7 +36,7 @@ Pawn.prototype.getLegalMoves = function getLegalMoves(currentPosition){
     var x = currentPosition.x;
     var y = currentPosition.y;
     if(this.color == "white"){
-        if(myGame.gameBoard.occupiedBy(x, y - 1) != myGame.whoseTurn()){
+        if(myGame.gameBoard.occupiedBy(x, y - 1) == null){
             potentialMoves.push(new Position(x, y - 1));
             if(!this.hasMoved && myGame.gameBoard.occupiedBy(x, y - 2) != myGame.whoseTurn()){
                 potentialMoves.push(new Position(x, y - 2));
@@ -49,7 +49,7 @@ Pawn.prototype.getLegalMoves = function getLegalMoves(currentPosition){
             potentialMoves.push(new Position(x + 1, y - 1));
         }
     }else{
-        if(myGame.gameBoard.occupiedBy(x, y + 1) != myGame.whoseTurn()){
+        if(myGame.gameBoard.occupiedBy(x, y + 1) == null){
             potentialMoves.push(new Position(x, y + 1));
             if(!this.hasMoved && myGame.gameBoard.occupiedBy(x, y + 2) != myGame.whoseTurn()){
                 potentialMoves.push(new Position(x, y + 2));
