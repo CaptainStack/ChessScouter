@@ -5,4 +5,11 @@ function Square(x, y, piece) {
     this.x = x;
     this.y = y
     this.piece = piece;
+}
+Square.prototype.getContents = function getContents(){
+	if(this.piece != null){
+		return this.piece;
+	}else{
+		return "unoccupied";
+	}
 };

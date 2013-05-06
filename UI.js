@@ -11,10 +11,17 @@ $(function(){
     myGame = new Game();
     layoutBoard();
 	$("#turnSpace").text("It is " + myGame.whoseTurn() + "'s turn");
-    
+    var temp = $("#board");
     $("#board").on("click", "td", function() {
         if(firstClick == null && myGame.gameBoard.getPiece($(this).context.cellIndex, $(this).context.parentNode.rowIndex) != null){
             firstClick = $(this);
+            var firstX = firstClick.context.cellIndex;
+            var firstY = firstClick.context.parentNode.rowIndex;
+            var piece = myGame.gameBoard.getPiece(firstX, firstY);
+            var legalMoves = piece.getLegalMoves(new Position(firstX, firstY));
+            for(var i = 0; i < legalMoves.length; i++){
+                getTableData(legalMoves[i].x, legalMoves[i].y).css("background-color", "orange");
+            }
         }else if(firstClick != null){
             secondClick = $(this);
             movePiece(firstClick, secondClick);
@@ -50,6 +57,7 @@ function layoutBoard(){
             $("<td>")
             .css("background-image", "url("+ "Assets/"+ getImage(j, i) + ")")
             .addClass(occupied(j ,i))
+            .attr("id", j + "-" + i)
             .css("color", "white")
             .css("width", BOARD_SIZE / 8)
             .css("height", BOARD_SIZE / 8)
@@ -69,7 +77,7 @@ function getText(x, y){
     }
 }
 function getImage(x, y){
-    if(myGame.gameBoard.getPiece(x, y) != null && !myGame.gameBoard.getPiece(x, y).captured){
+    if(myGame.gameBoard.getPiece(x, y) != "unoccupied" && !myGame.gameBoard.getPiece(x, y).captured){
         return myGame.gameBoard.getPiece(x, y).getImage();
     }else{
         return "";
@@ -84,4 +92,7 @@ function getBackgroundColor(x, y){
 }
 function occupied(x, y){
     return myGame.gameBoard.getPiece(x, y);
+}
+function getTableData(x, y){
+    return $("#" + x + "-" + y);
 }

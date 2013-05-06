@@ -25,7 +25,7 @@ Board.prototype.removePiece = function removePiece(id) {
 }
 //Pass me a square's x and y coordinates and I'll return the piece on that square. Null if not any
 Board.prototype.getPiece = function getPiece(x, y){
-    return this.grid[x][y].piece;
+    return this.grid[x][y].getContents();
 }
 Board.prototype.movePiece = function movePiece(oldX, oldY, newX, newY){
     var piece = this.grid[oldX][oldY].piece;

@@ -64,6 +64,12 @@ function Game() {
     grid[6][7] = new Square(6, 7, new Knight("white"));
     grid[7][7] = new Square(7, 7, new Piece("white", "rook", false, false));
 
+    for(var i = 2; i < 6; i++){
+        for(var j = 0; j < 8; j++){
+            grid[j][i] = new Square(j, i, null);
+        }
+    }
+
     this.gameBoard = new Board(grid);
 }
 Game.prototype.whoseTurn = function whoseTurn(){
