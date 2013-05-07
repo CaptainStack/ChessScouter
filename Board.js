@@ -60,5 +60,5 @@ Board.prototype.occupiedBy = function occupiedBy(position){
 
 // Returns whether the given position is on the board
 Board.prototype.isOnBoard = function isOnBoard(position){
-	return !(position.x < 0 || position.x > 7 || position.y < 0 || position.y > 7) {
+	return !(position.x < 0 || position.x > 7 || position.y < 0 || position.y > 7)
 };
