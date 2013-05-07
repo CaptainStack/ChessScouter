@@ -44,7 +44,9 @@ Board.prototype.movePiece = function movePiece(oldX, oldY, newX, newY){
         alert("that's not a legal move!");
     }
 }
-Board.prototype.occupiedBy = function occupiedBy(x, y){
+Board.prototype.occupiedBy = function occupiedBy(position){
+    var x = position.x;
+    var y = position.y;
     if(this.getPiece(x, y) == null){
         return null;
     }else{

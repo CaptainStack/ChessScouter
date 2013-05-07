@@ -17,7 +17,9 @@ Pawn.prototype.isCaptured = function isCaptured(){
 Pawn.prototype.setMoved = function setMoved(movedState){
     this.hasMoved = movedState;
 }
-Pawn.prototype.getPotentialMoves = function getPotentialMoves(x, y){
+Pawn.prototype.getPotentialMoves = function getPotentialMoves(position){
+    var x = position.x;
+    var y = position.y;
     if(this.color == "white"){
         var potentialMoves = [new Position(x, y - 1)];
         if(!this.hasMoved){
@@ -36,29 +38,29 @@ Pawn.prototype.getLegalMoves = function getLegalMoves(currentPosition){
     var x = currentPosition.x;
     var y = currentPosition.y;
     if(this.color == "white"){
-        if(myGame.gameBoard.occupiedBy(x, y - 1) == null){
+        if(myGame.gameBoard.occupiedBy(new Position(x, y - 1)) == null){
             potentialMoves.push(new Position(x, y - 1));
-            if(!this.hasMoved && myGame.gameBoard.occupiedBy(x, y - 2) == null){
+            if(!this.hasMoved && myGame.gameBoard.occupiedBy(new Position(x, y - 2)) == null){
                 potentialMoves.push(new Position(x, y - 2));
             }
         }
-        if(myGame.gameBoard.occupiedBy(x - 1, y - 1) == "black"){
+        if(myGame.gameBoard.occupiedBy(new Position(x - 1, y - 1)) == "black"){
             potentialMoves.push(new Position(x - 1, y - 1));
         }
-        if(myGame.gameBoard.occupiedBy(x + 1, y - 1) == "black"){
+        if(myGame.gameBoard.occupiedBy(new Position(x + 1, y - 1)) == "black"){
             potentialMoves.push(new Position(x + 1, y - 1));
         }
     }else{
-        if(myGame.gameBoard.occupiedBy(x, y + 1) == null){
+        if(myGame.gameBoard.occupiedBy(new Position(x, y + 1)) == null){
             potentialMoves.push(new Position(x, y + 1));
-            if(!this.hasMoved && myGame.gameBoard.occupiedBy(x, y + 2) == null){
+            if(!this.hasMoved && myGame.gameBoard.occupiedBy(new Position(x, y + 2)) == null){
                 potentialMoves.push(new Position(x, y + 2));
             }
         }
-        if(myGame.gameBoard.occupiedBy(x - 1, y + 1) == "white"){
+        if(myGame.gameBoard.occupiedBy(new Position(x - 1, y + 1)) == "white"){
             potentialMoves.push(new Position(x - 1, y + 1));
         }
-        if(myGame.gameBoard.occupiedBy(x + 1, y + 1) == "white"){
+        if(myGame.gameBoard.occupiedBy(new Position(x + 1, y + 1)) == "white"){
             potentialMoves.push(new Position(x + 1, y + 1));
         }
     }

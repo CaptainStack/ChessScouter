@@ -85,7 +85,7 @@ function getImage(x, y){
     }
 }
 function getBackgroundColor(x, y){
-    if((x%2 == 0 && y%2 == 0) || (x%2 != 0 && y%2 != 0)){
+    if((x % 2 == 0 && y % 2 == 0) || (x % 2 != 0 && y % 2 != 0)){
         return "white";
     }else{
         return "lightgrey";

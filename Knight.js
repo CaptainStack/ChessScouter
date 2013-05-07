@@ -16,7 +16,9 @@ Knight.prototype.isCaptured = function isCaptured(){
 Knight.prototype.setMoved = function setMoved(movedState){
     this.hasMoved = movedState;
 }
-Knight.prototype.getPotentialMoves = function getPotentialMoves(x, y){
+Knight.prototype.getPotentialMoves = function getPotentialMoves(position){
+    var x = position.x;
+    var y = position.y;
     var potentialMoves = [
                             new Position(x - 2, y + 1), 
                             new Position(x - 2, y - 1), 
@@ -52,7 +54,7 @@ Knight.prototype.getLegalMoves = function getLegalMoves(currentPosition){
             potentialMoves[i].x > 7 || 
             potentialMoves[i].y < 0 || 
             potentialMoves[i].y > 7 || 
-            myGame.gameBoard.occupiedBy(potentialMoves[i].x, potentialMoves[i].y) == myGame.whoseTurn())
+            myGame.gameBoard.occupiedBy(new Position(potentialMoves[i].x, potentialMoves[i].y)) == myGame.whoseTurn())
         {
             potentialMoves.splice(i, 1);
         }

@@ -37,7 +37,7 @@ King.prototype.getLegalMoves = function getLegalMoves(currentPosition){
             potentialMoves[i].x > 7 || 
             potentialMoves[i].y < 0 || 
             potentialMoves[i].y > 7 || 
-            myGame.gameBoard.occupiedBy(potentialMoves[i].x, potentialMoves[i].y) == myGame.whoseTurn())
+            myGame.gameBoard.occupiedBy(new Position(potentialMoves[i].x, potentialMoves[i].y)) == myGame.whoseTurn())
         {
             potentialMoves.splice(i, 1);
         }
