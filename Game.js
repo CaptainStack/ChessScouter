@@ -42,7 +42,7 @@ function Game() {
     grid[1][7] = new Square(1, 7, new Knight("white"));
     grid[2][7] = new Square(2, 7, new Piece("white", "bishop", false, false));
     grid[3][7] = new Square(3, 7, new Piece("white", "queen", false, false));
-    grid[4][7] = new Square(4, 7, new Piece("white", "king", false, false));
+    grid[4][7] = new Square(4, 7, new King("white"));
     grid[5][7] = new Square(5, 7, new Piece("white", "bishop", false, false));
     grid[6][7] = new Square(6, 7, new Knight("white"));
     grid[7][7] = new Square(7, 7, new Rook("white"));
