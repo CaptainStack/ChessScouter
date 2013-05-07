@@ -25,11 +25,15 @@ Pawn.prototype.getPotentialMoves = function getPotentialMoves(position){
         if(!this.hasMoved){
             potentialMoves.push(new Position(x, y - 2));
         }
+        potentialMoves.push(new Position(x - 1, y - 1));
+        potentialMoves.push(new Position(x + 1, y - 1));
     }else{
         var potentialMoves = [new Position(x, y + 1)];
         if(!this.hasMoved){
             potentialMoves.push(new Position(x, y + 2));
         }
+        potentialMoves.push(new Position(x - 1, y + 1));
+        potentialMoves.push(new Position(x + 1, y + 1));
     }
     return potentialMoves;
 }
