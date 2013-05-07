@@ -13,7 +13,7 @@ $(function(){
 	$("#turnSpace").text("It is " + myGame.whoseTurn() + "'s turn");
     var temp = $("#board");
     $("#board").on("click", "td", function() {
-        if(firstClick == null && myGame.gameBoard.getPiece($(this).context.cellIndex, $(this).context.parentNode.rowIndex) != null){
+        if(firstClick == null && myGame.gameBoard.getPiece($(this).context.cellIndex, $(this).context.parentNode.rowIndex) != null && myGame.gameBoard.getPiece($(this).context.cellIndex, $(this).context.parentNode.rowIndex).color == myGame.whoseTurn()){
             firstClick = $(this);
             var firstX = firstClick.context.cellIndex;
             var firstY = firstClick.context.parentNode.rowIndex;
@@ -27,6 +27,8 @@ $(function(){
             movePiece(firstClick, secondClick);
             firstClick = null;
             secondClick = null;
+        }else{
+            alert("it's not your turn");
         }
     })
 });
