@@ -13,10 +13,10 @@ $(function(){
 	$("#turnSpace").text("It is " + myGame.whoseTurn() + "'s turn");
     var temp = $("#board");
     $("#board").on("click", "td", function() {
-        if(firstClick == null && myGame.gameBoard.getPiece($(this).context.cellIndex, $(this).context.parentNode.rowIndex) != null && myGame.gameBoard.getPiece($(this).context.cellIndex, $(this).context.parentNode.rowIndex).color == myGame.whoseTurn()){
+        var firstX = $(this).context.cellIndex;
+        var firstY = $(this).context.parentNode.rowIndex;
+        if(firstClick == null && myGame.gameBoard.getPiece(firstX, firstY) != null && myGame.gameBoard.getPiece(firstX, firstY).color == myGame.whoseTurn()){
             firstClick = $(this);
-            var firstX = firstClick.context.cellIndex;
-            var firstY = firstClick.context.parentNode.rowIndex;
             var piece = myGame.gameBoard.getPiece(firstX, firstY);
             var legalMoves = piece.getLegalMoves(new Position(firstX, firstY));
             for(var i = 0; i < legalMoves.length; i++){
