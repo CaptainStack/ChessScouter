@@ -13,10 +13,10 @@ function Game() {
 	}
 	grid[0][0] = new Square(0, 0, new Rook("black"));
 	grid[1][0] = new Square(1, 0, new Knight("black"));
-	grid[2][0] = new Square(2, 0, new Piece("black", "bishop", false, false));
-	grid[3][0] = new Square(3, 0, new Piece("black", "queen", false, false));
+	grid[2][0] = new Square(2, 0, new Bishop("black"));
+	grid[3][0] = new Square(3, 0, new Queen("black"));
 	grid[4][0] = new Square(4, 0, new King("black"));
-	grid[5][0] = new Square(5, 0, new Piece("black", "bishop", false, false));
+	grid[5][0] = new Square(5, 0, new Bishop("black"));
 	grid[6][0] = new Square(6, 0, new Knight("black"));
 	grid[7][0] = new Square(7, 0, new Rook("black"));
 
@@ -40,10 +40,10 @@ function Game() {
 
 	grid[0][7] = new Square(0, 7, new Rook("white"));
 	grid[1][7] = new Square(1, 7, new Knight("white"));
-	grid[2][7] = new Square(2, 7, new Piece("white", "bishop", false, false));
-	grid[3][7] = new Square(3, 7, new Piece("white", "queen", false, false));
+	grid[2][7] = new Square(2, 7, new Bishop("white"));
+	grid[3][7] = new Square(3, 7, new Queen("white"));
 	grid[4][7] = new Square(4, 7, new King("white"));
-	grid[5][7] = new Square(5, 7, new Piece("white", "bishop", false, false));
+	grid[5][7] = new Square(5, 7, new Bishop("white"));
 	grid[6][7] = new Square(6, 7, new Knight("white"));
 	grid[7][7] = new Square(7, 7, new Rook("white"));
 

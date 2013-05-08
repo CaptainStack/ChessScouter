@@ -15,13 +15,13 @@ tr{
     vertical-align: middle;
 }
 tr td{
-    background-color: white;
+    background-color: #DDDDDD;
 }
 tr:nth-child(even) td:nth-child(odd){
-    background-color: #DDDDDD;
+    background-color: white;
 }
 tr:nth-child(odd) td:nth-child(even){
-    background-color: #DDDDDD;
+    background-color: white;
 }
 td{
     border: 2px solid black;
