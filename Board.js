@@ -31,6 +31,8 @@ Board.prototype.getPiece = function getPiece(x, y){
         return null;
     }
 }
+//TODO change parameters to Positions instead of coordinates.
+//TODO If destination is enemy piece, don't null out, but set to captured and move out of the way.
 Board.prototype.movePiece = function movePiece(oldX, oldY, newX, newY){
     var piece = this.grid[oldX][oldY].piece;
     var legalMoves = piece.getLegalMoves(new Position(oldX, oldY));
@@ -60,5 +62,5 @@ Board.prototype.occupiedBy = function occupiedBy(position){
 
 // Returns whether the given position is on the board
 Board.prototype.isOnBoard = function isOnBoard(position){
-	return !(position.x < 0 || position.x > 7 || position.y < 0 || position.y > 7)
+	return !(position.x < 0 || position.x > 7 || position.y < 0 || position.y > 7);
 };

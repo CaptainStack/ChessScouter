@@ -12,6 +12,8 @@ $(function(){
     layoutBoard();
 	$("#turnSpace").text("It is " + myGame.whoseTurn() + "'s turn");
     var temp = $("#board");
+    //Create a seperate method for first click and then another for second click.
+    //TODO just pass legal moves to movePiece so you don't need to check twice.
     $("#board").on("click", "td", function() {
         var firstX = $(this).context.cellIndex;
         var firstY = $(this).context.parentNode.rowIndex;

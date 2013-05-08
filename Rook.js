@@ -17,11 +17,11 @@ Rook.prototype.setMoved = function setMoved(movedState){
     this.hasMoved = movedState;
 }
 Rook.prototype.getPotentialMoves = function getPotentialMoves(x, y){
-	var potentialMoves = []
+	var potentialMoves = [];
 	var vectorNorth = false;
 	var vectorSouth = false;
 	var vectorEast = false;
-	var vectorWest = false
+	var vectorWest = false;
 	var addX = 0
 	var addY = 0
     var northMoves = [];
@@ -33,6 +33,7 @@ Rook.prototype.getPotentialMoves = function getPotentialMoves(x, y){
 			addY--;
 			if( myGame.gameBoard.isOnBoard(new Position(x + addX,y + addY))){
 				northMoves.push(new Position (x + addX, y + addY));
+                //northMoves.push({x: x + addX, y: y + addY});
 			}else {
 				addY = 0;
 				vectorNorth = true;
