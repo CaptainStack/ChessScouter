@@ -117,4 +117,28 @@ Game.prototype.getAllLegalAttacks = function getAllLegalAttacks(player){
 	}catch(err){
 		alert(err + " player must be \"black\" or \"white\"");
 	}
+}
+//Add try catch behavior
+Game.prototype.isInCheck = function isInCheck(player){
+	var pieces = myGame.getPieces(player);
+	var king = null;
+	for(var i = 0; i < pieces.length; i++){
+		if(pieces[i] instanceof King){
+			king = pieces[i];
+			break;
+		}
+	}
+	var enemyAttacks;
+	if(player == "white"){
+		enemyAttacks = this.getAllLegalAttacks("black");
+	}else{
+		enemyAttacks = this.getAllLegalAttacks("white");
+	}
+	for(var i = 0; i < enemyAttacks.length; i++){
+		if(enemyAttacks[i].x == myGame.gameBoard.getPosition(king).x && enemyAttacks[i].y == myGame.gameBoard.getPosition(king).y){
+			alert("You're in check!");
+			break;
+		}
+		
+	}
 };

@@ -72,4 +72,9 @@ Board.prototype.getPosition = function getPosition(piece){
             }
         }
     }
+}
+Board.prototype.getKing = function getKing(player){
+	if(player == "white"){
+	}else{
+	}
 };
