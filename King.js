@@ -29,18 +29,19 @@ King.prototype.getPotentialMoves = function getPotentialMoves(startPosition){
 						new Position(x - 1, y + 1),
 						new Position(x - 1, y - 1)
 						];
-	for(var i = potentialMoves.length; i > potentialMoves.length; i--){
+	for(var i = potentialMoves.length - 1; i >= 0; i--){
 		if(!myGame.gameBoard.isOnBoard(potentialMoves[i])){
 			potentialMoves.splice(i, 1);
 		}
 	}
+	return potentialMoves;
 }
 King.prototype.getLegalMoves = function getLegalMoves(currentPosition){
     var legalMoves = this.getPotentialMoves(currentPosition);
     for(var i = legalMoves.length - 1; i >= 0; i--){
-        if(myGame.gameBoard.occupiedBy(new Position(potentialMoves[i].x, potentialMoves[i].y)) == myGame.whoseTurn()){
-            potentialMoves.splice(i, 1);
+        if(myGame.gameBoard.occupiedBy(new Position(legalMoves[i].x, legalMoves[i].y)) == myGame.whoseTurn()){
+            legalMoves.splice(i, 1);
         }
     }
-    return potentialMoves;
+    return legalMoves;
 };
