@@ -63,4 +63,13 @@ Board.prototype.occupiedBy = function occupiedBy(position){
 // Returns whether the given position is on the board
 Board.prototype.isOnBoard = function isOnBoard(position){
 	return !(position.x < 0 || position.x > 7 || position.y < 0 || position.y > 7);
+}
+Board.prototype.getPosition = function getPosition(piece){
+    for (var i = 0; i < this.grid.length; i++ ) {
+        for(var j = 0; j < this.grid[i].length; j++){
+            if(this.grid[j][i].piece == piece){
+                return new Position(j, i);
+            }
+        }
+    }
 };

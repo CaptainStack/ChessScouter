@@ -86,7 +86,7 @@ Bishop.prototype.getLegalMoves = function getLegalMoves(currentPosition){
         for(var j = 0; j < currVectorMoves.length; j++){
             if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) == null){
                 legalMoves.push(currVectorMoves[j]);
-            }else if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) != myGame.whoseTurn()){
+            }else if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) != this.color){
                 legalMoves.push(currVectorMoves[j]);
                 break;
             }else{
@@ -95,4 +95,7 @@ Bishop.prototype.getLegalMoves = function getLegalMoves(currentPosition){
         }
     }
     return legalMoves;
+}
+Bishop.prototype.getAttacks = function getAttacks(currentPosition){
+	return this.getLegalMoves(currentPosition);
 };

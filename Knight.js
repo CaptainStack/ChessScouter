@@ -29,7 +29,7 @@ Knight.prototype.getPotentialMoves = function getPotentialMoves(position){
 						new Position(x - 1, y + 2), 
 						new Position(x + 1, y + 2)
 						];
-	for(var i = potentialMoves.length; i > potentialMoves.length; i--){
+	for(var i = potentialMoves.length - 1; i >= 0; i--){
 		if(!myGame.gameBoard.isOnBoard(potentialMoves[i])){
 			potentialMoves.splice(i, 1);
 		}
@@ -39,9 +39,12 @@ Knight.prototype.getPotentialMoves = function getPotentialMoves(position){
 Knight.prototype.getLegalMoves = function getLegalMoves(currentPosition){
 	var legalMoves = this.getPotentialMoves(currentPosition);
 	for(var i = legalMoves.length - 1; i >= 0; i--){
-		if(myGame.gameBoard.occupiedBy(legalMoves[i]) == myGame.whoseTurn()){
+		if(myGame.gameBoard.occupiedBy(legalMoves[i]) == this.color){
 			legalMoves.splice(i, 1);
 		}
 	}
 	return legalMoves;
+}
+Knight.prototype.getAttacks = function getAttacks(currentPosition){
+	return this.getLegalMoves(currentPosition);
 };

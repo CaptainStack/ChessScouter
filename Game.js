@@ -96,15 +96,25 @@ Game.prototype.getPieces = function getPieces(player){
 		alert(err + "player must be \"black\" or \"white\" or \"all\"");
 	}
 }
+//All pieces have a getAttacks method that is redundant with getLegalMoves. This is because Pawn moves
+//differently from how it attacks. For now it's easier but we should get inheritance working so it's less
+//stupid.
 Game.prototype.getAllLegalAttacks = function getAllLegalAttacks(player){
 	try{
-		if(player == "white"){
-			
-		}else if (player == "black"){
+		var attacks = [];
+		if(player == "white" || player == "black"){
+			var pieces = this.getPieces(player);
+			for(var i = 0; i < pieces.length; i++){
+				var pieceAttack = pieces[i].getAttacks(myGame.gameBoard.getPosition(pieces[i]));
+				for(var j = 0; j < pieceAttack.length; j++){
+					attacks.push(pieceAttack[j]);
+				}
+			}
+			return attacks;
 		}else{
 			throw "bad input";
 		}
 	}catch(err){
-		alert("player must be \"black\" or \"white\"");
+		alert(err + " player must be \"black\" or \"white\"");
 	}
 };

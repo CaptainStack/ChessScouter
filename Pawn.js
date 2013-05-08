@@ -69,4 +69,22 @@ Pawn.prototype.getLegalMoves = function getLegalMoves(currentPosition){
         }
     }
     return potentialMoves;
+}
+Pawn.prototype.getAttacks = function getAttacks(currentPosition){
+	var attacks = [];
+    var x = currentPosition.x;
+    var y = currentPosition.y;
+    if(this.color == "white"){
+		attacks.push(new Position(x - 1, y - 1));
+		attacks.push(new Position(x + 1, y - 1));
+	}else{
+		attacks.push(new Position(x - 1, y + 1));
+		attacks.push(new Position(x + 1, y + 1));
+    }
+	for(var i = attacks.length - 1; i >= 0; i--){
+		if(!myGame.gameBoard.isOnBoard(attacks[i])){
+			attacks.splice(i, 1);
+		}
+	}
+    return attacks;
 };

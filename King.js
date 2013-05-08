@@ -39,9 +39,12 @@ King.prototype.getPotentialMoves = function getPotentialMoves(startPosition){
 King.prototype.getLegalMoves = function getLegalMoves(currentPosition){
     var legalMoves = this.getPotentialMoves(currentPosition);
     for(var i = legalMoves.length - 1; i >= 0; i--){
-        if(myGame.gameBoard.occupiedBy(new Position(legalMoves[i].x, legalMoves[i].y)) == myGame.whoseTurn()){
+        if(myGame.gameBoard.occupiedBy(new Position(legalMoves[i].x, legalMoves[i].y)) == this.color){
             legalMoves.splice(i, 1);
         }
     }
     return legalMoves;
+}
+King.prototype.getAttacks = function getAttacks(currentPosition){
+	return this.getLegalMoves(currentPosition);
 };
