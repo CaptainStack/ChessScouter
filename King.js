@@ -16,29 +16,29 @@ King.prototype.isCaptured = function isCaptured(){
 King.prototype.setMoved = function setMoved(movedState){
     this.hasMoved = movedState;
 }
-King.prototype.getPotentialMoves = function getPotentialMoves(x, y){
-
+King.prototype.getPotentialMoves = function getPotentialMoves(startPosition){
+	var x = startPosition.x;
+	var y = startPosition.y;
+	var potentialMoves = [
+						new Position(x, y + 1), 
+						new Position(x, y - 1),
+						new Position(x + 1, y),
+						new Position(x - 1, y),
+						new Position(x + 1, y + 1),
+						new Position(x + 1, y - 1),
+						new Position(x - 1, y + 1),
+						new Position(x - 1, y - 1)
+						];
+	for(var i = potentialMoves.length; i > potentialMoves.length; i--){
+		if(!myGame.gameBoard.isOnBoard(potentialMoves[i])){
+			potentialMoves.splice(i, 1);
+		}
+	}
 }
 King.prototype.getLegalMoves = function getLegalMoves(currentPosition){
-    var x = currentPosition.x;
-    var y = currentPosition.y;
-    var potentialMoves = [
-                        new Position(x, y + 1), 
-                        new Position(x, y - 1),
-                        new Position(x + 1, y),
-                        new Position(x - 1, y),
-                        new Position(x + 1, y + 1),
-                        new Position(x + 1, y - 1),
-                        new Position(x - 1, y + 1),
-                        new Position(x - 1, y - 1)
-                    ];
-    for(var i = potentialMoves.length - 1; i >= 0; i--){
-        if(potentialMoves[i].x < 0 || 
-            potentialMoves[i].x > 7 || 
-            potentialMoves[i].y < 0 || 
-            potentialMoves[i].y > 7 || 
-            myGame.gameBoard.occupiedBy(new Position(potentialMoves[i].x, potentialMoves[i].y)) == myGame.whoseTurn())
-        {
+    var legalMoves = this.getPotentialMoves(currentPosition);
+    for(var i = legalMoves.length - 1; i >= 0; i--){
+        if(myGame.gameBoard.occupiedBy(new Position(potentialMoves[i].x, potentialMoves[i].y)) == myGame.whoseTurn()){
             potentialMoves.splice(i, 1);
         }
     }

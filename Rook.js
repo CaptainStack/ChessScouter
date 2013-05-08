@@ -1,5 +1,5 @@
 "use strict";
-function Rook(color) {
+function Rook(color){
     this.color = color;
     this.captured = false;
     this.image = color + "_rook.svg";
@@ -33,7 +33,6 @@ Rook.prototype.getPotentialMoves = function getPotentialMoves(x, y){
 			addY--;
 			if( myGame.gameBoard.isOnBoard(new Position(x + addX,y + addY))){
 				northMoves.push(new Position (x + addX, y + addY));
-                //northMoves.push({x: x + addX, y: y + addY});
 			}else {
 				addY = 0;
 				vectorNorth = true;
@@ -72,7 +71,7 @@ Rook.prototype.getPotentialMoves = function getPotentialMoves(x, y){
 }
 Rook.prototype.getLegalMoves = function getLegalMoves(currentPosition){
     var legalMoves = [];
-    var allMoves = this.getPotentialMoves(currentPosition.x, currentPosition.y)
+    var allMoves = this.getPotentialMoves(currentPosition.x, currentPosition.y);
     for(var i = 0; i < allMoves.length; i++){
         var currVectorMoves = allMoves[i];
         for(var j = 0; j < currVectorMoves.length; j++){
