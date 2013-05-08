@@ -70,6 +70,41 @@ Game.prototype.makeMove = function makeMove(){
 	}
 	this.turn++;
 }
-Game.prototype.isInCheck = function isInCheck(player){
-
+Game.prototype.getPieces = function getPieces(player){
+	var pieceList = [];
+	try{
+		if(player == "white" || player == "black" || player == "all"){
+			for(var i = 0; i < this.gameBoard.grid.length; i++){
+				for(var j = 0; j < this.gameBoard.grid[i].length; j++){
+					var square = this.gameBoard.grid[i][j];
+					if(square.getContents() != null){
+						if(square.getContents().getColor() == "white" && player == "white"){
+							pieceList.push(this.gameBoard.grid[i][j].getContents());
+						}else if(square.getContents().getColor() == "black" && player == "black"){
+							pieceList.push(this.gameBoard.grid[i][j].getContents());
+						}else if(player == "all"){
+							pieceList.push(this.gameBoard.grid[i][j].getContents());
+						}
+					}
+				}
+			}
+			return pieceList;
+		}else{
+			throw "bad input";
+		}
+	}catch(err){
+		alert(err + "player must be \"black\" or \"white\" or \"all\"");
+	}
+}
+Game.prototype.getAllLegalAttacks = function getAllLegalAttacks(player){
+	try{
+		if(player == "white"){
+			
+		}else if (player == "black"){
+		}else{
+			throw "bad input";
+		}
+	}catch(err){
+		alert("player must be \"black\" or \"white\"");
+	}
 };
