@@ -52,7 +52,6 @@ function Game() {
 			grid[j][i] = new Square(j, i, null);
 		}
 	}
-
 	this.gameBoard = new Board(grid);
 }
 Game.prototype.whoseTurn = function whoseTurn(){
@@ -60,6 +59,13 @@ Game.prototype.whoseTurn = function whoseTurn(){
 		return "black";
 	}else{
 		return "white";
+	}
+}
+Game.prototype.otherTurn = function otherTurn(){
+	if(this.turn % 2 === 0){
+		return "white";
+	}else{
+		return "black";
 	}
 }
 Game.prototype.makeMove = function makeMove(){
@@ -90,7 +96,7 @@ Game.prototype.getPieces = function getPieces(player){
 			}
 			return pieceList;
 		}else{
-			throw "bad input";
+			throw new Error("bad input");
 		}
 	}catch(err){
 		alert(err + "player must be \"black\" or \"white\" or \"all\"");
@@ -105,7 +111,7 @@ Game.prototype.getAllLegalAttacks = function getAllLegalAttacks(player){
 		if(player == "white" || player == "black"){
 			var pieces = this.getPieces(player);
 			for(var i = 0; i < pieces.length; i++){
-				var pieceAttack = pieces[i].getAttacks(myGame.gameBoard.getPosition(pieces[i]));
+				var pieceAttack = pieces[i].getAttacks(this.gameBoard.getPosition(pieces[i]));
 				for(var j = 0; j < pieceAttack.length; j++){
 					attacks.push(pieceAttack[j]);
 				}
@@ -119,11 +125,11 @@ Game.prototype.getAllLegalAttacks = function getAllLegalAttacks(player){
 	}
 }
 //Add try catch behavior
-Game.prototype.isInCheck = function isInCheck(player){
-	var pieces = myGame.getPieces(player);
+Game.prototype.isInCheck = function isInCheck(player, tempGame){
+	var pieces = tempGame.getPieces(player);
 	var king = null;
 	for(var i = 0; i < pieces.length; i++){
-		if(pieces[i] instanceof King){
+		if(pieces[i].getImage() == player + "_king.svg"){
 			king = pieces[i];
 			break;
 		}
@@ -135,10 +141,24 @@ Game.prototype.isInCheck = function isInCheck(player){
 		enemyAttacks = this.getAllLegalAttacks("white");
 	}
 	for(var i = 0; i < enemyAttacks.length; i++){
-		if(enemyAttacks[i].x == myGame.gameBoard.getPosition(king).x && enemyAttacks[i].y == myGame.gameBoard.getPosition(king).y){
+		if(enemyAttacks[i].x == tempGame.gameBoard.getPosition(king).x && enemyAttacks[i].y == tempGame.gameBoard.getPosition(king).y){
 			alert("You're in check!");
+			return true;
 			break;
 		}
-		
 	}
+}
+Game.prototype.clone = function clone(){
+    var gameClone = new Game();
+    for(var i = 0; i < this.gameBoard.grid.length; i++){
+        for(var j = 0; j < this.gameBoard.grid[i].length; j++){
+            if(myGame.gameBoard.grid[i][j].getContents() != null){
+                var pieceClone = jQuery.extend(true, {}, myGame.gameBoard.grid[i][j].getContents());
+                gameClone.gameBoard.grid[i][j].piece = pieceClone;
+            }else{
+                gameClone.gameBoard.grid[i][j].piece = null;
+            }
+        }
+    }
+    return gameClone;
 };

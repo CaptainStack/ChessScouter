@@ -68,8 +68,17 @@ Pawn.prototype.getLegalMoves = function getLegalMoves(currentPosition){
             potentialMoves.push(new Position(x + 1, y + 1));
         }
     }
+	var thisPosition = myGame.gameBoard.getPosition(this);
+	for(var i = potentialMoves.length - 1; i >= 0; i--){
+        var tempGame = myGame.clone();
+		tempGame.gameBoard.testMove(tempGame, thisPosition, new Position(potentialMoves[i].x, potentialMoves[i].y));
+		if(tempGame.isInCheck(myGame.whoseTurn(), tempGame)){
+			potentialMoves.splice[i];
+		}
+	}
     return potentialMoves;
 }
+
 Pawn.prototype.getAttacks = function getAttacks(currentPosition){
 	var attacks = [];
     var x = currentPosition.x;

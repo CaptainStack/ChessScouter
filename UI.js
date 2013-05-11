@@ -45,7 +45,7 @@ function movePiece(first, second){
     if(myGame.whoseTurn() == piece.color){
         var secondX = second.context.cellIndex;
         var secondY = second.context.parentNode.rowIndex;
-        myGame.gameBoard.movePiece(firstX, firstY, secondX, secondY);
+        myGame.gameBoard.movePiece(new Position(firstX, firstY), new Position(secondX, secondY));
         layoutBoard();
     } else {
         alert('It\'s not your turn!');

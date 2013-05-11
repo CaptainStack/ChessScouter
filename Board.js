@@ -33,7 +33,11 @@ Board.prototype.getPiece = function getPiece(x, y){
 }
 //TODO change parameters to Positions instead of coordinates.
 //TODO If destination is enemy piece, don't null out, but set to captured and move out of the way.
-Board.prototype.movePiece = function movePiece(oldX, oldY, newX, newY){
+Board.prototype.movePiece = function movePiece(oldPosition, newPosition){
+	var oldX = oldPosition.x;
+	var oldY = oldPosition.y;
+	var newX = newPosition.x;
+	var newY = newPosition.y;
     var piece = this.grid[oldX][oldY].piece;
     var legalMoves = piece.getLegalMoves(new Position(oldX, oldY));
     var moved = false;
@@ -44,6 +48,7 @@ Board.prototype.movePiece = function movePiece(oldX, oldY, newX, newY){
             this.grid[newX][newY].piece.setMoved(true);
             myGame.turn++;
             moved = true;
+			// myGame.isInCheck(myGame.whoseTurn());
         }
     }
     if(!moved){
@@ -67,14 +72,27 @@ Board.prototype.isOnBoard = function isOnBoard(position){
 Board.prototype.getPosition = function getPosition(piece){
     for (var i = 0; i < this.grid.length; i++ ) {
         for(var j = 0; j < this.grid[i].length; j++){
-            if(this.grid[j][i].piece == piece){
+            if(this.grid[j][i].piece === piece){
                 return new Position(j, i);
             }
         }
     }
+	
+	return new Position(piece.x, piece.y);
 }
 Board.prototype.getKing = function getKing(player){
 	if(player == "white"){
 	}else{
 	}
+}
+Board.prototype.testMove = function testMove(testBoard, oldPosition, newPosition){
+	var oldX = oldPosition.x;
+	var oldY = oldPosition.y;
+	var newX = newPosition.x;
+	var newY = newPosition.y;
+    var piece = testBoard.gameBoard.grid[oldX][oldY].piece;
+
+	testBoard.gameBoard.grid[oldX][oldY].piece = null;
+	testBoard.gameBoard.grid[newX][newY].piece = piece;
+	// myGame.isInCheck(myGame.whoseTurn());
 };

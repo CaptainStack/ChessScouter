@@ -16,7 +16,9 @@ Queen.prototype.isCaptured = function isCaptured(){
 Queen.prototype.setMoved = function setMoved(movedState){
     this.hasMoved = movedState;
 }
-Queen.prototype.getPotentialMoves = function getPotentialMoves(x, y){
+Queen.prototype.getPotentialMoves = function getPotentialMoves(position){
+    var x = position.x;
+    var y = position.y;
 	var potentialMoves = [];
 	var vectorNorth = false;
 	var vectorSouth = false;
@@ -125,7 +127,7 @@ Queen.prototype.getPotentialMoves = function getPotentialMoves(x, y){
 }
 Queen.prototype.getLegalMoves = function getLegalMoves(currentPosition){
     var legalMoves = [];
-    var allMoves = this.getPotentialMoves(currentPosition.x, currentPosition.y)
+    var allMoves = this.getPotentialMoves(currentPosition)
     for(var i = 0; i < allMoves.length; i++){
         var currVectorMoves = allMoves[i];
         for(var j = 0; j < currVectorMoves.length; j++){

@@ -16,7 +16,9 @@ Bishop.prototype.isCaptured = function isCaptured(){
 Bishop.prototype.setMoved = function setMoved(movedState){
     this.hasMoved = movedState;
 }
-Bishop.prototype.getPotentialMoves = function getPotentialMoves(x, y){
+Bishop.prototype.getPotentialMoves = function getPotentialMoves(postion){
+    var x = postion.x;
+    var y = postion.y;
 	var potentialMoves = [];
 	var vectorNorthEast = false;
 	var vectorSouthEast = false;
@@ -80,7 +82,7 @@ Bishop.prototype.getPotentialMoves = function getPotentialMoves(x, y){
 }
 Bishop.prototype.getLegalMoves = function getLegalMoves(currentPosition){
     var legalMoves = [];
-    var allMoves = this.getPotentialMoves(currentPosition.x, currentPosition.y)
+    var allMoves = this.getPotentialMoves(currentPosition)
     for(var i = 0; i < allMoves.length; i++){
         var currVectorMoves = allMoves[i];
         for(var j = 0; j < currVectorMoves.length; j++){

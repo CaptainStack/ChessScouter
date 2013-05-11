@@ -16,7 +16,9 @@ Rook.prototype.isCaptured = function isCaptured(){
 Rook.prototype.setMoved = function setMoved(movedState){
     this.hasMoved = movedState;
 }
-Rook.prototype.getPotentialMoves = function getPotentialMoves(x, y){
+Rook.prototype.getPotentialMoves = function getPotentialMoves(position){
+    var x = position.x;
+    var y = position.y;
 	var potentialMoves = [];
 	var vectorNorth = false;
 	var vectorSouth = false;
@@ -28,8 +30,8 @@ Rook.prototype.getPotentialMoves = function getPotentialMoves(x, y){
     var southMoves = [];
     var eastMoves = [];
     var westMoves = [];
-	while(vectorNorth == false || vectorSouth == false || vectorEast == false || vectorWest == false){
-		if(vectorNorth == false) {
+	while(vectorNorth === false || vectorSouth === false || vectorEast === false || vectorWest === false){
+		if(vectorNorth === false) {
 			addY--;
 			if( myGame.gameBoard.isOnBoard(new Position(x + addX,y + addY))){
 				northMoves.push(new Position (x + addX, y + addY));
@@ -37,7 +39,7 @@ Rook.prototype.getPotentialMoves = function getPotentialMoves(x, y){
 				addY = 0;
 				vectorNorth = true;
 			}
-		}else if (vectorSouth == false) {
+		}else if (vectorSouth === false) {
 			addY++;
 			if( myGame.gameBoard.isOnBoard(new Position(x + addX,y + addY))){
 				southMoves.push(new Position (x + addX, y + addY));
@@ -45,7 +47,7 @@ Rook.prototype.getPotentialMoves = function getPotentialMoves(x, y){
 				addY = 0;
 				vectorSouth = true;
 			}
-		}else if (vectorEast == false){
+		}else if (vectorEast === false){
             addX--;
 			if( myGame.gameBoard.isOnBoard(new Position(x + addX,y + addY))){
 				eastMoves.push(new Position (x + addX, y + addY));
@@ -53,7 +55,7 @@ Rook.prototype.getPotentialMoves = function getPotentialMoves(x, y){
 				addX = 0;
 				vectorEast = true;
 			}
-		}else if (vectorWest == false){
+		}else if (vectorWest === false){
             addX++;
 			if( myGame.gameBoard.isOnBoard(new Position(x + addX,y + addY))){
 				westMoves.push(new Position (x + addX, y + addY));
@@ -71,13 +73,14 @@ Rook.prototype.getPotentialMoves = function getPotentialMoves(x, y){
 }
 Rook.prototype.getLegalMoves = function getLegalMoves(currentPosition){
     var legalMoves = [];
-    var allMoves = this.getPotentialMoves(currentPosition.x, currentPosition.y);
+    var allMoves = this.getPotentialMoves(currentPosition);
+	
     for(var i = 0; i < allMoves.length; i++){
         var currVectorMoves = allMoves[i];
         for(var j = 0; j < currVectorMoves.length; j++){
-            if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) == null){
+            if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) === null){
                 legalMoves.push(currVectorMoves[j]);
-            }else if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) != this.color){
+            }else if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) !=== this.color){
                 legalMoves.push(currVectorMoves[j]);
                 break;
             }else{
