@@ -80,7 +80,7 @@ Rook.prototype.getLegalMoves = function getLegalMoves(currentPosition){
         for(var j = 0; j < currVectorMoves.length; j++){
             if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) === null){
                 legalMoves.push(currVectorMoves[j]);
-            }else if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) !=== this.color){
+            }else if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) !== this.color){
                 legalMoves.push(currVectorMoves[j]);
                 break;
             }else{

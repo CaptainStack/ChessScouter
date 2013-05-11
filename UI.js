@@ -17,14 +17,14 @@ $(function(){
     $("#board").on("click", "td", function() {
         var firstX = $(this).context.cellIndex;
         var firstY = $(this).context.parentNode.rowIndex;
-        if(firstClick == null && myGame.gameBoard.getPiece(firstX, firstY) != null && myGame.gameBoard.getPiece(firstX, firstY).color == myGame.whoseTurn()){
+        if(firstClick == null && myGame.gameBoard.getPiece(firstX, firstY) !== null && myGame.gameBoard.getPiece(firstX, firstY).color == myGame.whoseTurn()){
             firstClick = $(this);
             var piece = myGame.gameBoard.getPiece(firstX, firstY);
             var legalMoves = piece.getLegalMoves(new Position(firstX, firstY));
             for(var i = 0; i < legalMoves.length; i++){
                 getTableData(legalMoves[i].x, legalMoves[i].y).css("background-color", "lightskyblue");
             }
-        }else if(firstClick != null){
+        }else if(firstClick !== null){
             secondClick = $(this);
             movePiece(firstClick, secondClick);
             firstClick = null;
@@ -75,21 +75,21 @@ function layoutBoard(){
 }
 
 function getText(x, y){
-    if(myGame.gameBoard.getPiece(x, y) != null && !myGame.gameBoard.getPiece(x, y).captured){
+    if(myGame.gameBoard.getPiece(x, y) !== null && !myGame.gameBoard.getPiece(x, y).captured){
         return myGame.gameBoard.getPiece(x, y).getSymbol();
     }else{
         return "";
     }
 }
 function getImage(x, y){
-    if(myGame.gameBoard.getPiece(x, y) != null && !myGame.gameBoard.getPiece(x, y).captured){
+    if(myGame.gameBoard.getPiece(x, y) !== null && !myGame.gameBoard.getPiece(x, y).captured){
         return myGame.gameBoard.getPiece(x, y).getImage();
     }else{
         return "";
     }
 }
 function getBackgroundColor(x, y){
-    if((x % 2 == 0 && y % 2 == 0) || (x % 2 != 0 && y % 2 != 0)){
+    if((x % 2 == 0 && y % 2 == 0) || (x % 2 !== 0 && y % 2 !== 0)){
         return "white";
     }else{
         return "lightgrey";

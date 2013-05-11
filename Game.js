@@ -83,7 +83,7 @@ Game.prototype.getPieces = function getPieces(player){
 			for(var i = 0; i < this.gameBoard.grid.length; i++){
 				for(var j = 0; j < this.gameBoard.grid[i].length; j++){
 					var square = this.gameBoard.grid[i][j];
-					if(square.getContents() != null){
+					if(square.getContents() !== null){
 						if(square.getContents().getColor() == "white" && player == "white"){
 							pieceList.push(this.gameBoard.grid[i][j].getContents());
 						}else if(square.getContents().getColor() == "black" && player == "black"){
@@ -152,7 +152,7 @@ Game.prototype.clone = function clone(){
     var gameClone = new Game();
     for(var i = 0; i < this.gameBoard.grid.length; i++){
         for(var j = 0; j < this.gameBoard.grid[i].length; j++){
-            if(myGame.gameBoard.grid[i][j].getContents() != null){
+            if(myGame.gameBoard.grid[i][j].getContents() !== null){
                 var pieceClone = jQuery.extend(true, {}, myGame.gameBoard.grid[i][j].getContents());
                 gameClone.gameBoard.grid[i][j].piece = pieceClone;
             }else{
