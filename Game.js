@@ -124,16 +124,24 @@ Game.prototype.getAllLegalAttacks = function getAllLegalAttacks(player){
 		alert(err + " player must be \"black\" or \"white\"");
 	}
 }
+
+
 //Add try catch behavior
-Game.prototype.isInCheck = function isInCheck(player, tempGame){
+Game.prototype.isInCheck = function isInCheck(player, tempGame) {
 	var pieces = tempGame.getPieces(player);
 	var king = null;
-	for(var i = 0; i < pieces.length; i++){
-		if(pieces[i].getImage() == player + "_king.svg"){
-			king = pieces[i];
-			break;
+	var counter = 0;
+	var kingFound = false;
+
+	// Loop over the board until the king is found
+	while (!kingFound) {
+		if (pieces[counter].getImage() == player + "_king.svg") {
+			king = pieces[counter];
+			kingFound = true;
 		}
+		counter++;
 	}
+
 	var enemyAttacks;
 	if(player == "white"){
 		enemyAttacks = this.getAllLegalAttacks("black");
@@ -148,6 +156,7 @@ Game.prototype.isInCheck = function isInCheck(player, tempGame){
 		}
 	}
 }
+
 Game.prototype.clone = function clone(){
     var gameClone = new Game();
     for(var i = 0; i < this.gameBoard.grid.length; i++){
