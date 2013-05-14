@@ -26,23 +26,42 @@
     </head>
     <body>
         <h1>Chess Scouter</h1>
-        <h2 id="turnSpace"></h2>  
-        <table>
-            <tbody id="board">
-            </tbody>
-            <tr id="rowLabel">
-                <th></th>
-                <th class="gridLabel">a</th>
-                <th class="gridLabel">b</th>
-                <th class="gridLabel">c</th>
-                <th class="gridLabel">d</th>
-                <th class="gridLabel">e</th>
-                <th class="gridLabel">f</th>
-                <th class="gridLabel">g</th>
-                <th class="gridLabel">h</th>
-            </tr>
-        </table>
-        <p>More details <a href="https://skydrive.live.com/view.aspx?resid=666E5F71337212EE!31947&app=PowerPoint&authkey=!AKxbVSDzeqKIzB0">here</a> </p>
-        <p>Send feedback to ChessScouter@outlook.com </p>
+        <h2 id="turnSpace"></h2> 
+        <div id="moveHistory">
+            <h3>Move History</h3>
+                <p>Lorum Ipsum</p>
+                <p>Lorum Ipsum</p>
+                <p>Lorum Ipsum</p>
+                <p>Lorum Ipsum</p>
+                <p>Lorum Ipsum</p>
+                <p>Lorum Ipsum</p>
+                <p>Lorum Ipsum</p>
+        </div>
+        <div id="gameSpace">
+            <table>
+                <tbody id="board">
+                </tbody>
+                <tr id="rowLabel">
+                    <th></th>
+                    <th class="gridLabel">a</th>
+                    <th class="gridLabel">b</th>
+                    <th class="gridLabel">c</th>
+                    <th class="gridLabel">d</th>
+                    <th class="gridLabel">e</th>
+                    <th class="gridLabel">f</th>
+                    <th class="gridLabel">g</th>
+                    <th class="gridLabel">h</th>
+                </tr>
+            </table>
+        </div>
+        <div id="filters">
+            <h3>Visualizations</h3>
+            <p><label><input id="space" type="checkbox" checked="checked">Space Control</label></p>
+            <p><label><input id="legalMoves" type="checkbox" checked="checked">Legal Moves</label></p>
+        </div>
+        <footer>
+            <p>More details <a href="https://skydrive.live.com/view.aspx?resid=666E5F71337212EE!31947&app=PowerPoint&authkey=!AKxbVSDzeqKIzB0">here</a> </p>
+            <p>Send feedback to ChessScouter@outlook.com </p>
+        </footer>
     </body>
 </html>

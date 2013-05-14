@@ -21,8 +21,14 @@ $(function(){
             firstClick = $(this);
             var piece = myGame.gameBoard.getPiece(firstX, firstY);
             var legalMoves = myGame.pieceLegalMoves(new Position(firstX, firstY));
-            for(var i = 0; i < legalMoves.length; i++){
-                getTableData(legalMoves[i].x, legalMoves[i].y).css("background-color", "lightskyblue");
+            if($("#legalMoves").attr("checked") != undefined){
+                for(var i = 0; i < legalMoves.length; i++){
+                    if(myGame.gameBoard.grid[legalMoves[i].x][legalMoves[i].y].getContents() === null){
+                        getTableData(legalMoves[i].x, legalMoves[i].y).css("background-image", "url(Assets/blue_dot.svg)");
+                    }else{
+                        getTableData(legalMoves[i].x, legalMoves[i].y).css("background-image", "url(Assets/blue_dot.svg), url(Assets/" + getImage(legalMoves[i].x, legalMoves[i].y) + ")");
+                    }
+                }
             }
         }else if(firstClick !== null){
             secondClick = $(this);
@@ -32,6 +38,9 @@ $(function(){
         }else{
             alert("it's not your turn");
         }
+    })
+    $("#filters").on("click", "input", function() {
+        layoutBoard();
     })
 });
 
@@ -71,7 +80,9 @@ function layoutBoard(){
             .appendTo("#tr" + i);
         }
     }
-    showSpaceControl();
+    if($("#space").attr("checked") != undefined){
+        showSpaceControl();
+    }
 }
 function showSpaceControl(){
     var blackAttacks = myGame.getAllLegalAttacks("black");
@@ -81,7 +92,7 @@ function showSpaceControl(){
     var whiteAttacks = myGame.getAllLegalAttacks("white");
     for(var i = 0; i < whiteAttacks.length; i++){
         if($(getTableData(whiteAttacks[i].x, whiteAttacks[i].y)).css("background-color")=="rgb(255, 182, 193)" ||
-           $(getTableData(whiteAttacks[i].x, whiteAttacks[i].y)).css("background-color")=="#CCFF33"){
+           $(getTableData(whiteAttacks[i].x, whiteAttacks[i].y)).css("background-color")=="rgb(204, 255, 51)"){
             getTableData(whiteAttacks[i].x, whiteAttacks[i].y).css("background-color", "#CCFF33");
         }else{
             getTableData(whiteAttacks[i].x, whiteAttacks[i].y).css("background-color", "lightgreen");

@@ -11,6 +11,24 @@ body, button{
 	position: relative;
 }
 /*Gives the board its checkboard pattern*/
+#moveHistory{
+    float: left;
+    width: 25%;
+}
+#filters{
+    float: left;
+    width: 18%;
+}
+#gameSpace{
+    float: left;
+    width: 50%;
+}
+footer{
+	position: relative; 
+	bottom: 0;
+	width: 98%;
+    clear: both;
+}
 tr{
     vertical-align: middle;
 }
