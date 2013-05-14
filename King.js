@@ -46,5 +46,5 @@ King.prototype.getLegalMoves = function getLegalMoves(currentPosition){
     return legalMoves;
 }
 King.prototype.getAttacks = function getAttacks(currentPosition){
-	return this.getLegalMoves(currentPosition);
+    return this.getPotentialMoves(currentPosition);
 };

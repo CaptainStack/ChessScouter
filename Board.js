@@ -39,16 +39,22 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition){
 	var newX = newPosition.x;
 	var newY = newPosition.y;
     var piece = this.grid[oldX][oldY].piece;
-    var legalMoves = piece.getLegalMoves(new Position(oldX, oldY));
+    var legalMoves = piece.getLegalMoves(oldPosition);
     var moved = false;
     for(var i = 0; i < legalMoves.length; i++){
         if(legalMoves[i].x == newX && legalMoves[i].y == newY){
             this.grid[oldX][oldY].piece = null;
             this.grid[newX][newY].piece = piece;
             this.grid[newX][newY].piece.setMoved(true);
-            myGame.turn++;
             moved = true;
-			// myGame.isInCheck(myGame.whoseTurn());
+            if(myGame.isInCheck(myGame.whoseTurn())){
+                this.grid[oldX][oldY].piece = piece;
+                this.grid[newX][newY].piece = null;
+                this.grid[newX][newY].piece.setMoved(false);
+                myGame.turn--;
+                moved = false
+            }
+            myGame.turn++;
         }
     }
     if(!moved){

@@ -127,8 +127,8 @@ Game.prototype.getAllLegalAttacks = function getAllLegalAttacks(player){
 
 
 //Add try catch behavior
-Game.prototype.isInCheck = function isInCheck(player, tempGame) {
-	var pieces = tempGame.getPieces(player);
+Game.prototype.isInCheck = function isInCheck(player) {
+	var pieces = myGame.getPieces(player);
 	var king = null;
 	var counter = 0;
 	var kingFound = false;
@@ -149,8 +149,8 @@ Game.prototype.isInCheck = function isInCheck(player, tempGame) {
 		enemyAttacks = this.getAllLegalAttacks("white");
 	}
 	for(var i = 0; i < enemyAttacks.length; i++){
-		if(enemyAttacks[i].x == tempGame.gameBoard.getPosition(king).x && enemyAttacks[i].y == tempGame.gameBoard.getPosition(king).y){
-			alert("You're in check!");
+		if(enemyAttacks[i].x == myGame.gameBoard.getPosition(king).x && enemyAttacks[i].y == myGame.gameBoard.getPosition(king).y){
+			// alert("You're in check!");
 			return true;
 			break;
 		}
@@ -170,4 +170,22 @@ Game.prototype.clone = function clone(){
         }
     }
     return gameClone;
+}
+Game.prototype.pieceLegalMoves = function pieceLegalMoves(position){
+    var piece = myGame.gameBoard.grid[position.x][position.y].piece;
+    var legalMoves = piece.getLegalMoves(position);
+    for(var i = legalMoves.length - 1; i >= 0; i--){
+        var foreignContents = myGame.gameBoard.grid[legalMoves[i].x][legalMoves[i].y].getContents();
+        myGame.gameBoard.grid[position.x][position.y].piece = null;
+        myGame.gameBoard.grid[legalMoves[i].x][legalMoves[i].y].piece = piece;
+        if(this.isInCheck(myGame.whoseTurn())){
+            myGame.gameBoard.grid[position.x][position.y].piece = piece;
+            myGame.gameBoard.grid[legalMoves[i].x][legalMoves[i].y].piece = foreignContents;
+            legalMoves.splice(i, 1);
+        }else{
+            myGame.gameBoard.grid[position.x][position.y].piece = piece;
+            myGame.gameBoard.grid[legalMoves[i].x][legalMoves[i].y].piece = foreignContents;
+        }
+    }
+    return legalMoves;
 };

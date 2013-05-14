@@ -46,5 +46,5 @@ Knight.prototype.getLegalMoves = function getLegalMoves(currentPosition){
 	return legalMoves;
 }
 Knight.prototype.getAttacks = function getAttacks(currentPosition){
-	return this.getLegalMoves(currentPosition);
+	return this.getPotentialMoves(currentPosition);
 };

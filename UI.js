@@ -20,7 +20,7 @@ $(function(){
         if(firstClick == null && myGame.gameBoard.getPiece(firstX, firstY) !== null && myGame.gameBoard.getPiece(firstX, firstY).color == myGame.whoseTurn()){
             firstClick = $(this);
             var piece = myGame.gameBoard.getPiece(firstX, firstY);
-            var legalMoves = piece.getLegalMoves(new Position(firstX, firstY));
+            var legalMoves = myGame.pieceLegalMoves(new Position(firstX, firstY));
             for(var i = 0; i < legalMoves.length; i++){
                 getTableData(legalMoves[i].x, legalMoves[i].y).css("background-color", "lightskyblue");
             }
@@ -71,9 +71,24 @@ function layoutBoard(){
             .appendTo("#tr" + i);
         }
     }
+    showSpaceControl();
+}
+function showSpaceControl(){
+    var blackAttacks = myGame.getAllLegalAttacks("black");
+    for(var i = 0; i < blackAttacks.length; i++){
+        getTableData(blackAttacks[i].x, blackAttacks[i].y).css("background-color", "lightpink");
+    }
+    var whiteAttacks = myGame.getAllLegalAttacks("white");
+    for(var i = 0; i < whiteAttacks.length; i++){
+        if($(getTableData(whiteAttacks[i].x, whiteAttacks[i].y)).css("background-color")=="rgb(255, 182, 193)" ||
+           $(getTableData(whiteAttacks[i].x, whiteAttacks[i].y)).css("background-color")=="#CCFF33"){
+            getTableData(whiteAttacks[i].x, whiteAttacks[i].y).css("background-color", "#CCFF33");
+        }else{
+            getTableData(whiteAttacks[i].x, whiteAttacks[i].y).css("background-color", "lightgreen");
+        }
+    }
     $("#turnSpace").text("It is " + myGame.whoseTurn() + "'s turn");
 }
-
 function getText(x, y){
     if(myGame.gameBoard.getPiece(x, y) !== null && !myGame.gameBoard.getPiece(x, y).captured){
         return myGame.gameBoard.getPiece(x, y).getSymbol();

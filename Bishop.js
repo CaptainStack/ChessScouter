@@ -99,5 +99,21 @@ Bishop.prototype.getLegalMoves = function getLegalMoves(currentPosition){
     return legalMoves;
 }
 Bishop.prototype.getAttacks = function getAttacks(currentPosition){
-	return this.getLegalMoves(currentPosition);
+    var legalMoves = [];
+    var allMoves = this.getPotentialMoves(currentPosition)
+    for(var i = 0; i < allMoves.length; i++){
+        var currVectorMoves = allMoves[i];
+        for(var j = 0; j < currVectorMoves.length; j++){
+            if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) == null){
+                legalMoves.push(currVectorMoves[j]);
+            }else if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) !== this.color){
+                legalMoves.push(currVectorMoves[j]);
+                break;
+            }else{
+                legalMoves.push(currVectorMoves[j]);
+                break;
+            }
+        }
+    }
+    return legalMoves;
 };
