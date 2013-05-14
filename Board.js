@@ -49,7 +49,9 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition){
             moved = true;
             myGame.turn++;
             layoutBoard();
-            if(myGame.isInCheck(myGame.whoseTurn())){
+            if(myGame.isInCheckmate(myGame.whoseTurn())){
+                alert("checkmate!");
+            }else if(myGame.isInCheck(myGame.whoseTurn())){
                 alert("check!");
             }
         }

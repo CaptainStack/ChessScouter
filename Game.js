@@ -156,7 +156,21 @@ Game.prototype.isInCheck = function isInCheck(player) {
 		}
 	}
 }
-
+Game.prototype.isInCheckmate = function isInCheckmate(player){
+    var pieces = this.getPieces(player);
+    var legalMoves = [];
+    for(var i = 0; i < pieces.length; i++){
+        var pieceMoves = this.pieceLegalMoves(myGame.gameBoard.getPosition(pieces[i]));
+        for(var j = 0; j < pieceMoves.length; j++){
+            legalMoves.push(pieceMoves[i]);
+        }
+    }
+    if(legalMoves.length > 0){
+        return false;
+    }else{
+        return true;
+    }
+}
 Game.prototype.clone = function clone(){
     var gameClone = new Game();
     for(var i = 0; i < this.gameBoard.grid.length; i++){
