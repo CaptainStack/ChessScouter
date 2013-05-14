@@ -47,14 +47,11 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition){
             this.grid[newX][newY].piece = piece;
             this.grid[newX][newY].piece.setMoved(true);
             moved = true;
-            if(myGame.isInCheck(myGame.whoseTurn())){
-                this.grid[oldX][oldY].piece = piece;
-                this.grid[newX][newY].piece = null;
-                this.grid[newX][newY].piece.setMoved(false);
-                myGame.turn--;
-                moved = false
-            }
             myGame.turn++;
+            layoutBoard();
+            if(myGame.isInCheck(myGame.whoseTurn())){
+                alert("check!");
+            }
         }
     }
     if(!moved){
