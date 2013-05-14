@@ -1,28 +1,29 @@
 //This object specifies basic information about pieces.
 "use strict";
-function Piece(color, type, captured, hasMoved) {    
+
+function Piece(color, type, captured, hasMoved) {
     this.color = color;
     this.type = type;
     this.captured = captured;
     this.hasMoved = hasMoved;
     this.image = color + "_" + type + ".svg";
 }
-Piece.prototype.setMoved = function setMoved(movedState){
+Piece.prototype.setMoved = function setMoved(movedState) {
     this.hasMoved = movedState;
 }
-Piece.prototype.getColor = function getColor(){
+Piece.prototype.getColor = function getColor() {
     return this.color;
 }
-Piece.prototype.getImage = function getImage(){
+Piece.prototype.getImage = function getImage() {
     return this.image;
 }
-Piece.prototype.isCaptured = function isCaptured(){
+Piece.prototype.isCaptured = function isCaptured() {
     return this.captured;
 }
-Piece.prototype.getLegalMoves = function getLegalMoves(position){
+Piece.prototype.getLegalMoves = function getLegalMoves(position) {
     var potentialMoves = [];
-    for(var i = 0; i < 8; i++){
-        for(var j = 0; j < 8; j++){
+    for (var i = 0; i < 8; i++) {
+        for (var j = 0; j < 8; j++) {
             potentialMoves.push(new Position(i, j));
         }
     }
