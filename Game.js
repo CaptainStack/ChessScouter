@@ -53,6 +53,7 @@ function Game() {
 		}
 	}
 	this.gameBoard = new Board(grid);
+    // layoutBoard();
 }
 Game.prototype.whoseTurn = function whoseTurn(){
 	if(this.turn % 2 === 0){

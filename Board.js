@@ -39,48 +39,48 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition){
 	var oldY = oldPosition.y;
 	var newX = newPosition.x;
 	var newY = newPosition.y;
+    var message = undefined;
     var piece = this.grid[oldX][oldY].piece;
-    var legalMoves = myGame.pieceLegalMoves(oldPosition);
-    var moved = false;
     var initialAttacks = myGame.attackedPieces(myGame.otherTurn());
-    for(var i = 0; i < legalMoves.length; i++){
-        if(legalMoves[i].x == newX && legalMoves[i].y == newY){
-            this.grid[oldX][oldY].piece = null;
-            this.grid[newX][newY].piece = piece;
-            this.grid[newX][newY].piece.setMoved(true);
-            moved = true;
-            var afterAttacks = myGame.attackedPieces(myGame.otherTurn());
-            for(var i = afterAttacks.length - 1; i >= 0; i--){
-                for(var j = initialAttacks.length - 1; j >= 0; j--){
-                    if((afterAttacks[i].x == initialAttacks[j].x) && (afterAttacks[i].y == initialAttacks[j].y)){
-                        initialAttacks.splice(j, 1);
-                        afterAttacks.splice(i, 1);
-                        break;
-                    }
-                }
+    if(this.isLegalMove(oldPosition, newPosition)){
+        this.grid[oldX][oldY].piece = null;
+        this.grid[newX][newY].piece = piece;
+        this.grid[newX][newY].piece.setMoved(true);
+        var afterAttacks = myGame.attackedPieces(myGame.otherTurn());
+        this.addFlair(initialAttacks, afterAttacks);
+        myGame.turn++;
+        layoutBoard();
+        message = this.checkStates();
+    }else{
+        message = "that's not a legal move";
+        layoutBoard();
+    }
+    if(message !== undefined){
+        alert(message);
+    }
+}
+Board.prototype.addFlair = function addFlair(initialAttacks, afterAttacks){
+    for(var i = afterAttacks.length - 1; i >= 0; i--){
+        for(var j = initialAttacks.length - 1; j >= 0; j--){
+            if((afterAttacks[i].x == initialAttacks[j].x) && (afterAttacks[i].y == initialAttacks[j].y)){
+                initialAttacks.splice(j, 1);
+                afterAttacks.splice(i, 1);
+                break;
             }
-            for(var i = 0; i < afterAttacks.length; i++){
-                myGame.gameBoard.grid[afterAttacks[i].x][afterAttacks[i].y].flair = true;
-            }
-            myGame.turn++;
-            layoutBoard();
-            if(myGame.isInStalemate(myGame.whoseTurn())){
-                layoutBoard();
-                alert("stalemate!");
-            }else if(myGame.isInCheck(myGame.whoseTurn())){
-                layoutBoard();
-                if(myGame.isInCheckmate(myGame.whoseTurn())){
-                    alert("checkmate!");
-                    break;
-                }
-                alert("check!");
-            }
-            break;
         }
     }
-    if(!moved){
-        alert("that's not a legal move!");
-        layoutBoard();
+    for(var i = 0; i < afterAttacks.length; i++){
+        myGame.gameBoard.grid[afterAttacks[i].x][afterAttacks[i].y].flair = true;
+    }
+}
+Board.prototype.checkStates = function checkStates(){
+    if(myGame.isInStalemate(myGame.whoseTurn())){
+        return "stalemate!";
+    }else if(myGame.isInCheck(myGame.whoseTurn())){
+        if(myGame.isInCheckmate(myGame.whoseTurn())){
+            return "checkmate!";
+        }
+        return "check!";
     }
 }
 Board.prototype.occupiedBy = function occupiedBy(position){
@@ -92,7 +92,22 @@ Board.prototype.occupiedBy = function occupiedBy(position){
         return this.getPiece(x, y).getColor();
     }
 }
-
+Board.prototype.isLegalMove = function isLegalMove(oldPosition, newPosition){
+	var oldX = oldPosition.x;
+	var oldY = oldPosition.y;
+	var newX = newPosition.x;
+	var newY = newPosition.y;
+    var piece = this.grid[oldX][oldY].piece;
+    var legalMoves = myGame.pieceLegalMoves(oldPosition);
+    var moved = false;
+    var initialAttacks = myGame.attackedPieces(myGame.otherTurn());
+    for(var i = 0; i < legalMoves.length; i++){
+        if(legalMoves[i].x == newX && legalMoves[i].y == newY){
+            return true;
+        }
+    }
+    return false;
+}
 // Returns whether the given position is on the board
 Board.prototype.isOnBoard = function isOnBoard(position){
 	return !(position.x < 0 || position.x > 7 || position.y < 0 || position.y > 7);
