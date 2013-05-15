@@ -172,10 +172,25 @@ Game.prototype.isInCheckmate = function isInCheckmate(player){
             legalMoves.push(pieceMoves[i]);
         }
     }
-    if(legalMoves.length > 0){
-        return false;
-    }else{
+    if(legalMoves.length === 0 && this.isInCheck(player)){
         return true;
+    }else{
+        return false;
+    }
+}
+Game.prototype.isInStalemate = function isInStalemate(player){
+    var pieces = this.getPieces(player);
+    var legalMoves = [];
+    for(var i = 0; i < pieces.length; i++){
+        var pieceMoves = this.pieceLegalMoves(myGame.gameBoard.getPosition(pieces[i]));
+        for(var j = 0; j < pieceMoves.length; j++){
+            legalMoves.push(pieceMoves[i]);
+        }
+    }
+    if(legalMoves.length === 0 && !this.isInCheck(player)){
+        return true;
+    }else{
+        return false;
     }
 }
 Game.prototype.clone = function clone(){
