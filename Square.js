@@ -5,6 +5,7 @@ function Square(x, y, piece) {
 	this.x = x;
 	this.y = y
 	this.piece = piece;
+    this.flair = false;
 }
 Square.prototype.getContents = function getContents(){
 	if(this.piece != null){

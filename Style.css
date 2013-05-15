@@ -59,15 +59,28 @@ td:hover {
     font-weight: bold;
 }
 
-.chess-piece {
-    -webkit-animation-duration: 1s;
+.pieceFlair{
+    -webkit-animation-duration: 1.5s;
     -webkit-animation-name: pulse;
     -webkit-animation-iteration-count: infinite;
     -webkit-animation-direction: alternate;
+
+    -ms-animation-duration: 1.5s;
+    -ms-animation-name: pulse;
+    -ms-animation-iteration-count: infinite;
+    -ms-animation-direction: alternate;
 }
 @-webkit-keyframes pulse {
     from {
-        opacity: 0.5;
+        opacity: .2;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@-ms-keyframes pulse {
+    from {
+        opacity: .2;
     }
     to {
         opacity: 1;

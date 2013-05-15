@@ -68,6 +68,13 @@ Game.prototype.otherTurn = function otherTurn(){
 		return "black";
 	}
 }
+Game.prototype.otherPlayer = function otherPlayer(player){
+    if(player === "white"){
+        return "black";
+    }else{
+        return "white"
+    }
+}
 Game.prototype.makeMove = function makeMove(){
 	if(whoseTurn() == "white"){
 		
@@ -202,4 +209,14 @@ Game.prototype.pieceLegalMoves = function pieceLegalMoves(position){
         }
     }
     return legalMoves;
+}
+Game.prototype.attackedPieces = function attackedPieces(player){
+    var initialAttacks = this.getAllLegalAttacks(this.otherPlayer(player));
+    for(var i = initialAttacks.length - 1; i >= 0; i--){
+        if(this.gameBoard.grid[initialAttacks[i].x][initialAttacks[i].y].getContents() == null ||
+        this.gameBoard.grid[initialAttacks[i].x][initialAttacks[i].y].getContents().color == this.otherPlayer(player)){
+            initialAttacks.splice(i, 1);
+        }
+    }
+    return initialAttacks;
 };

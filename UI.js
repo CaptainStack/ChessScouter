@@ -55,10 +55,10 @@ function movePiece(first, second){
         var secondX = second.context.cellIndex;
         var secondY = second.context.parentNode.rowIndex;
         myGame.gameBoard.movePiece(new Position(firstX, firstY), new Position(secondX, secondY));
-        layoutBoard();
+        // layoutBoard();
     } else {
         alert('It\'s not your turn!');
-        layoutBoard();
+        // layoutBoard();
     }
 }
 
@@ -82,6 +82,18 @@ function layoutBoard(){
     }
     if($("#space").attr("checked") != undefined){
         showSpaceControl();
+    }
+    if($("#pieceFlair").attr("checked") != undefined){
+        showPieceFlair();
+    }
+}
+function showPieceFlair(){
+    for(var i = 0; i < myGame.gameBoard.grid.length; i++){
+        for(var j = 0; j < myGame.gameBoard.grid[i].length; j++){
+            if(myGame.gameBoard.grid[i][j].flair === true){
+                $(getTableData(i, j)).addClass("pieceFlair")
+            }
+        }
     }
 }
 function showSpaceControl(){
