@@ -39,7 +39,7 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition){
 	var newX = newPosition.x;
 	var newY = newPosition.y;
     var piece = this.grid[oldX][oldY].piece;
-    var legalMoves = piece.getLegalMoves(oldPosition);
+    var legalMoves = myGame.pieceLegalMoves(oldPosition);
     var moved = false;
     for(var i = 0; i < legalMoves.length; i++){
         if(legalMoves[i].x == newX && legalMoves[i].y == newY){
