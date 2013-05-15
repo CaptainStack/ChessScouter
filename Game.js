@@ -136,19 +136,19 @@ Game.prototype.getAllLegalAttacks = function getAllLegalAttacks(player){
 //Add try catch behavior
 Game.prototype.isInCheck = function isInCheck(player) {
 	var pieces = myGame.getPieces(player);
-	var king = null;
-	var counter = 0;
-	var kingFound = false;
+	// var king = null;
+	// var counter = 0;
+	// var kingFound = false;
 
 	// Loop over the board until the king is found
-	while (!kingFound) {
-		if (pieces[counter].getImage() == player + "_king.svg") {
-			king = pieces[counter];
-			kingFound = true;
-		}
-		counter++;
-	}
-
+	// while (!kingFound) {
+		// if (pieces[counter].getImage() == player + "_king.svg") {
+			// king = pieces[counter];
+			// kingFound = true;
+		// }
+		// counter++;
+	// }
+    var king = this.findKing(player);
 	var enemyAttacks;
 	if(player == "white"){
 		enemyAttacks = this.getAllLegalAttacks("black");
@@ -157,11 +157,29 @@ Game.prototype.isInCheck = function isInCheck(player) {
 	}
 	for(var i = 0; i < enemyAttacks.length; i++){
 		if(enemyAttacks[i].x == myGame.gameBoard.getPosition(king).x && enemyAttacks[i].y == myGame.gameBoard.getPosition(king).y){
-			// alert("You're in check!");
 			return true;
 			break;
 		}
 	}
+}
+Game.prototype.findKing = function findKing(player){
+    var pieces = this.getPieces(player);
+	var king = null;
+	var kingFound = false;
+    var counter = 0;
+	// Loop over the board until the king is found
+	while (!kingFound) {
+		if (pieces[counter].getImage() == player + "_king.svg") {
+			king = pieces[counter];
+			kingFound = true;
+		}
+		counter++;
+	}
+    if(kingFound){
+        return king;
+    }else{
+        return null;
+    }
 }
 Game.prototype.isInCheckmate = function isInCheckmate(player){
     var pieces = this.getPieces(player);
@@ -187,7 +205,7 @@ Game.prototype.isInStalemate = function isInStalemate(player){
             legalMoves.push(pieceMoves[i]);
         }
     }
-    if(legalMoves.length === 0 && !this.isInCheck(player)){
+    if((legalMoves.length === 0 && !this.isInCheck(player)) || ((this.getPieces("white").length === 1 && this.findKing(player) !== null) && (this.getPieces("black").length === 1 && this.findKing(player))) ){
         return true;
     }else{
         return false;
