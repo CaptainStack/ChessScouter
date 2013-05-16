@@ -39,6 +39,7 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition){
 	var newX = newPosition.x;
 	var newY = newPosition.y;
     var message = undefined;
+    var submitted = undefined;
     var piece = this.grid[oldX][oldY].piece;
     var initialAttacks = myGame.attackedPieces(myGame.otherTurn());
     if(this.isLegalMove(oldPosition, newPosition)){
@@ -53,24 +54,27 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition){
             $("#submit").on("click", function(){
                 var pieceType = $("#promotionOptions").val();
                 if(pieceType === "Queen"){
-                    myGame.gameBoard.grid[newPosition.x][newPosition.y].piece = new Queen(myGame.otherTurn());
+                    myGame.gameBoard.grid[newPosition.x][newPosition.y].piece = new Queen(myGame.whoseTurn());
                 }else if(pieceType === "Rook"){
-                    myGame.gameBoard.grid[newPosition.x][newPosition.y].piece = new Rook(myGame.otherTurn());
+                    myGame.gameBoard.grid[newPosition.x][newPosition.y].piece = new Rook(myGame.whoseTurn());
                 }else if(pieceType === "Bishop"){
-                    myGame.gameBoard.grid[newPosition.x][newPosition.y].piece = new Bishop(myGame.otherTurn());
+                    myGame.gameBoard.grid[newPosition.x][newPosition.y].piece = new Bishop(myGame.whoseTurn());
                 }else if(pieceType === "Knight"){
-                    myGame.gameBoard.grid[newPosition.x][newPosition.y].piece = new Knight(myGame.otherTurn());
+                    myGame.gameBoard.grid[newPosition.x][newPosition.y].piece = new Knight(myGame.whoseTurn());
                 }
                 $("#promotion").hide();
                 submitted = true;
                 $("#board").on("click", "td", boardClicks);
+                myGame.turn++;
                 layoutBoard();
             });
         }
         
         var afterAttacks = myGame.attackedPieces(myGame.otherTurn());
         this.addFlair(initialAttacks, afterAttacks);
-        myGame.turn++;
+        if(submitted === undefined){
+            myGame.turn++;
+        }
         layoutBoard();
         message = this.checkStates();
     }else{
