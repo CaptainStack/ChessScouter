@@ -40,18 +40,27 @@
         <div id="gameSpace">
             <table>
                 <tbody id="board">
+                    <div id="promotion">
+                        <select id="promotionOptions">
+                            <option value="Queen">Queen</option>
+                            <option value="Rook">Rook</option>
+                            <option value="Bishop">Bishop</option>
+                            <option value="Knight">Knight</option>
+                        </select>
+                        <input type="submit" id="submit">
+                    </div>
+                    <tr id="rowLabel">
+                        <th></th>
+                        <th class="gridLabel">a</th>
+                        <th class="gridLabel">b</th>
+                        <th class="gridLabel">c</th>
+                        <th class="gridLabel">d</th>
+                        <th class="gridLabel">e</th>
+                        <th class="gridLabel">f</th>
+                        <th class="gridLabel">g</th>
+                        <th class="gridLabel">h</th>
+                    </tr>
                 </tbody>
-                <tr id="rowLabel">
-                    <th></th>
-                    <th class="gridLabel">a</th>
-                    <th class="gridLabel">b</th>
-                    <th class="gridLabel">c</th>
-                    <th class="gridLabel">d</th>
-                    <th class="gridLabel">e</th>
-                    <th class="gridLabel">f</th>
-                    <th class="gridLabel">g</th>
-                    <th class="gridLabel">h</th>
-                </tr>
             </table>
         </div>
         <div id="filters">

@@ -31,7 +31,6 @@ Board.prototype.getPiece = function getPiece(x, y){
         return null;
     }
 }
-//TODO change parameters to Positions instead of coordinates.
 //TODO If destination is enemy piece, don't null out, but set to captured and move out of the way.
 Board.prototype.movePiece = function movePiece(oldPosition, newPosition){
     this.removeFlair();
@@ -46,6 +45,29 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition){
         this.grid[oldX][oldY].piece = null;
         this.grid[newX][newY].piece = piece;
         this.grid[newX][newY].piece.setMoved(true);
+        
+        if((newPosition.y === 0 || newPosition.y === 7) && this.grid[newPosition.x][newPosition.y].getContents().getImage().indexOf("pawn") !== -1){
+            $("#promotion").show();
+            var submitted = false;
+            $("#board").off();
+            $("#submit").on("click", function(){
+                var pieceType = $("#promotionOptions").val();
+                if(pieceType === "Queen"){
+                    myGame.gameBoard.grid[newPosition.x][newPosition.y].piece = new Queen(myGame.otherTurn());
+                }else if(pieceType === "Rook"){
+                    myGame.gameBoard.grid[newPosition.x][newPosition.y].piece = new Rook(myGame.otherTurn());
+                }else if(pieceType === "Bishop"){
+                    myGame.gameBoard.grid[newPosition.x][newPosition.y].piece = new Bishop(myGame.otherTurn());
+                }else if(pieceType === "Knight"){
+                    myGame.gameBoard.grid[newPosition.x][newPosition.y].piece = new Knight(myGame.otherTurn());
+                }
+                $("#promotion").hide();
+                submitted = true;
+                $("#board").on("click", "td", boardClicks);
+                layoutBoard();
+            });
+        }
+        
         var afterAttacks = myGame.attackedPieces(myGame.otherTurn());
         this.addFlair(initialAttacks, afterAttacks);
         myGame.turn++;

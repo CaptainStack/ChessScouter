@@ -12,9 +12,33 @@ $(function(){
     layoutBoard();
 	$("#turnSpace").text("It is " + myGame.whoseTurn() + "'s turn");
     var temp = $("#board");
+    $("#promotion").hide();
     //Create a seperate method for first click and then another for second click.
     //TODO just pass legal moves to movePiece so you don't need to check twice.
-    $("#board").on("click", "td", function() {
+    $("#board").on("click", "td", boardClicks)
+    $("#filters").on("click", "input", function() {
+        layoutBoard();
+    })
+});
+
+function movePiece(first, second){
+    var firstX = first.context.cellIndex;
+    var firstY = first.context.parentNode.rowIndex;
+    if(myGame.gameBoard.getPiece(firstX, firstY)){
+        firstClick = null;
+    }
+    var piece = myGame.gameBoard.getPiece(firstX, firstY);
+    if(myGame.whoseTurn() == piece.color){
+        var secondX = second.context.cellIndex;
+        var secondY = second.context.parentNode.rowIndex;
+        myGame.gameBoard.movePiece(new Position(firstX, firstY), new Position(secondX, secondY));
+        // layoutBoard();
+    } else {
+        alert('It\'s not your turn!');
+        // layoutBoard();
+    }
+}
+function boardClicks() {
         var firstX = $(this).context.cellIndex;
         var firstY = $(this).context.parentNode.rowIndex;
         if(firstClick == null && myGame.gameBoard.getPiece(firstX, firstY) !== null && myGame.gameBoard.getPiece(firstX, firstY).color == myGame.whoseTurn()){
@@ -38,30 +62,7 @@ $(function(){
         }else{
             alert("it's not your turn");
         }
-    })
-    $("#filters").on("click", "input", function() {
-        layoutBoard();
-    })
-});
-
-function movePiece(first, second){
-    var firstX = first.context.cellIndex;
-    var firstY = first.context.parentNode.rowIndex;
-    if(myGame.gameBoard.getPiece(firstX, firstY)){
-        firstClick = null;
     }
-    var piece = myGame.gameBoard.getPiece(firstX, firstY);
-    if(myGame.whoseTurn() == piece.color){
-        var secondX = second.context.cellIndex;
-        var secondY = second.context.parentNode.rowIndex;
-        myGame.gameBoard.movePiece(new Position(firstX, firstY), new Position(secondX, secondY));
-        // layoutBoard();
-    } else {
-        alert('It\'s not your turn!');
-        // layoutBoard();
-    }
-}
-
 function layoutBoard(){
     $("#board").empty();
     for(var i = 0; i < myGame.gameBoard.grid.length; i++){
