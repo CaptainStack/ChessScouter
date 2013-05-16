@@ -67,7 +67,7 @@ function layoutBoard(){
     $("#board").empty();
     for(var i = 0; i < myGame.gameBoard.grid.length; i++){
         $("<tr>").attr("id", "tr" + i).addClass("gridLabel").appendTo($("#board"));
-         $("<div>").text(i + 1).css("vertical-align", "text-middle").css("line-height", BOARD_SIZE / 8 + 24 + "px").appendTo($("#tr" + i));
+         $("<div>").text(8 - i).css("vertical-align", "text-middle").css("line-height", BOARD_SIZE / 8 + 24 + "px").appendTo($("#tr" + i));
         for(var j = 0; j < myGame.gameBoard.grid[i].length; j++){
             $("<td>")
             .css("background-image", "url("+ "Assets/"+ getImage(j, i) + ")")
