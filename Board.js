@@ -3,6 +3,7 @@
 "use strict";
 function Board(grid) {    
     this.grid = grid;
+    this.promoPosition = undefined;
 }
 Board.prototype.showPieces = function showPieces() {    
 	var message = "The current pieces on the board are: ";
@@ -54,18 +55,19 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition){
             $("#submit").on("click", function(){
                 var pieceType = $("#promotionOptions").val();
                 if(pieceType === "Queen"){
-                    myGame.gameBoard.grid[newPosition.x][newPosition.y].piece = new Queen(myGame.whoseTurn());
+                    myGame.gameBoard.grid[myGame.gameBoard.promoPosition.x][myGame.gameBoard.promoPosition.y].piece = new Queen(myGame.whoseTurn());
                 }else if(pieceType === "Rook"){
-                    myGame.gameBoard.grid[newPosition.x][newPosition.y].piece = new Rook(myGame.whoseTurn());
+                    myGame.gameBoard.grid[myGame.gameBoard.promoPosition.x][myGame.gameBoard.promoPosition.y].piece = new Rook(myGame.whoseTurn());
                 }else if(pieceType === "Bishop"){
-                    myGame.gameBoard.grid[newPosition.x][newPosition.y].piece = new Bishop(myGame.whoseTurn());
+                    myGame.gameBoard.grid[myGame.gameBoard.promoPosition.x][myGame.gameBoard.promoPosition.y].piece = new Bishop(myGame.whoseTurn());
                 }else if(pieceType === "Knight"){
-                    myGame.gameBoard.grid[newPosition.x][newPosition.y].piece = new Knight(myGame.whoseTurn());
+                    myGame.gameBoard.grid[myGame.gameBoard.promoPosition.x][myGame.gameBoard.promoPosition.y].piece = new Knight(myGame.whoseTurn());
                 }
                 $("#promotion").hide();
                 submitted = true;
                 $("#board").on("click", "td", boardClicks);
                 myGame.turn++;
+                myGame.gameBoard.promoPosition = undefined;
                 layoutBoard();
             });
         }
@@ -74,6 +76,8 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition){
         this.addFlair(initialAttacks, afterAttacks);
         if(submitted === undefined){
             myGame.turn++;
+        }else{
+            this.promoPosition = new Position(newPosition.x, newPosition.y);
         }
         layoutBoard();
         message = this.checkStates();

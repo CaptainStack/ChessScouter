@@ -69,13 +69,11 @@ Pawn.prototype.getLegalMoves = function getLegalMoves(currentPosition){
         }
     }
 	// var thisPosition = myGame.gameBoard.getPosition(this);
-	// for(var i = potentialMoves.length - 1; i >= 0; i--){
-        // var tempGame = myGame.clone();
-		// tempGame.gameBoard.testMove(tempGame, thisPosition, new Position(potentialMoves[i].x, potentialMoves[i].y));
-		// if(tempGame.isInCheck(myGame.whoseTurn(), tempGame)){
-			// potentialMoves.splice[i];
-		// }
-	// }
+	for(var i = potentialMoves.length - 1; i >= 0; i--){
+		if(!myGame.gameBoard.isOnBoard(potentialMoves[i])){
+			potentialMoves.splice(i, 1);
+		}
+	}
     return potentialMoves;
 }
 
