@@ -35,7 +35,7 @@ function movePiece(first, second) {
         myGame.gameBoard.movePiece(new Position(firstX, firstY), new Position(secondX, secondY));
         // layoutBoard();
     } else {
-        messageUser('It\'s not your turn!', true);
+        messageUser("It's not your turn!", true);
         // layoutBoard();
     }
 }
@@ -62,10 +62,11 @@ function boardClicks() {
         firstClick = null;
         secondClick = null;
     } else {
-        messageUser("it's not your turn", true);
+         messageUser("It's not your turn!", true);
     }
 }
 
+// 'Update' function updates the visual state of the board
 function layoutBoard() {
     $("#board").empty();
     for (var i = 0; i < myGame.gameBoard.grid.length; i++) {
@@ -141,6 +142,9 @@ function messageUser(message, important) {
     var $p = $('<p>').text(message);
     if (important) $p.addClass('important');
     $messages.append($p);
+    $p.fadeOut(900, function() {
+        $(this).remove();
+    });
 }
 
 function getBackgroundColor(x, y) {

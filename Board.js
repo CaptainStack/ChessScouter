@@ -84,7 +84,7 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
         message = this.checkStates();
     } else {
         layoutBoard();
-        message = 'thats not a legal move';
+        message = 'That is an illegal move!';
     }
     if (message !== undefined) {
         messageUser(message, true);
