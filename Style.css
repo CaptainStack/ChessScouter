@@ -24,9 +24,20 @@ body, button{
     float: left;
     width: 50%;
 }
+
+#messages {
+    float: left;
+    width:  100px;
+    text-align: left;
+}
+
+.important {
+    color: red;
+}
+
 footer{
 	position: relative; 
-	bottom: 0;
+	bottom: -20px;
 	width: 98%;
     clear: both;
 }
