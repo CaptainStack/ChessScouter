@@ -142,7 +142,7 @@ function messageUser(message, important) {
     var $p = $('<p>').text(message);
     if (important) $p.addClass('important');
     $messages.append($p);
-    $p.fadeOut(900, function() {
+    $p.fadeOut(7000, function() {
         $(this).remove();
     });
 }
