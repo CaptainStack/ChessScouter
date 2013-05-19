@@ -51,7 +51,7 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
 
         if ((newPosition.y === 0 || newPosition.y === 7) && this.grid[newPosition.x][newPosition.y].getContents().getImage().indexOf("pawn") !== -1) {
             $("#promotion").show();
-            var submitted = false;
+            submitted = false;
             $("#board").off();
             $("#submit").on("click", function() {
                 var pieceType = $("#promotionOptions").val();
