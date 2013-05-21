@@ -1,4 +1,6 @@
+//This file controls the behavior of the bishop pieces on the board.
 "use strict";
+//Records the color of the piece and whether or not it is captured
 function Bishop(color) {
     this.color = color;
     this.captured = false;
@@ -16,6 +18,7 @@ Bishop.prototype.isCaptured = function isCaptured(){
 Bishop.prototype.setMoved = function setMoved(movedState){
     this.hasMoved = movedState;
 }
+//This method records the possible moves the piece can make and inserts them into number of arrays for easy future acess.
 Bishop.prototype.getPotentialMoves = function getPotentialMoves(postion){
     var x = postion.x;
     var y = postion.y;
@@ -37,7 +40,6 @@ Bishop.prototype.getPotentialMoves = function getPotentialMoves(postion){
 			addX--;
 			if( myGame.gameBoard.isOnBoard(new Position(x + addX,y + addY))){
 				northEastMoves.push(new Position (x + addX, y + addY));
-                //northMoves.push({x: x + addX, y: y + addY});
 			}else {
 				addY = 0;
 				addX = 0;
@@ -80,6 +82,7 @@ Bishop.prototype.getPotentialMoves = function getPotentialMoves(postion){
     potentialMoves.push(southWestMoves);
 	return potentialMoves;
 }
+//This method filters poential moves to produce legal moves.
 Bishop.prototype.getLegalMoves = function getLegalMoves(currentPosition){
     var legalMoves = [];
     var allMoves = this.getPotentialMoves(currentPosition)
@@ -98,6 +101,7 @@ Bishop.prototype.getLegalMoves = function getLegalMoves(currentPosition){
     }
     return legalMoves;
 }
+//This method identifies where the piece can legally attack another piece.
 Bishop.prototype.getAttacks = function getAttacks(currentPosition){
     var legalMoves = [];
     var allMoves = this.getPotentialMoves(currentPosition)
