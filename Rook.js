@@ -3,6 +3,7 @@ function Rook(color){
     this.color = color;
     this.captured = false;
     this.image = color + "_rook.svg";
+    this.hasMoved = false;
 }
 Rook.prototype.getColor = function getColor(){
     return this.color;

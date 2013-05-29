@@ -48,7 +48,15 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
         this.grid[oldX][oldY].piece = null;
         this.grid[newX][newY].piece = piece;
         this.grid[newX][newY].piece.setMoved(true);
-
+        if(this.isCastling(piece, oldPosition, newPosition)){
+            if(newPosition.x - oldPosition.x === 2){
+                this.grid[5][oldPosition.y].piece = this.grid[7][oldPosition.y].piece;
+                this.grid[7][oldPosition.y].piece = null;
+            }else if (newPosition.x - oldPosition.x === -2){
+                this.grid[3][oldPosition.y].piece = this.grid[0][oldPosition.y].piece;
+                this.grid[0][oldPosition.y].piece = null;
+            }
+        }
         if ((newPosition.y === 0 || newPosition.y === 7) && this.grid[newPosition.x][newPosition.y].getContents().getImage().indexOf("pawn") !== -1) {
             $("#promotion").show();
             submitted = false;
@@ -74,7 +82,7 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
                 }
             });
         }
-
+        
         var afterAttacks = myGame.attackedPieces(myGame.otherTurn());
         this.addFlair(initialAttacks, afterAttacks);
         if (submitted === undefined) {
@@ -91,6 +99,9 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
     if (message !== undefined) {
         messageUser(message, true);
     }
+}
+Board.prototype.isCastling = function isCastling(piece, oldPosition, newPosition){
+    return piece instanceof King && Math.abs(newPosition.x - oldPosition.x) === 2;
 }
 Board.prototype.addFlair = function addFlair(initialAttacks, afterAttacks) {
     for (var i = afterAttacks.length - 1; i >= 0; i--) {

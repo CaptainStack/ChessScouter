@@ -3,6 +3,7 @@ function King(color) {
     this.color = color;
     this.captured = false;
     this.image = color + "_king.svg";
+    this.hasMoved = false;
 }
 King.prototype.getColor = function getColor(){
     return this.color;
@@ -41,6 +42,57 @@ King.prototype.getLegalMoves = function getLegalMoves(currentPosition){
     for(var i = legalMoves.length - 1; i >= 0; i--){
         if(myGame.gameBoard.occupiedBy(new Position(legalMoves[i].x, legalMoves[i].y)) == this.color){
             legalMoves.splice(i, 1);
+        }
+    }
+    if(this.color === "white" && !myGame.isInCheck("white") && !this.hasMoved){
+        if(myGame.gameBoard.grid[5][7].piece === null && myGame.gameBoard.grid[6][7].piece === null && !myGame.gameBoard.grid[7][7].piece.hasMoved && myGame.gameBoard.grid[7][7].piece.image === "white_rook.svg"){
+            var throughCheck = false;
+            var otherAttacks = myGame.getAllLegalAttacks("black");
+            for(var i = 0; i < otherAttacks.length; i++){
+                if((otherAttacks[i].x == 5 && otherAttacks[i].y == 7) || (otherAttacks[i].x == 6 && otherAttacks[i].y == 7)){
+                    throughCheck = true;
+                }
+            }
+            if(!throughCheck){
+                legalMoves.push(new Position(6, 7));
+            }
+        }
+        if(myGame.gameBoard.grid[1][7].piece === null && myGame.gameBoard.grid[2][7].piece === null && myGame.gameBoard.grid[3][7].piece === null && !myGame.gameBoard.grid[0][7].piece.hasMoved && myGame.gameBoard.grid[0][7].piece.image === "white_rook.svg"){
+            var throughCheck = false;
+            var otherAttacks = myGame.getAllLegalAttacks("black");
+            for(var i = 0; i < otherAttacks.length; i++){
+                if((otherAttacks[i].x == 1 && otherAttacks[i].y == 7) || (otherAttacks[i].x == 2 && otherAttacks[i].y == 7) || (otherAttacks[i].x == 3 && otherAttacks[i].y == 7)){
+                    throughCheck = true;
+                }
+            }
+            if(!throughCheck){
+                legalMoves.push(new Position(2, 7));
+            }
+        }
+    }else{
+        if(myGame.gameBoard.grid[5][0].piece === null && myGame.gameBoard.grid[6][0].piece === null && !myGame.gameBoard.grid[7][0].piece.hasMoved && myGame.gameBoard.grid[7][0].piece.image === "black_rook.svg"){
+            var throughCheck = false;
+            var otherAttacks = myGame.getAllLegalAttacks("white");
+            for(var i = 0; i < otherAttacks.length; i++){
+                if((otherAttacks[i].x == 5 && otherAttacks[i].y == 0) || (otherAttacks[i].x == 6 && otherAttacks[i].y == 0)){
+                    throughCheck = true;
+                }
+            }
+            if(!throughCheck){
+                legalMoves.push(new Position(6, 0));
+            }
+        }
+        if(myGame.gameBoard.grid[1][0].piece === null && myGame.gameBoard.grid[2][0].piece === null && myGame.gameBoard.grid[3][0].piece === null && !myGame.gameBoard.grid[0][0].piece.hasMoved && myGame.gameBoard.grid[0][0].piece.image === "black_rook.svg"){
+            var throughCheck = false;
+            var otherAttacks = myGame.getAllLegalAttacks("white");
+            for(var i = 0; i < otherAttacks.length; i++){
+                if((otherAttacks[i].x == 1 && otherAttacks[i].y == 0) || (otherAttacks[i].x == 2 && otherAttacks[i].y == 0) || (otherAttacks[i].x == 3 && otherAttacks[i].y == 0)){
+                    throughCheck = true;
+                }
+            }
+            if(!throughCheck){
+                legalMoves.push(new Position(2, 0));
+            }
         }
     }
     return legalMoves;
