@@ -54,22 +54,24 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
             submitted = false;
             $("#board").off();
             $("#submit").on("click", function() {
-                var pieceType = $("#promotionOptions").val();
-                if (pieceType === "Queen") {
-                    myGame.gameBoard.grid[myGame.gameBoard.promoPosition.x][myGame.gameBoard.promoPosition.y].piece = new Queen(myGame.whoseTurn());
-                } else if (pieceType === "Rook") {
-                    myGame.gameBoard.grid[myGame.gameBoard.promoPosition.x][myGame.gameBoard.promoPosition.y].piece = new Rook(myGame.whoseTurn());
-                } else if (pieceType === "Bishop") {
-                    myGame.gameBoard.grid[myGame.gameBoard.promoPosition.x][myGame.gameBoard.promoPosition.y].piece = new Bishop(myGame.whoseTurn());
-                } else if (pieceType === "Knight") {
-                    myGame.gameBoard.grid[myGame.gameBoard.promoPosition.x][myGame.gameBoard.promoPosition.y].piece = new Knight(myGame.whoseTurn());
+                if(myGame.gameBoard.promoPosition != undefined){
+                    var pieceType = $("#promotionOptions").val();
+                    if (pieceType === "Queen") {
+                        myGame.gameBoard.grid[myGame.gameBoard.promoPosition.x][myGame.gameBoard.promoPosition.y].piece = new Queen(myGame.whoseTurn());
+                    } else if (pieceType === "Rook") {
+                        myGame.gameBoard.grid[myGame.gameBoard.promoPosition.x][myGame.gameBoard.promoPosition.y].piece = new Rook(myGame.whoseTurn());
+                    } else if (pieceType === "Bishop") {
+                        myGame.gameBoard.grid[myGame.gameBoard.promoPosition.x][myGame.gameBoard.promoPosition.y].piece = new Bishop(myGame.whoseTurn());
+                    } else if (pieceType === "Knight") {
+                        myGame.gameBoard.grid[myGame.gameBoard.promoPosition.x][myGame.gameBoard.promoPosition.y].piece = new Knight(myGame.whoseTurn());
+                    }
+                    $("#promotion").hide();
+                    submitted = true;
+                    $("#board").on("click", "td", boardClicks);
+                    myGame.turn++;
+                    myGame.gameBoard.promoPosition = undefined;
+                    layoutBoard();
                 }
-                $("#promotion").hide();
-                submitted = true;
-                $("#board").on("click", "td", boardClicks);
-                myGame.turn++;
-                myGame.gameBoard.promoPosition = undefined;
-                layoutBoard();
             });
         }
 
