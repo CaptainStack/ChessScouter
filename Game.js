@@ -253,4 +253,48 @@ Game.prototype.attackedPieces = function attackedPieces(player){
         }
     }
     return initialAttacks;
+}
+Game.prototype.getWhiteForks = function getWhiteForks(){
+    //forks = empty list
+    //For each piece
+        //Get legal moves
+        //for each legal move
+            //make move
+            //if move results in >= 2 attacked pieces
+                //add position to "forks"
+    //return forks
+    
+    var forks = [];
+    var pieces = this.getPieces("white");
+    for(var i = 0; i < pieces.length; i++){
+        var pieceMoves = pieces[i].getLegalMoves(this.gameBoard.getPosition(pieces[i]));
+        for(var j = 0; j < pieceMoves.length; j++){
+            var initialAttacks = this.attackedPieces("black");
+            //Make the move but save information so move can be undone
+            
+            var piece = pieces[i];
+            var oldPosition = this.gameBoard.getPosition(piece);
+            var foreignContents = this.gameBoard.grid[pieceMoves[j].x][pieceMoves[j].y].getContents();
+            this.gameBoard.grid[pieceMoves[j].x][pieceMoves[j].y].piece = piece;
+            this.gameBoard.grid[oldPosition.x][oldPosition.y].piece = null;
+            
+            var afterAttacks = this.attackedPieces("black");
+            for (var k = afterAttacks.length - 1; k >= 0; k--) {
+                for (var l = initialAttacks.length - 1; l >= 0; l--) {
+                    if ((afterAttacks[k].x == initialAttacks[l].x) && (afterAttacks[k].y == initialAttacks[l].y)) {
+                        initialAttacks.splice(l, 1);
+                        afterAttacks.splice(k, 1);
+                        break;
+                    }
+                }
+            }
+            //Check if move results in more than 2 pieces under attack
+            if(afterAttacks.length >= 2){
+                forks.push(pieceMoves[j]);
+            }
+            this.gameBoard.grid[oldPosition.x][oldPosition.y].piece = piece;
+            this.gameBoard.grid[pieceMoves[j].x][pieceMoves[j].y].piece = foreignContents;
+        }
+    }
+    return forks;
 };

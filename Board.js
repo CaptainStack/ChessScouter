@@ -164,7 +164,6 @@ Board.prototype.getPosition = function getPosition(piece) {
             }
         }
     }
-
     return new Position(piece.x, piece.y);
 }
 Board.prototype.getKing = function getKing(player) {

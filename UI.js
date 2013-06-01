@@ -3,7 +3,7 @@ This file is the most global function and is what binds the logic and objects to
 DOM elements.
 */
 "use strict";
-var BOARD_SIZE = 350;
+var BOARD_SIZE = 400;
 var firstClick;
 var secondClick;
 var myGame;
@@ -45,6 +45,7 @@ function boardClicks() {
     var firstY = $(this).context.parentNode.rowIndex;
     if (firstClick == null && myGame.gameBoard.getPiece(firstX, firstY) !== null && myGame.gameBoard.getPiece(firstX, firstY).color == myGame.whoseTurn()) {
         firstClick = $(this);
+        firstClick.css("border-color", "blue");
         var piece = myGame.gameBoard.getPiece(firstX, firstY);
         var legalMoves = myGame.pieceLegalMoves(new Position(firstX, firstY));
         if ($("#legalMoves").attr("checked") != undefined) {
@@ -91,8 +92,17 @@ function layoutBoard() {
     if ($("#pieceFlair").attr("checked") != undefined) {
         showPieceFlair();
     }
+    if ($("#forks").attr("checked") != undefined) {
+        showForks();
+    }
 }
-
+function showForks(){
+    var forks = myGame.getWhiteForks();
+    for(var i = 0; i < forks.length; i++){
+        
+        $(getTableData(forks[i].x, forks[i].y)).css("background-image", "url(Assets/white_fork.svg)");
+    }
+}
 function showPieceFlair() {
     for (var i = 0; i < myGame.gameBoard.grid.length; i++) {
         for (var j = 0; j < myGame.gameBoard.grid[i].length; j++) {

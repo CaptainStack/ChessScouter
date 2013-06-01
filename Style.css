@@ -80,6 +80,11 @@ td:hover {
     -ms-animation-name: pulse;
     -ms-animation-iteration-count: infinite;
     -ms-animation-direction: alternate;
+    
+    -moz-animation-duration: 1.5s;
+    -moz-animation-name: pulse;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-direction: alternate;
 }
 @-webkit-keyframes pulse {
     from {
@@ -90,6 +95,14 @@ td:hover {
     }
 }
 @-ms-keyframes pulse {
+    from {
+        opacity: .2;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@-moz-keyframes pulse {
     from {
         opacity: .2;
     }
