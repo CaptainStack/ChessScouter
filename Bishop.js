@@ -5,6 +5,7 @@ function Bishop(color) {
     this.color = color;
     this.captured = false;
     this.image = color + "_bishop.svg";
+    this.material = 3;
 }
 Bishop.prototype.getColor = function getColor(){
     return this.color;

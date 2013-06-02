@@ -4,6 +4,7 @@ function Pawn(color) {
     this.captured = false;
     this.hasMoved = false;
     this.image = color + "_pawn.svg";
+    this.material = 1;
 }
 Pawn.prototype.getColor = function getColor(){
     return this.color;

@@ -90,17 +90,7 @@ function layoutBoard() {
     if ($("#pieceFlair").attr("checked") != undefined) {
         showPieceFlair();
     }
-    // if ($("#forks").attr("checked") != undefined) {
-        // showForks();
-    // }
 }
-// function showForks(){
-    // var forks = myGame.getWhiteForks();
-    // for(var i = 0; i < forks.length; i++){
-        
-        // $(getTableData(forks[i].x, forks[i].y)).css("background-image", "url(Assets/white_fork.svg)");
-    // }
-// }
 function showPieceFlair() {
     for (var i = 0; i < myGame.gameBoard.grid.length; i++) {
         for (var j = 0; j < myGame.gameBoard.grid[i].length; j++) {

@@ -3,6 +3,7 @@ function Knight(color) {
 	this.color = color;
 	this.captured = false;
 	this.image = color + "_knight.svg";
+    this.material = 3;
 }
 Knight.prototype.getColor = function getColor(){
 	return this.color;

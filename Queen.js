@@ -3,6 +3,7 @@ function Queen(color) {
     this.color = color;
     this.captured = false;
     this.image = color + "_queen.svg";
+    this.material = 9;
 }
 Queen.prototype.getColor = function getColor(){
     return this.color;
