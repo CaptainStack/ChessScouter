@@ -23,20 +23,18 @@ $(function() {
 });
 
 function movePiece(first, second) {
-    var firstX = first.context.cellIndex;
-    var firstY = first.context.parentNode.rowIndex;
+    var firstX = first.x;
+    var firstY = first.y;
     if (myGame.gameBoard.getPiece(firstX, firstY)) {
         firstClick = null;
     }
     var piece = myGame.gameBoard.getPiece(firstX, firstY);
     if (myGame.whoseTurn() == piece.color) {
-        var secondX = second.context.cellIndex;
-        var secondY = second.context.parentNode.rowIndex;
+        var secondX = second.x;
+        var secondY = second.y;
         myGame.gameBoard.movePiece(new Position(firstX, firstY), new Position(secondX, secondY));
-        // layoutBoard();
     } else {
         messageUser("It's not your turn!", true);
-        // layoutBoard();
     }
 }
 
@@ -46,25 +44,24 @@ function boardClicks() {
     if (firstClick == null && myGame.gameBoard.getPiece(firstX, firstY) !== null && myGame.gameBoard.getPiece(firstX, firstY).color == myGame.whoseTurn()) {
         firstClick = $(this);
         firstClick.css("border-color", "blue");
+        firstClick = new Position(firstX, firstY);
         var piece = myGame.gameBoard.getPiece(firstX, firstY);
         var legalMoves = myGame.pieceLegalMoves(new Position(firstX, firstY));
         if ($("#legalMoves").attr("checked") != undefined) {
             for (var i = 0; i < legalMoves.length; i++) {
-                if (myGame.gameBoard.grid[legalMoves[i].x][legalMoves[i].y].getContents() === null) {
-                    getTableData(legalMoves[i].x, legalMoves[i].y).css("background-image", "url(Assets/blue_dot.svg)");
-                } else {
-                    getTableData(legalMoves[i].x, legalMoves[i].y).css("background-image", "url(Assets/blue_dot.svg), url(Assets/" + getImage(legalMoves[i].x, legalMoves[i].y) + ")");
-                }
+                myGame.gameBoard.grid[legalMoves[i].x][legalMoves[i].y].legalMove = true;
             }
         }
     } else if (firstClick !== null) {
-        secondClick = $(this);
+        // secondClick = $(this);
+        secondClick = new Position($(this).context.cellIndex, $(this).context.parentNode.rowIndex);
         movePiece(firstClick, secondClick);
         firstClick = null;
         secondClick = null;
     } else {
          messageUser("It's not your turn!", true);
     }
+    layoutBoard();
 }
 
 // 'Update' function updates the visual state of the board
@@ -75,7 +72,7 @@ function layoutBoard() {
         $("<div>").text(8 - i).css("vertical-align", "text-middle").css("line-height", BOARD_SIZE / 8 + 24 + "px").appendTo($("#tr" + i));
         for (var j = 0; j < myGame.gameBoard.grid[i].length; j++) {
             $("<td>")
-                .css("background-image", "url(" + "Assets/" + getImage(j, i) + ")")
+                .css("background-image", getBackgroundImageString(new Position(j, i)))
                 .addClass(occupied(j, i))
                 .attr("id", j + "-" + i)
                 .css("color", "white")
@@ -92,17 +89,17 @@ function layoutBoard() {
     if ($("#pieceFlair").attr("checked") != undefined) {
         showPieceFlair();
     }
-    if ($("#forks").attr("checked") != undefined) {
-        showForks();
-    }
+    // if ($("#forks").attr("checked") != undefined) {
+        // showForks();
+    // }
 }
-function showForks(){
-    var forks = myGame.getWhiteForks();
-    for(var i = 0; i < forks.length; i++){
+// function showForks(){
+    // var forks = myGame.getWhiteForks();
+    // for(var i = 0; i < forks.length; i++){
         
-        $(getTableData(forks[i].x, forks[i].y)).css("background-image", "url(Assets/white_fork.svg)");
-    }
-}
+        // $(getTableData(forks[i].x, forks[i].y)).css("background-image", "url(Assets/white_fork.svg)");
+    // }
+// }
 function showPieceFlair() {
     for (var i = 0; i < myGame.gameBoard.grid.length; i++) {
         for (var j = 0; j < myGame.gameBoard.grid[i].length; j++) {
@@ -112,7 +109,22 @@ function showPieceFlair() {
         }
     }
 }
-
+function getBackgroundImageString(position){
+    var piece = "";
+    var dot = "";
+    var fork = "";
+    if(myGame.gameBoard.grid[position.x][position.y].legalMove){
+        dot = "url(Assets/blue_dot.svg)";
+    }
+    if(myGame.gameBoard.getPiece(position.x, position.y) != null){
+        if(dot !== ""){
+            piece = ", url(Assets/" + myGame.gameBoard.getPiece(position.x, position.y).image + ")";
+        }else{
+            piece = "url(Assets/" + myGame.gameBoard.getPiece(position.x, position.y).image + ")";
+        }
+    }
+    return dot + piece;
+}
 function showSpaceControl() {
     var blackAttacks = myGame.getAllLegalAttacks("black");
     for (var i = 0; i < blackAttacks.length; i++) {

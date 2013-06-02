@@ -99,6 +99,14 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
     if (message !== undefined) {
         messageUser(message, true);
     }
+    this.removeLegalMoves();
+}
+Board.prototype.removeLegalMoves = function removeLegalMoves(){
+    for (var i = 0; i < this.grid.length; i++) {
+        for (var j = 0; j < this.grid[i].length; j++) {
+            this.grid[i][j].legalMove = false;
+        }
+    }
 }
 Board.prototype.isCastling = function isCastling(piece, oldPosition, newPosition){
     return piece instanceof King && Math.abs(newPosition.x - oldPosition.x) === 2;
