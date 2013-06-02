@@ -85,6 +85,7 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
         
         var afterAttacks = myGame.attackedPieces(myGame.otherTurn());
         this.addFlair(initialAttacks, afterAttacks);
+        this.addForks();
         if (submitted === undefined) {
             myGame.turn++;
         } else {
@@ -123,6 +124,12 @@ Board.prototype.addFlair = function addFlair(initialAttacks, afterAttacks) {
     }
     for (var i = 0; i < afterAttacks.length; i++) {
         myGame.gameBoard.grid[afterAttacks[i].x][afterAttacks[i].y].flair = true;
+    }
+}
+Board.prototype.addForks = function addForks() {
+    var forks = myGame.getWhiteForks();
+    for(var i = 0; i < forks.length; i++){
+        this.grid[forks[i].x][forks[i].y].fork = true;
     }
 }
 Board.prototype.checkStates = function checkStates() {

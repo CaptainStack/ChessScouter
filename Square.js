@@ -7,6 +7,7 @@ function Square(x, y, piece) {
 	this.piece = piece;
     this.flair = false;
     this.legalMove = false;
+    this.fork = false;
 }
 Square.prototype.getContents = function getContents(){
 	if(this.piece != null){

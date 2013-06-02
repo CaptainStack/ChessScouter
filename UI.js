@@ -116,14 +116,21 @@ function getBackgroundImageString(position){
     if(myGame.gameBoard.grid[position.x][position.y].legalMove){
         dot = "url(Assets/blue_dot.svg)";
     }
+    if ($("#forks").attr("checked") != undefined && myGame.gameBoard.grid[position.x][position.y].fork === true) {
+        if(dot === ""){
+            fork = "url(Assets/white_fork.svg)";
+        }else{
+            fork = ", url(Assets/white_fork.svg)";
+        }
+    }
     if(myGame.gameBoard.getPiece(position.x, position.y) != null){
-        if(dot !== ""){
+        if(dot !== "" || fork !== ""){
             piece = ", url(Assets/" + myGame.gameBoard.getPiece(position.x, position.y).image + ")";
         }else{
             piece = "url(Assets/" + myGame.gameBoard.getPiece(position.x, position.y).image + ")";
         }
     }
-    return dot + piece;
+    return dot + fork + piece;
 }
 function showSpaceControl() {
     var blackAttacks = myGame.getAllLegalAttacks("black");
