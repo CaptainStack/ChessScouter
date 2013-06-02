@@ -73,7 +73,6 @@ function layoutBoard() {
         $("<div>").text(8 - i).css("vertical-align", "text-middle").css("line-height", BOARD_SIZE / 8 + 24 + "px").appendTo($("#tr" + i));
         for (var j = 0; j < myGame.gameBoard.grid[i].length; j++) {
             $("<td>")
-                .css("background-image", getBackgroundImageString(new Position(j, i)))
                 .addClass(occupied(j, i))
                 .attr("id", j + "-" + i)
                 .css("color", "white")
@@ -81,7 +80,8 @@ function layoutBoard() {
                 .css("height", BOARD_SIZE / 8)
                 .css("background-position", "center")
                 .css("background-repeat", "no-repeat")
-                .appendTo("#tr" + i);
+                .appendTo("#tr" + i)
+                .css("background-image", getBackgroundImageString(new Position(j, i)));
         }
     }
     if ($("#space").attr("checked") != undefined) {
@@ -130,6 +130,16 @@ function getBackgroundImageString(position){
         }else{
             piece = "url(Assets/" + myGame.gameBoard.getPiece(position.x, position.y).image + ")";
         }
+    }
+    if(fork !== ""){
+        var backgroundPosition = "bottom right";
+        if(dot !== ""){
+            backgroundPosition = "center center, " + backgroundPosition;
+        }
+        if(piece !== ""){
+            backgroundPosition += ", center center";
+        }
+        getTableData(position.x, position.y).css("background-position", backgroundPosition);
     }
     return dot + fork + piece;
 }
