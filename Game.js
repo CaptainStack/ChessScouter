@@ -206,7 +206,11 @@ Game.prototype.isInStalemate = function isInStalemate(player){
             legalMoves.push(pieceMoves[i]);
         }
     }
-    if((legalMoves.length === 0 && !this.isInCheck(player)) || ((this.getPieces("white").length === 1 && this.findKing(player) !== null) && (this.getPieces("black").length === 1 && this.findKing(player))) ){
+    if(
+        (legalMoves.length === 0 && !this.isInCheck(player)) || 
+        ((this.getPieces("white").length === 1 && this.findKing(player) !== null) && (this.getPieces("black").length === 1 && this.findKing(player))) ||
+        ((this.getPieces("white").length === 1 && this.getPieces("white")[0] instanceof King) && (this.getPieces("black").length === 1 && this.getPieces("black")[0] instanceof King))
+    ){
         return true;
     }else{
         return false;

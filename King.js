@@ -44,8 +44,15 @@ King.prototype.getLegalMoves = function getLegalMoves(currentPosition){
             legalMoves.splice(i, 1);
         }
     }
+    //Castling logic
     if(this.color === "white" && !myGame.isInCheck("white") && !this.hasMoved){
-        if(myGame.gameBoard.grid[5][7].piece === null && myGame.gameBoard.grid[6][7].piece === null && !myGame.gameBoard.grid[7][7].piece.hasMoved && myGame.gameBoard.grid[7][7].piece.image === "white_rook.svg"){
+        if(
+            myGame.gameBoard.grid[5][7].piece === null && 
+            myGame.gameBoard.grid[6][7].piece === null && 
+            myGame.gameBoard.grid[7][7].piece !== null &&
+            !myGame.gameBoard.grid[7][7].piece.hasMoved && 
+            myGame.gameBoard.grid[7][7].piece.image === "white_rook.svg"
+        ){
             var throughCheck = false;
             var otherAttacks = myGame.getAllLegalAttacks("black");
             for(var i = 0; i < otherAttacks.length; i++){
@@ -57,7 +64,14 @@ King.prototype.getLegalMoves = function getLegalMoves(currentPosition){
                 legalMoves.push(new Position(6, 7));
             }
         }
-        if(myGame.gameBoard.grid[1][7].piece === null && myGame.gameBoard.grid[2][7].piece === null && myGame.gameBoard.grid[3][7].piece === null && !myGame.gameBoard.grid[0][7].piece.hasMoved && myGame.gameBoard.grid[0][7].piece.image === "white_rook.svg"){
+        if(
+            myGame.gameBoard.grid[1][7].piece === null && 
+            myGame.gameBoard.grid[2][7].piece === null && 
+            myGame.gameBoard.grid[3][7].piece === null && 
+            myGame.gameBoard.grid[0][7].piece !== null &&
+            !myGame.gameBoard.grid[0][7].piece.hasMoved &&
+            myGame.gameBoard.grid[0][7].piece.image === "white_rook.svg"
+        ){
             var throughCheck = false;
             var otherAttacks = myGame.getAllLegalAttacks("black");
             for(var i = 0; i < otherAttacks.length; i++){
@@ -70,7 +84,13 @@ King.prototype.getLegalMoves = function getLegalMoves(currentPosition){
             }
         }
     }else{
-        if(myGame.gameBoard.grid[5][0].piece === null && myGame.gameBoard.grid[6][0].piece === null && !myGame.gameBoard.grid[7][0].piece.hasMoved && myGame.gameBoard.grid[7][0].piece.image === "black_rook.svg"){
+        if(
+            myGame.gameBoard.grid[5][0].piece === null && 
+            myGame.gameBoard.grid[6][0].piece === null && 
+            myGame.gameBoard.grid[7][0].piece !== null &&
+            !myGame.gameBoard.grid[7][0].piece.hasMoved && 
+            myGame.gameBoard.grid[7][0].piece.image === "black_rook.svg"
+        ){
             var throughCheck = false;
             var otherAttacks = myGame.getAllLegalAttacks("white");
             for(var i = 0; i < otherAttacks.length; i++){
@@ -82,7 +102,14 @@ King.prototype.getLegalMoves = function getLegalMoves(currentPosition){
                 legalMoves.push(new Position(6, 0));
             }
         }
-        if(myGame.gameBoard.grid[1][0].piece === null && myGame.gameBoard.grid[2][0].piece === null && myGame.gameBoard.grid[3][0].piece === null && !myGame.gameBoard.grid[0][0].piece.hasMoved && myGame.gameBoard.grid[0][0].piece.image === "black_rook.svg"){
+        if(
+            myGame.gameBoard.grid[1][0].piece === null && 
+            myGame.gameBoard.grid[2][0].piece === null && 
+            myGame.gameBoard.grid[3][0].piece === null && 
+            myGame.gameBoard.grid[0][0].piece !== null &&
+            !myGame.gameBoard.grid[0][0].piece.hasMoved && 
+            myGame.gameBoard.grid[0][0].piece.image === "black_rook.svg"
+        ){
             var throughCheck = false;
             var otherAttacks = myGame.getAllLegalAttacks("white");
             for(var i = 0; i < otherAttacks.length; i++){

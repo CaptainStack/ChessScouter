@@ -36,6 +36,7 @@ Board.prototype.getPiece = function getPiece(x, y) {
 //TODO If destination is enemy piece, don't null out, but set to captured and move out of the way.
 Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
     this.removeFlair();
+    this.removeForks();
     var oldX = oldPosition.x;
     var oldY = oldPosition.y;
     var newX = newPosition.x;
@@ -106,6 +107,13 @@ Board.prototype.removeLegalMoves = function removeLegalMoves(){
     for (var i = 0; i < this.grid.length; i++) {
         for (var j = 0; j < this.grid[i].length; j++) {
             this.grid[i][j].legalMove = false;
+        }
+    }
+}
+Board.prototype.removeForks = function removeForks(){
+    for (var i = 0; i < this.grid.length; i++) {
+        for (var j = 0; j < this.grid[i].length; j++) {
+            this.grid[i][j].fork = false;
         }
     }
 }
