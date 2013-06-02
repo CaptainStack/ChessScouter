@@ -29,7 +29,7 @@ function movePiece(first, second) {
         firstClick = null;
     }
     var piece = myGame.gameBoard.getPiece(firstX, firstY);
-    if (myGame.whoseTurn() == piece.color) {
+    if (myGame.whoseTurn() === piece.color) {
         var secondX = second.x;
         var secondY = second.y;
         myGame.gameBoard.movePiece(new Position(firstX, firstY), new Position(secondX, secondY));
@@ -43,7 +43,6 @@ function boardClicks() {
     var firstY = $(this).context.parentNode.rowIndex;
     if (firstClick == null && myGame.gameBoard.getPiece(firstX, firstY) !== null && myGame.gameBoard.getPiece(firstX, firstY).color == myGame.whoseTurn()) {
         firstClick = $(this);
-        firstClick.css("border-color", "blue");
         firstClick = new Position(firstX, firstY);
         var piece = myGame.gameBoard.getPiece(firstX, firstY);
         var legalMoves = myGame.pieceLegalMoves(new Position(firstX, firstY));
@@ -52,16 +51,18 @@ function boardClicks() {
                 myGame.gameBoard.grid[legalMoves[i].x][legalMoves[i].y].legalMove = true;
             }
         }
+        layoutBoard();
+        getTableData(firstX, firstY).css("border-color", "blue");
     } else if (firstClick !== null) {
         // secondClick = $(this);
         secondClick = new Position($(this).context.cellIndex, $(this).context.parentNode.rowIndex);
         movePiece(firstClick, secondClick);
         firstClick = null;
         secondClick = null;
+        layoutBoard();
     } else {
-         messageUser("It's not your turn!", true);
+        messageUser("It's not your turn!", true);
     }
-    layoutBoard();
 }
 
 // 'Update' function updates the visual state of the board
