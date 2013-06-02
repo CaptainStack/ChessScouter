@@ -142,9 +142,11 @@ Board.prototype.addForks = function addForks() {
 }
 Board.prototype.checkStates = function checkStates() {
     if (myGame.isInStalemate(myGame.whoseTurn())) {
+        $("#board").off();
         return "stalemate!";
     } else if (myGame.isInCheck(myGame.whoseTurn())) {
         if (myGame.isInCheckmate(myGame.whoseTurn())) {
+            $("#board").off();
             return "checkmate!";
         }
         return "check!";
