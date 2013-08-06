@@ -4,6 +4,7 @@ function Queen(color) {
     this.captured = false;
     this.image = color + "_queen.svg";
     this.material = 9;
+    this.type = "queen";
 }
 Queen.prototype.getColor = function getColor(){
     return this.color;

@@ -216,20 +216,68 @@ Game.prototype.isInStalemate = function isInStalemate(player){
         return false;
     }
 }
-Game.prototype.clone = function clone(){
-    var gameClone = new Game();
-    for(var i = 0; i < this.gameBoard.grid.length; i++){
-        for(var j = 0; j < this.gameBoard.grid[i].length; j++){
-            if(myGame.gameBoard.grid[i][j].getContents() !== null){
-                var pieceClone = jQuery.extend(true, {}, myGame.gameBoard.grid[i][j].getContents());
-                gameClone.gameBoard.grid[i][j].piece = pieceClone;
+Game.prototype.insufficientMatingMaterial = function insufficientMatingMaterial(){
+    var sufficient = true;
+    var whitePieces = this.getPieces("white");
+    var blackPieces = this.getPieces("black");
+    var allPieces = this.getPieces("all");
+    
+    if(allPieces.length > 4){
+        return false;
+    }else{
+        var whiteKnights = 0;
+        var whiteBishops = 0;
+        var blackKnights = 0;
+        var blackBishops = 0;
+        var whiteBishopSquareColor = undefined;
+        var blackBishopSquareColor = undefined;
+        for(var i = 0; i < allPieces.length; i++){
+            if(allPieces[i] instanceof Rook || allPieces[i] instanceof Queen || allPieces[i] instanceof Pawn){
+                return false;
             }else{
-                gameClone.gameBoard.grid[i][j].piece = null;
+                var color = allPieces[i].color;
+                var type = allPieces[i].type;
+                
+                switch(type)
+                {
+                case "bishop":
+                    if(color === "black"){
+                        blackBishops++;
+                        blackBishopSquareColor = this.gameBoard.getPosition(allPieces[i]).x % 2 === this.gameBoard.getPosition(allPieces[i]).y % 2;
+                        break;
+                    }else{
+                        whiteBishops++;
+                        whiteBishopSquareColor = this.gameBoard.getPosition(allPieces[i]).x % 2 === this.gameBoard.getPosition(allPieces[i]).y % 2;
+                        break;
+                    }
+                case "knight":
+                    if(color === "black"){
+                        blackKnights++;
+                    }else{
+                        whiteKnights++;
+                    }
+                    break;
+                case "king":
+                    break;
+                }
             }
         }
-    }
-    return gameClone;
+        if(
+            (whiteKnights === 0 && whiteBishops === 0 && blackKnights === 0 && blackBishops === 0) ||
+            (whiteKnights === 1 && whiteBishops === 0 && blackKnights === 0 && blackBishops === 0) ||
+            (whiteKnights === 0 && whiteBishops === 1 && blackKnights === 0 && blackBishops === 0) ||
+            (whiteKnights === 0 && whiteBishops === 0 && blackKnights === 1 && blackBishops === 0) ||
+            (whiteKnights === 0 && whiteBishops === 0 && blackKnights === 0 && blackBishops === 1) ||
+            ((whiteKnights === 0 && whiteBishops === 1 && blackKnights === 0 && blackBishops === 1) && (blackBishopSquareColor === whiteBishopSquareColor))
+        ){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }    
 }
+
 Game.prototype.pieceLegalMoves = function pieceLegalMoves(position){
     var piece = myGame.gameBoard.grid[position.x][position.y].piece;
     var legalMoves = piece.getLegalMoves(position);
@@ -259,15 +307,6 @@ Game.prototype.attackedPieces = function attackedPieces(player){
     return initialAttacks;
 }
 Game.prototype.getWhiteForks = function getWhiteForks(){
-    //forks = empty list
-    //For each piece
-        //Get legal moves
-        //for each legal move
-            //make move
-            //if move results in >= 2 attacked pieces
-                //add position to "forks"
-    //return forks
-    
     var forks = [];
     var pieces = this.getPieces("white");
     for(var i = 0; i < pieces.length; i++){

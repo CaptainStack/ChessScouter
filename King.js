@@ -5,6 +5,7 @@ function King(color) {
     this.image = color + "_king.svg";
     this.hasMoved = false;
     this.material = 100;
+    this.type = "king";
 }
 King.prototype.getColor = function getColor(){
     return this.color;

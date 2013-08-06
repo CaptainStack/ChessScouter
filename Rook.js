@@ -5,6 +5,7 @@ function Rook(color){
     this.image = color + "_rook.svg";
     this.hasMoved = false;
     this.material = 5;
+    this.type = "rook";
 }
 Rook.prototype.getColor = function getColor(){
     return this.color;

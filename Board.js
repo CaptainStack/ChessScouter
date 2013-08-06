@@ -144,7 +144,11 @@ Board.prototype.checkStates = function checkStates() {
     if (myGame.isInStalemate(myGame.whoseTurn())) {
         $("#board").off();
         return "stalemate!";
-    } else if (myGame.isInCheck(myGame.whoseTurn())) {
+    }else if(myGame.insufficientMatingMaterial()){
+        $("#board").off();
+        return "Insufficient pieces for checkmate. Draw!";
+    }    
+    else if (myGame.isInCheck(myGame.whoseTurn())) {
         if (myGame.isInCheckmate(myGame.whoseTurn())) {
             $("#board").off();
             return "checkmate!";
