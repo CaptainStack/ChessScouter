@@ -5,6 +5,7 @@
 function Board(grid) {
     this.grid = grid;
     this.promoPosition = undefined;
+    this.lastPiece = undefined;
 }
 Board.prototype.showPieces = function showPieces() {
     var message = "The current pieces on the board are: ";
@@ -46,9 +47,18 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
     var piece = this.grid[oldX][oldY].piece;
     var initialAttacks = myGame.attackedPieces(myGame.otherTurn());
     if (this.isLegalMove(oldPosition, newPosition)) {
-        this.grid[oldX][oldY].piece = null;
-        this.grid[newX][newY].piece = piece;
-        this.grid[newX][newY].piece.setMoved(true);
+        if(piece instanceof Pawn && !this.grid[newPosition.x][newPosition.y].getContents()){
+            this.grid[oldX][oldY].piece = null;
+            this.grid[newX][newY].piece = piece;
+            this.grid[newX][oldY].piece = null;
+        }else{
+            this.grid[oldX][oldY].piece = null;
+            this.grid[newX][newY].piece = piece;
+        }
+            this.grid[newX][newY].piece.setMoved(true);
+        if(this.isMovingDouble(piece, oldPosition, newPosition)){
+            piece.movedDouble = true;
+        }
         if(this.isCastling(piece, oldPosition, newPosition)){
             if(newPosition.x - oldPosition.x === 2){
                 this.grid[5][oldPosition.y].piece = this.grid[7][oldPosition.y].piece;
@@ -102,6 +112,7 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
         messageUser(message, true);
     }
     this.removeLegalMoves();
+    this.lastPiece = piece;
 }
 Board.prototype.removeLegalMoves = function removeLegalMoves(){
     for (var i = 0; i < this.grid.length; i++) {
@@ -116,6 +127,9 @@ Board.prototype.removeForks = function removeForks(){
             this.grid[i][j].fork = false;
         }
     }
+}
+Board.prototype.isMovingDouble = function isMovingDouble(piece, oldPosition, newPosition){
+    return piece instanceof Pawn && Math.abs(newPosition.y - oldPosition.y) === 2;
 }
 Board.prototype.isCastling = function isCastling(piece, oldPosition, newPosition){
     return piece instanceof King && Math.abs(newPosition.x - oldPosition.x) === 2;

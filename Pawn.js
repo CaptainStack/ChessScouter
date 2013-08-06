@@ -6,7 +6,7 @@ function Pawn(color) {
     this.image = color + "_pawn.svg";
     this.material = 1;
     this.type = "pawn";
-    this.justUsedDouble = false;
+    this.movedDouble = false;
 }
 Pawn.prototype.getColor = function getColor(){
     return this.color;
@@ -57,6 +57,14 @@ Pawn.prototype.getLegalMoves = function getLegalMoves(currentPosition){
         if(myGame.gameBoard.occupiedBy(new Position(x + 1, y - 1)) == "black"){
             potentialMoves.push(new Position(x + 1, y - 1));
         }
+        if(y == 3 && myGame.gameBoard.lastPiece instanceof Pawn && myGame.gameBoard.getPosition(myGame.gameBoard.lastPiece).y == 3 && myGame.gameBoard.lastPiece.movedDouble){
+            if(myGame.gameBoard.getPosition(myGame.gameBoard.lastPiece).x == x - 1){
+                potentialMoves.push(new Position(x - 1, y - 1));
+            }
+            else if(myGame.gameBoard.getPosition(myGame.gameBoard.lastPiece).x == myGame.gameBoard.getPosition(this).x + 1){
+                potentialMoves.push(new Position(x + 1, y - 1));
+            }
+        }
     }else{
         if(myGame.gameBoard.occupiedBy(new Position(x, y + 1)) == null){
             potentialMoves.push(new Position(x, y + 1));
@@ -69,6 +77,14 @@ Pawn.prototype.getLegalMoves = function getLegalMoves(currentPosition){
         }
         if(myGame.gameBoard.occupiedBy(new Position(x + 1, y + 1)) == "white"){
             potentialMoves.push(new Position(x + 1, y + 1));
+        }
+        if(y == 4 && myGame.gameBoard.lastPiece instanceof Pawn && myGame.gameBoard.getPosition(myGame.gameBoard.lastPiece).y == 4 && myGame.gameBoard.lastPiece.movedDouble){
+            if(myGame.gameBoard.getPosition(myGame.gameBoard.lastPiece).x == x - 1){
+                potentialMoves.push(new Position(x - 1, y + 1));
+            }
+            else if(myGame.gameBoard.getPosition(myGame.gameBoard.lastPiece).x == myGame.gameBoard.getPosition(this).x + 1){
+                potentialMoves.push(new Position(x + 1, y + 1));
+            }
         }
     }
 	// var thisPosition = myGame.gameBoard.getPosition(this);
