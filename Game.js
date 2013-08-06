@@ -53,7 +53,6 @@ function Game() {
 		}
 	}
 	this.gameBoard = new Board(grid);
-    // layoutBoard();
 }
 Game.prototype.whoseTurn = function whoseTurn(){
 	if(this.turn % 2 === 0){
@@ -76,14 +75,7 @@ Game.prototype.otherPlayer = function otherPlayer(player){
         return "white"
     }
 }
-Game.prototype.makeMove = function makeMove(){
-	if(whoseTurn() == "white"){
-		
-	}else{
-		
-	}
-	this.turn++;
-}
+
 Game.prototype.getPieces = function getPieces(player){
 	var pieceList = [];
 	try{
@@ -137,18 +129,6 @@ Game.prototype.getAllLegalAttacks = function getAllLegalAttacks(player){
 //Add try catch behavior
 Game.prototype.isInCheck = function isInCheck(player) {
 	var pieces = myGame.getPieces(player);
-	// var king = null;
-	// var counter = 0;
-	// var kingFound = false;
-
-	// Loop over the board until the king is found
-	// while (!kingFound) {
-		// if (pieces[counter].getImage() == player + "_king.svg") {
-			// king = pieces[counter];
-			// kingFound = true;
-		// }
-		// counter++;
-	// }
     var king = this.findKing(player);
 	var enemyAttacks;
 	if(player == "white"){

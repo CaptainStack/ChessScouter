@@ -6,6 +6,7 @@ function Pawn(color) {
     this.image = color + "_pawn.svg";
     this.material = 1;
     this.type = "pawn";
+    this.justUsedDouble = false;
 }
 Pawn.prototype.getColor = function getColor(){
     return this.color;
