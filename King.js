@@ -85,7 +85,7 @@ King.prototype.getLegalMoves = function getLegalMoves(currentPosition){
                 legalMoves.push(new Position(2, 7));
             }
         }
-    }else{
+    }else if (this.color === "black" && !myGame.isInCheck("black") && !this.hasMoved){
         if(
             myGame.gameBoard.grid[5][0].piece === null && 
             myGame.gameBoard.grid[6][0].piece === null && 
