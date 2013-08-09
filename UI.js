@@ -17,10 +17,21 @@ $(function() {
     //Create a seperate method for first click and then another for second click.
     //TODO just pass legal moves to movePiece so you don't need to check twice.
     $("#board").on("click", "td", boardClicks)
+    $("#filters").on("click", ".help", alertHelp)
     $("#filters").on("click", "input", function() {
         layoutBoard();
     })
 });
+
+function alertHelp(){
+        var option = $(this).context.parentNode.innerText.substring(0, $(this).context.parentNode.innerText.length - 2);
+        alert(option);
+    $.getJSON("Messages.json", function(json) {
+        var option = $(this).context.parentNode.innerText.substring(0, $(this).context.parentNode.innerText.length - 2);
+        alert(option);
+        alert(json[option]);
+    });
+}
 
 function movePiece(first, second) {
     var firstX = first.x;
@@ -90,12 +101,25 @@ function layoutBoard() {
     if ($("#pieceFlair").attr("checked") != undefined) {
         showPieceFlair();
     }
+    showLastMove();
 }
 function showPieceFlair() {
     for (var i = 0; i < myGame.gameBoard.grid.length; i++) {
         for (var j = 0; j < myGame.gameBoard.grid[i].length; j++) {
             if (myGame.gameBoard.grid[i][j].flair === true) {
-                $(getTableData(i, j)).addClass("pieceFlair")
+                $(getTableData(i, j)).addClass("pieceFlair");
+            }
+        }
+    }
+}
+function showLastMove() {
+    for (var i = 0; i < myGame.gameBoard.grid.length; i++) {
+        for (var j = 0; j < myGame.gameBoard.grid[i].length; j++) {
+            if (myGame.gameBoard.grid[i][j].previous === true) {
+                $(getTableData(i, j)).attr("id", "previous");
+            }
+            if (myGame.gameBoard.grid[i][j].current === true) {
+                $(getTableData(i, j)).attr("id", "current");
             }
         }
     }

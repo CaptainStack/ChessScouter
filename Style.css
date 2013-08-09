@@ -59,6 +59,22 @@ td{
     padding: 10px;    
     border-spacing: 10px 5px;
 }
+#previous{
+    border: 2px dotted black;
+}
+#current{
+    border: 2px dotted black;
+}
+#previous:hover{
+    border: 2px dotted red;
+}
+#current:hover{
+    border: 2px dotted red;
+}
+.help{
+    decoration: none;
+    font-size: 8pt;
+}
 table{
     margin-left: auto;
     margin-right: auto;

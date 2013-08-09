@@ -96,6 +96,8 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
         
         var afterAttacks = myGame.attackedPieces(myGame.otherTurn());
         this.addFlair(initialAttacks, afterAttacks);
+        this.grid[oldX][oldY].previous = true;
+        this.grid[newX][newY].current = true;
         this.addForks();
         if (submitted === undefined) {
             myGame.turn++;
@@ -230,6 +232,8 @@ Board.prototype.removeFlair = function removeFlair() {
     for (var i = 0; i < this.grid.length; i++) {
         for (var j = 0; j < this.grid[i].length; j++) {
             this.grid[i][j].flair = false;
+            this.grid[i][j].current = false;
+            this.grid[i][j].previous = false;
         }
     }
 };
