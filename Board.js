@@ -104,7 +104,11 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
         }
         layoutBoard();
         message = this.checkStates();
-    } else {
+    } else if (oldX == newX && oldY == newY) {
+        layoutBoard();
+        message = '';
+    }
+    else {
         layoutBoard();
         message = 'That is an illegal move!';
     }
