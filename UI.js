@@ -17,18 +17,16 @@ $(function() {
     //Create a seperate method for first click and then another for second click.
     //TODO just pass legal moves to movePiece so you don't need to check twice.
     $("#board").on("click", "td", boardClicks)
-    $("#filters").on("click", ".help", alertHelp)
+    $("#filters").on("click", "label", alertHelp)
     $("#filters").on("click", "input", function() {
         layoutBoard();
     })
 });
 
 function alertHelp(){
-        var option = $(this).context.parentNode.innerText.substring(0, $(this).context.parentNode.innerText.length - 2);
-        alert(option);
+    var text = $(this).context.parentNode.textContent;
+    var option = text.substring(0, text.length - 4);
     $.getJSON("Messages.json", function(json) {
-        var option = $(this).context.parentNode.innerText.substring(0, $(this).context.parentNode.innerText.length - 2);
-        alert(option);
         alert(json[option]);
     });
 }

@@ -1,0 +1,7 @@
+{
+    "Space Control": "Red = a square black controls. Green = a square white controls. Yellow = a square contested by both players",
+    "Legal Moves": "Click on a piece and a blue dot will appear on all the squares that piece can move to",
+    "Piece Flair": "When you move a piece, all the pieces that come under attack as a direct result of the piece you moved will pulse white",
+    "Forks": "All the moves that would result in a simultaneous attack of two pieces are shown",
+    "Pins": "This feature is not yet implemented"
+}
