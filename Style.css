@@ -77,8 +77,8 @@ td{
     font-size: 8pt;
 }
 .help:hover{
-    decoration: bold;
-    font-size: 12pt;
+    font-weight: bold;
+    font-size: 14pt;
 }
 table{
     margin-left: auto;
