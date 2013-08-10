@@ -16,8 +16,8 @@ $(function() {
     $("#promotion").hide();
     //Create a seperate method for first click and then another for second click.
     //TODO just pass legal moves to movePiece so you don't need to check twice.
-    $("#board").on("click", "td", boardClicks)
-    $("#filters").on("click", "label", alertHelp)
+    $("#board").on("click", "td", boardClicks);
+    $(".help").click(alertHelp);
     $("#filters").on("click", "input", function() {
         layoutBoard();
     })
