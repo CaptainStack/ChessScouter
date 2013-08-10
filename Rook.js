@@ -6,6 +6,7 @@ function Rook(color){
     this.hasMoved = false;
     this.material = 5;
     this.type = "rook";
+    this.symbol = "R";
 }
 Rook.prototype.getColor = function getColor(){
     return this.color;

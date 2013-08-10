@@ -6,6 +6,7 @@ function King(color) {
     this.hasMoved = false;
     this.material = 100;
     this.type = "king";
+    this.symbol = "K";
 }
 King.prototype.getColor = function getColor(){
     return this.color;

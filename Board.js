@@ -44,9 +44,13 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
     var newY = newPosition.y;
     var message = undefined;
     var submitted = undefined;
+    var capture = false;
     var piece = this.grid[oldX][oldY].piece;
     var initialAttacks = myGame.attackedPieces(myGame.otherTurn());
     if (this.isLegalMove(oldPosition, newPosition)) {
+        if (this.grid[newX][newY].getContents() != null) {
+            capture = true;
+        }
         if(piece instanceof Pawn && !this.grid[newPosition.x][newPosition.y].getContents()){
             this.grid[oldX][oldY].piece = null;
             this.grid[newX][newY].piece = piece;
@@ -99,6 +103,12 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
         this.grid[oldX][oldY].previous = true;
         this.grid[newX][newY].current = true;
         this.addForks();
+        if(myGame.whoseTurn() == "white") {
+            $("#moveList").append("<li>" + this.createMoveString(piece, oldPosition, newPosition, capture) + "</li>");
+        } 
+        else{
+            $("#moveList").children()[$("#moveList").children().length - 1].textContent += "     " + this.createMoveString(piece, oldPosition, newPosition, capture);
+        }
         if (submitted === undefined) {
             myGame.turn++;
         } else {
@@ -119,10 +129,40 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
     }
     this.removeLegalMoves();
     this.lastPiece = piece;
-    $("#moveHistory").append("<li>" + piece.color + " " + piece.type + " moved from (" + String.fromCharCode(97 + oldX) + ", " + (8 - oldY) + ") " + "to (" + String.fromCharCode(97 + newX) + ", " + (8 - newY) + ")" + "</li>");
 }
-Board.prototype.createMoveString = function createMoveString () {
-
+Board.prototype.createMoveString = function createMoveString (piece, oldPosition, newPosition, capture, check, promotionType) {
+    var moveString = piece.symbol;
+    if (capture) {
+        if (piece instanceof Pawn) {
+            moveString += String.fromCharCode(97 + oldPosition.x);
+        }
+        moveString += "x";
+    }
+    myGame.getPieces(piece.color).forEach(function (otherPiece) {
+        if(piece.type === otherPiece.type && piece !== otherPiece && piece.type != "pawn") {
+            var otherPosition = myGame.gameBoard.getPosition(otherPiece);
+            otherPiece.getAttacks(otherPosition).forEach(function(otherMove){
+                if(otherMove.x == newPosition.x && otherMove.y == newPosition.y){
+                    if (otherPosition.x !== oldPosition.x) {
+                        moveString += String.fromCharCode(97 + oldPosition.x);
+                    } else if (otherPosition.y !== oldPosition.y) {
+                        moveString += oldPosition.y;
+                    } else {
+                        moveString += String.fromCharCode(97 + oldPosition.x) + oldPosition.y;
+                    }
+                }
+            })
+        }
+    });
+    moveString += String.fromCharCode(97 + newPosition.x) + newPosition.y;
+    if (myGame.isInCheck(myGame.otherPlayer(piece.color))) {
+        if (myGame.isInCheckmate(myGame.otherPlayer(piece.color))) {
+            moveString += "#";
+        }else {
+            moveString += "+";
+        }   
+    }
+    return moveString;
 }
 Board.prototype.removeLegalMoves = function removeLegalMoves(){
     for (var i = 0; i < this.grid.length; i++) {

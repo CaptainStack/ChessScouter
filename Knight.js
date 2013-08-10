@@ -5,6 +5,7 @@ function Knight(color) {
 	this.image = color + "_knight.svg";
     this.material = 3;
     this.type = "knight"
+    this.symbol = "N";
 }
 Knight.prototype.getColor = function getColor(){
 	return this.color;
