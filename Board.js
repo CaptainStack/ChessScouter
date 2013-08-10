@@ -119,6 +119,10 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
     }
     this.removeLegalMoves();
     this.lastPiece = piece;
+    $("#moveHistory").append("<li>" + piece.color + " " + piece.type + " moved from (" + String.fromCharCode(97 + oldX) + ", " + (8 - oldY) + ") " + "to (" + String.fromCharCode(97 + newX) + ", " + (8 - newY) + ")" + "</li>");
+}
+Board.prototype.createMoveString = function createMoveString () {
+
 }
 Board.prototype.removeLegalMoves = function removeLegalMoves(){
     for (var i = 0; i < this.grid.length; i++) {
