@@ -75,22 +75,22 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
             submitted = false;
             $("#board").off();
             $("#submit").on("click", function() {
-                if(this.promoPosition != undefined){
+                if(myGame.gameBoard.promoPosition != undefined){
                     var pieceType = $("#promotionOptions").val();
                     if (pieceType === "Queen") {
-                        myGame.gameBoard.grid[this.promoPosition.x][this.promoPosition.y].piece = new Queen(myGame.whoseTurn());
+                        myGame.gameBoard.grid[myGame.gameBoard.promoPosition.x][myGame.gameBoard.promoPosition.y].piece = new Queen(myGame.whoseTurn());
                     } else if (pieceType === "Rook") {
-                        myGame.gameBoard.grid[this.promoPosition.x][this.promoPosition.y].piece = new Rook(myGame.whoseTurn());
+                        myGame.gameBoard.grid[myGame.gameBoard.promoPosition.x][myGame.gameBoard.promoPosition.y].piece = new Rook(myGame.whoseTurn());
                     } else if (pieceType === "Bishop") {
-                        myGame.gameBoard.grid[this.promoPosition.x][this.promoPosition.y].piece = new Bishop(myGame.whoseTurn());
+                        myGame.gameBoard.grid[myGame.gameBoard.promoPosition.x][myGame.gameBoard.promoPosition.y].piece = new Bishop(myGame.whoseTurn());
                     } else if (pieceType === "Knight") {
-                        myGame.gameBoard.grid[this.promoPosition.x][this.promoPosition.y].piece = new Knight(myGame.whoseTurn());
+                        myGame.gameBoard.grid[myGame.gameBoard.promoPosition.x][myGame.gameBoard.promoPosition.y].piece = new Knight(myGame.whoseTurn());
                     }
                     $("#promotion").hide();
                     submitted = true;
                     $("#board").on("click", "td", boardClicks);
                     myGame.turn++;
-                    this.promoPosition = undefined;
+                    myGame.gameBoard.promoPosition = undefined;
                     layoutBoard();
                 }
             });
