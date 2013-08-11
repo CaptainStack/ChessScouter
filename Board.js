@@ -59,10 +59,8 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
             this.grid[oldX][oldY].piece = null;
             this.grid[newX][newY].piece = piece;
         }
-            this.grid[newX][newY].piece.setMoved(true);
-        if(this.isMovingDouble(piece, oldPosition, newPosition)){
-            piece.movedDouble = true;
-        }
+        this.grid[newX][newY].piece.setMoved(true);
+        piece.movedDouble = this.isMovingDouble(piece, oldPosition, newPosition);
         if(this.isCastling(piece, oldPosition, newPosition)){
             if(newPosition.x - oldPosition.x === 2){
                 this.grid[5][oldPosition.y].piece = this.grid[7][oldPosition.y].piece;
