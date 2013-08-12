@@ -193,7 +193,7 @@ Board.prototype.addFlair = function addFlair(initialAttacks, afterAttacks) {
         }
     }
     for (var i = 0; i < afterAttacks.length; i++) {
-        myGame.gameBoard.grid[afterAttacks[i].x][afterAttacks[i].y].flair = true;
+        this.grid[afterAttacks[i].x][afterAttacks[i].y].flair = true;
     }
 }
 Board.prototype.addForks = function addForks() {
