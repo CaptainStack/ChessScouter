@@ -9,31 +9,31 @@ function Pawn(color) {
     this.symbol = "";
     this.movedDouble = false;
 }
-Pawn.prototype.getColor = function getColor(){
+Pawn.prototype.getColor = function getColor() {
     return this.color;
 }
-Pawn.prototype.getImage = function getImage(){
+Pawn.prototype.getImage = function getImage() {
     return this.image;
 }
-Pawn.prototype.isCaptured = function isCaptured(){
+Pawn.prototype.isCaptured = function isCaptured() {
     return this.captured;
 }
-Pawn.prototype.setMoved = function setMoved(movedState){
+Pawn.prototype.setMoved = function setMoved(movedState) {
     this.hasMoved = movedState;
 }
-Pawn.prototype.getPotentialMoves = function getPotentialMoves(position){
+Pawn.prototype.getPotentialMoves = function getPotentialMoves(position) {
     var x = position.x;
     var y = position.y;
-    if(this.color == "white"){
+    if(this.color == "white") {
         var potentialMoves = [new Position(x, y - 1)];
-        if(!this.hasMoved){
+        if(!this.hasMoved) {
             potentialMoves.push(new Position(x, y - 2));
         }
         potentialMoves.push(new Position(x - 1, y - 1));
         potentialMoves.push(new Position(x + 1, y - 1));
     }else{
         var potentialMoves = [new Position(x, y + 1)];
-        if(!this.hasMoved){
+        if(!this.hasMoved) {
             potentialMoves.push(new Position(x, y + 2));
         }
         potentialMoves.push(new Position(x - 1, y + 1));
@@ -41,63 +41,63 @@ Pawn.prototype.getPotentialMoves = function getPotentialMoves(position){
     }
     return potentialMoves;
 }
-Pawn.prototype.getLegalMoves = function getLegalMoves(currentPosition){
+Pawn.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
     var potentialMoves = [];
     var x = currentPosition.x;
     var y = currentPosition.y;
     if(this.color == "white"){
-        if(myGame.gameBoard.occupiedBy(new Position(x, y - 1)) == null){
+        if(myGame.gameBoard.occupiedBy(new Position(x, y - 1)) == null) {
             potentialMoves.push(new Position(x, y - 1));
-            if(!this.hasMoved && myGame.gameBoard.occupiedBy(new Position(x, y - 2)) == null){
+            if(!this.hasMoved && myGame.gameBoard.occupiedBy(new Position(x, y - 2)) == null) {
                 potentialMoves.push(new Position(x, y - 2));
             }
         }
-        if(myGame.gameBoard.occupiedBy(new Position(x - 1, y - 1)) == "black"){
+        if(myGame.gameBoard.occupiedBy(new Position(x - 1, y - 1)) == "black") {
             potentialMoves.push(new Position(x - 1, y - 1));
         }
-        if(myGame.gameBoard.occupiedBy(new Position(x + 1, y - 1)) == "black"){
+        if(myGame.gameBoard.occupiedBy(new Position(x + 1, y - 1)) == "black") {
             potentialMoves.push(new Position(x + 1, y - 1));
         }
-        if(y == 3 && myGame.gameBoard.lastPiece instanceof Pawn && myGame.gameBoard.getPosition(myGame.gameBoard.lastPiece).y == 3 && myGame.gameBoard.lastPiece.movedDouble){
-            if(myGame.gameBoard.getPosition(myGame.gameBoard.lastPiece).x == x - 1){
+        if(y == 3 && myGame.gameBoard.lastPiece instanceof Pawn && myGame.gameBoard.getPosition(myGame.gameBoard.lastPiece).y == 3 && myGame.gameBoard.lastPiece.movedDouble) {
+            if(myGame.gameBoard.getPosition(myGame.gameBoard.lastPiece).x == x - 1) {
                 potentialMoves.push(new Position(x - 1, y - 1));
             }
-            else if(myGame.gameBoard.getPosition(myGame.gameBoard.lastPiece).x == myGame.gameBoard.getPosition(this).x + 1){
+            else if(myGame.gameBoard.getPosition(myGame.gameBoard.lastPiece).x == myGame.gameBoard.getPosition(this).x + 1) {
                 potentialMoves.push(new Position(x + 1, y - 1));
             }
         }
-    }else{
-        if(myGame.gameBoard.occupiedBy(new Position(x, y + 1)) == null){
+    } else {
+        if(myGame.gameBoard.occupiedBy(new Position(x, y + 1)) == null) {
             potentialMoves.push(new Position(x, y + 1));
-            if(!this.hasMoved && myGame.gameBoard.occupiedBy(new Position(x, y + 2)) == null){
+            if(!this.hasMoved && myGame.gameBoard.occupiedBy(new Position(x, y + 2)) == null) {
                 potentialMoves.push(new Position(x, y + 2));
             }
         }
-        if(myGame.gameBoard.occupiedBy(new Position(x - 1, y + 1)) == "white"){
+        if(myGame.gameBoard.occupiedBy(new Position(x - 1, y + 1)) == "white") {
             potentialMoves.push(new Position(x - 1, y + 1));
         }
-        if(myGame.gameBoard.occupiedBy(new Position(x + 1, y + 1)) == "white"){
+        if(myGame.gameBoard.occupiedBy(new Position(x + 1, y + 1)) == "white") {
             potentialMoves.push(new Position(x + 1, y + 1));
         }
-        if(y == 4 && myGame.gameBoard.lastPiece instanceof Pawn && myGame.gameBoard.getPosition(myGame.gameBoard.lastPiece).y == 4 && myGame.gameBoard.lastPiece.movedDouble){
-            if(myGame.gameBoard.getPosition(myGame.gameBoard.lastPiece).x == x - 1){
+        if(y == 4 && myGame.gameBoard.lastPiece instanceof Pawn && myGame.gameBoard.getPosition(myGame.gameBoard.lastPiece).y == 4 && myGame.gameBoard.lastPiece.movedDouble) {
+            if(myGame.gameBoard.getPosition(myGame.gameBoard.lastPiece).x == x - 1) {
                 potentialMoves.push(new Position(x - 1, y + 1));
             }
-            else if(myGame.gameBoard.getPosition(myGame.gameBoard.lastPiece).x == myGame.gameBoard.getPosition(this).x + 1){
+            else if(myGame.gameBoard.getPosition(myGame.gameBoard.lastPiece).x == myGame.gameBoard.getPosition(this).x + 1) {
                 potentialMoves.push(new Position(x + 1, y + 1));
             }
         }
     }
 	// var thisPosition = myGame.gameBoard.getPosition(this);
-	for(var i = potentialMoves.length - 1; i >= 0; i--){
-		if(!myGame.gameBoard.isOnBoard(potentialMoves[i])){
+	for(var i = potentialMoves.length - 1; i >= 0; i--) {
+		if(!myGame.gameBoard.isOnBoard(potentialMoves[i])) {
 			potentialMoves.splice(i, 1);
 		}
 	}
     return potentialMoves;
 }
 
-Pawn.prototype.getAttacks = function getAttacks(currentPosition){
+Pawn.prototype.getAttacks = function getAttacks(currentPosition) {
 	var attacks = [];
     var x = currentPosition.x;
     var y = currentPosition.y;
@@ -109,7 +109,7 @@ Pawn.prototype.getAttacks = function getAttacks(currentPosition){
 		attacks.push(new Position(x + 1, y + 1));
     }
 	for(var i = attacks.length - 1; i >= 0; i--){
-		if(!myGame.gameBoard.isOnBoard(attacks[i])){
+		if(!myGame.gameBoard.isOnBoard(attacks[i])) {
 			attacks.splice(i, 1);
 		}
 	}
