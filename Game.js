@@ -280,7 +280,7 @@ Game.prototype.attackedPieces = function attackedPieces(player) {
     var initialAttacks = this.getAllLegalAttacks(this.otherPlayer(player));
     for(var i = initialAttacks.length - 1; i >= 0; i--){
         if(this.gameBoard.grid[initialAttacks[i].x][initialAttacks[i].y].getContents() == null ||
-        this.gameBoard.grid[initialAttacks[i].x][initialAttacks[i].y].getContents().color == this.otherPlayer(player)){
+        this.gameBoard.grid[initialAttacks[i].x][initialAttacks[i].y].getContents().color == this.otherPlayer(player)) {
             initialAttacks.splice(i, 1);
         }
     }
