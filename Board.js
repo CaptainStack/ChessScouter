@@ -32,7 +32,7 @@ Board.prototype.removePiece = function removePiece(id) {
 //Pass me a square's x and y coordinates and I'll return the piece on that square. Null if not any
 Board.prototype.getPiece = function getPiece(x, y) {
     if (this.isOnBoard(new Position(x, y))) {
-        return this.grid[x][y].getContents();
+        return this.grid[x][y].piece;
     } else {
         return null;
     }
@@ -52,10 +52,10 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
     var piece = this.grid[oldX][oldY].piece;
     var initialAttacks = myGame.attackedPieces(myGame.otherTurn());
     if (this.isLegalMove(oldPosition, newPosition)) {
-        if (this.grid[newX][newY].getContents() != null) {
+        if (this.grid[newX][newY].piece != null) {
             capture = true;
         }
-        if (piece instanceof Pawn && !this.grid[newPosition.x][newPosition.y].getContents()){
+        if (piece instanceof Pawn && !this.grid[newPosition.x][newPosition.y].piece){
             this.grid[oldX][oldY].piece = null;
             this.grid[newX][newY].piece = piece;
             this.grid[newX][oldY].piece = null;
@@ -74,7 +74,7 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
                 this.grid[0][oldPosition.y].piece = null;
             }
         }
-        if ((newPosition.y === 0 || newPosition.y === 7) && this.grid[newPosition.x][newPosition.y].getContents().getImage().indexOf("pawn") !== -1) {
+        if ((newPosition.y === 0 || newPosition.y === 7) && this.grid[newPosition.x][newPosition.y].piece.getImage().indexOf("pawn") !== -1) {
             $("#promotion").show();
             submitted = false;
             $("#board").off();

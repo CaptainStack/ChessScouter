@@ -83,13 +83,13 @@ Game.prototype.getPieces = function getPieces(player) {
 			for(var i = 0; i < this.gameBoard.grid.length; i++){
 				for(var j = 0; j < this.gameBoard.grid[i].length; j++){
 					var square = this.gameBoard.grid[i][j];
-					if(square.getContents() !== null) {
-						if(square.getContents().getColor() == "white" && player == "white"){
-							pieceList.push(this.gameBoard.grid[i][j].getContents());
-						}else if(square.getContents().getColor() == "black" && player == "black"){
-							pieceList.push(this.gameBoard.grid[i][j].getContents());
+					if(square.piece !== null) {
+						if(square.piece.getColor() == "white" && player == "white"){
+							pieceList.push(this.gameBoard.grid[i][j].piece);
+						}else if(square.piece.getColor() == "black" && player == "black"){
+							pieceList.push(this.gameBoard.grid[i][j].piece);
 						}else if(player == "all"){
-							pieceList.push(this.gameBoard.grid[i][j].getContents());
+							pieceList.push(this.gameBoard.grid[i][j].piece);
 						}
 					}
 				}
@@ -262,7 +262,7 @@ Game.prototype.pieceLegalMoves = function pieceLegalMoves(position) {
     var piece = myGame.gameBoard.grid[position.x][position.y].piece;
     var legalMoves = piece.getLegalMoves(position);
     for(var i = legalMoves.length - 1; i >= 0; i--){
-        var foreignContents = myGame.gameBoard.grid[legalMoves[i].x][legalMoves[i].y].getContents();
+        var foreignContents = myGame.gameBoard.grid[legalMoves[i].x][legalMoves[i].y].piece;
         myGame.gameBoard.grid[position.x][position.y].piece = null;
         myGame.gameBoard.grid[legalMoves[i].x][legalMoves[i].y].piece = piece;
         if(this.isInCheck(myGame.whoseTurn())){
@@ -279,8 +279,8 @@ Game.prototype.pieceLegalMoves = function pieceLegalMoves(position) {
 Game.prototype.attackedPieces = function attackedPieces(player) {
     var initialAttacks = this.getAllLegalAttacks(this.otherPlayer(player));
     for(var i = initialAttacks.length - 1; i >= 0; i--){
-        if(this.gameBoard.grid[initialAttacks[i].x][initialAttacks[i].y].getContents() == null ||
-        this.gameBoard.grid[initialAttacks[i].x][initialAttacks[i].y].getContents().color == this.otherPlayer(player)) {
+        if(this.gameBoard.grid[initialAttacks[i].x][initialAttacks[i].y].piece == null ||
+        this.gameBoard.grid[initialAttacks[i].x][initialAttacks[i].y].piece.color == this.otherPlayer(player)) {
             initialAttacks.splice(i, 1);
         }
     }
@@ -297,7 +297,7 @@ Game.prototype.getWhiteForks = function getWhiteForks(){
             
             var piece = pieces[i];
             var oldPosition = this.gameBoard.getPosition(piece);
-            var foreignContents = this.gameBoard.grid[pieceMoves[j].x][pieceMoves[j].y].getContents();
+            var foreignContents = this.gameBoard.grid[pieceMoves[j].x][pieceMoves[j].y].piece;
             this.gameBoard.grid[pieceMoves[j].x][pieceMoves[j].y].piece = piece;
             this.gameBoard.grid[oldPosition.x][oldPosition.y].piece = null;
             
