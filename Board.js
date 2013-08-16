@@ -143,7 +143,7 @@ Board.prototype.createMoveString = function createMoveString (piece, oldPosition
     }
     myGame.getPieces(piece.color).forEach(function (otherPiece) {
         if (piece.type === otherPiece.type && piece !== otherPiece && piece.type != "pawn") {
-            var otherPosition = this.getPosition(otherPiece);
+            var otherPosition = myGame.gameBoard.getPosition(otherPiece);
             otherPiece.getAttacks(otherPosition).forEach(function(otherMove){
                 if (otherMove.x == newPosition.x && otherMove.y == newPosition.y){
                     if (otherPosition.x !== oldPosition.x) {
