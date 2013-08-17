@@ -150,7 +150,7 @@ Game.prototype.findKing = function findKing(player) {
     var counter = 0;
 	// Loop over the board until the king is found
 	while (!kingFound) {
-		if (pieces[counter].getImage() == player + "_king.svg") {
+		if (pieces[counter].image == player + "_king.svg") {
 			king = pieces[counter];
 			kingFound = true;
 		}

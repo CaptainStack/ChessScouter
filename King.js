@@ -9,9 +9,6 @@ function King(color) {
     this.symbol = "K";
 }
 
-King.prototype.getImage = function getImage(){
-    return this.image;
-}
 King.prototype.isCaptured = function isCaptured(){
     return this.captured;
 }

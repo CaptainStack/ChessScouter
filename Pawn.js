@@ -10,9 +10,6 @@ function Pawn(color) {
     this.movedDouble = false;
 }
 
-Pawn.prototype.getImage = function getImage() {
-    return this.image;
-}
 Pawn.prototype.isCaptured = function isCaptured() {
     return this.captured;
 }

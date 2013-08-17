@@ -10,9 +10,6 @@ function Bishop(color) {
     this.symbol = "B";
 }
 
-Bishop.prototype.getImage = function getImage(){
-    return this.image;
-}
 Bishop.prototype.isCaptured = function isCaptured(){
     return this.captured;
 }

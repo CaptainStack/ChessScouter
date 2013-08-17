@@ -8,9 +8,6 @@ function Knight(color) {
     this.symbol = "N";
 }
 
-Knight.prototype.getImage = function getImage(){
-	return this.image;
-}
 Knight.prototype.isCaptured = function isCaptured(){
 	return this.captured;
 }

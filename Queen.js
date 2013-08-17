@@ -8,9 +8,6 @@ function Queen(color) {
     this.symbol = "Q";
 }
 
-Queen.prototype.getImage = function getImage(){
-    return this.image;
-}
 Queen.prototype.isCaptured = function isCaptured(){
     return this.captured;
 }

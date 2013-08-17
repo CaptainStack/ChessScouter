@@ -74,7 +74,7 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
                 this.grid[0][oldPosition.y].piece = null;
             }
         }
-        if ((newPosition.y === 0 || newPosition.y === 7) && this.grid[newPosition.x][newPosition.y].piece.getImage().indexOf("pawn") !== -1) {
+        if ((newPosition.y === 0 || newPosition.y === 7) && this.grid[newPosition.x][newPosition.y].piece.image.indexOf("pawn") !== -1) {
             $("#promotion").show();
             submitted = false;
             $("#board").off();

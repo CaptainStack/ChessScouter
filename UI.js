@@ -181,7 +181,7 @@ function getText(x, y) {
 
 function getImage(x, y) {
     if (myGame.gameBoard.getPiece(x, y) !== null && !myGame.gameBoard.getPiece(x, y).captured) {
-        return myGame.gameBoard.getPiece(x, y).getImage();
+        return myGame.gameBoard.getPiece(x, y).image;
     } else {
         return "";
     }

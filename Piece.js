@@ -12,9 +12,6 @@ Piece.prototype.setMoved = function setMoved(movedState) {
     this.hasMoved = movedState;
 }
 
-Piece.prototype.getImage = function getImage() {
-    return this.image;
-}
 Piece.prototype.isCaptured = function isCaptured() {
     return this.captured;
 }
