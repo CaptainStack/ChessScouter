@@ -47,10 +47,10 @@ tr{
 tr td{
     background-color: #DDDDDD;
 }
-tr:nth-child(even) td:nth-child(odd){
+tr:nth-child(even) td:nth-child(odd) {
     background-color: white;
 }
-tr:nth-child(odd) td:nth-child(even){
+tr:nth-child(odd) td:nth-child(even) {
     background-color: white;
 }
 td{

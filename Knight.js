@@ -8,10 +8,7 @@ function Knight(color) {
     this.symbol = "N";
 }
 
-Knight.prototype.setMoved = function setMoved(movedState){
-	this.hasMoved = movedState;
-}
-Knight.prototype.getPotentialMoves = function getPotentialMoves(position){
+Knight.prototype.getPotentialMoves = function getPotentialMoves(position) {
 	var x = position.x;
 	var y = position.y;
 	var potentialMoves = [
@@ -31,15 +28,15 @@ Knight.prototype.getPotentialMoves = function getPotentialMoves(position){
 	}
 	return potentialMoves;
 }
-Knight.prototype.getLegalMoves = function getLegalMoves(currentPosition){
+Knight.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
 	var legalMoves = this.getPotentialMoves(currentPosition);
 	for(var i = legalMoves.length - 1; i >= 0; i--){
-		if(myGame.gameBoard.occupiedBy(legalMoves[i]) == this.color){
+		if(myGame.gameBoard.occupiedBy(legalMoves[i]) == this.color) {
 			legalMoves.splice(i, 1);
 		}
 	}
 	return legalMoves;
 }
-Knight.prototype.getAttacks = function getAttacks(currentPosition){
+Knight.prototype.getAttacks = function getAttacks(currentPosition) {
 	return this.getPotentialMoves(currentPosition);
 };

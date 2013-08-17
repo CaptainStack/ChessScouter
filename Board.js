@@ -55,7 +55,7 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
         if (this.grid[newX][newY].piece != null) {
             capture = true;
         }
-        if (piece instanceof Pawn && !this.grid[newPosition.x][newPosition.y].piece){
+        if (piece instanceof Pawn && !this.grid[newPosition.x][newPosition.y].piece) {
             this.grid[oldX][oldY].piece = null;
             this.grid[newX][newY].piece = piece;
             this.grid[newX][oldY].piece = null;
@@ -63,13 +63,13 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
             this.grid[oldX][oldY].piece = null;
             this.grid[newX][newY].piece = piece;
         }
-        this.grid[newX][newY].piece.setMoved(true);
+        this.grid[newX][newY].piece.hasMoved = true;
         piece.movedDouble = this.isMovingDouble(piece, oldPosition, newPosition);
         if (this.isCastling(piece, oldPosition, newPosition)){
-            if (newPosition.x - oldPosition.x === 2){
+            if (newPosition.x - oldPosition.x === 2) {
                 this.grid[5][oldPosition.y].piece = this.grid[7][oldPosition.y].piece;
                 this.grid[7][oldPosition.y].piece = null;
-            }else if (newPosition.x - oldPosition.x === -2){
+            }else if (newPosition.x - oldPosition.x === -2) {
                 this.grid[3][oldPosition.y].piece = this.grid[0][oldPosition.y].piece;
                 this.grid[0][oldPosition.y].piece = null;
             }
@@ -79,7 +79,7 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
             submitted = false;
             $("#board").off();
             $("#submit").on("click", function() {
-                if (myGame.gameBoard.promoPosition != undefined){
+                if (myGame.gameBoard.promoPosition != undefined) {
                     var pieceType = $("#promotionOptions").val();
                     if (pieceType === "Queen") {
                         myGame.gameBoard.grid[myGame.gameBoard.promoPosition.x][myGame.gameBoard.promoPosition.y].piece = new Queen(myGame.whoseTurn());
@@ -144,8 +144,8 @@ Board.prototype.createMoveString = function createMoveString (piece, oldPosition
     myGame.getPieces(piece.color).forEach(function (otherPiece) {
         if (piece.type === otherPiece.type && piece !== otherPiece && piece.type != "pawn") {
             var otherPosition = myGame.gameBoard.getPosition(otherPiece);
-            otherPiece.getAttacks(otherPosition).forEach(function(otherMove){
-                if (otherMove.x == newPosition.x && otherMove.y == newPosition.y){
+            otherPiece.getAttacks(otherPosition).forEach(function(otherMove) {
+                if (otherMove.x == newPosition.x && otherMove.y == newPosition.y) {
                     if (otherPosition.x !== oldPosition.x) {
                         moveString += String.fromCharCode(97 + oldPosition.x);
                     } else if (otherPosition.y !== oldPosition.y) {
@@ -184,10 +184,10 @@ Board.prototype.removeForks = function removeForks(){
     }
 }
 
-Board.prototype.isMovingDouble = function isMovingDouble(piece, oldPosition, newPosition){
+Board.prototype.isMovingDouble = function isMovingDouble(piece, oldPosition, newPosition) {
     return piece instanceof Pawn && Math.abs(newPosition.y - oldPosition.y) === 2;
 }
-Board.prototype.isCastling = function isCastling(piece, oldPosition, newPosition){
+Board.prototype.isCastling = function isCastling(piece, oldPosition, newPosition) {
     return piece instanceof King && Math.abs(newPosition.x - oldPosition.x) === 2;
 }
 

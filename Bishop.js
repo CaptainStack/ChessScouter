@@ -10,11 +10,8 @@ function Bishop(color) {
     this.symbol = "B";
 }
 
-Bishop.prototype.setMoved = function setMoved(movedState){
-    this.hasMoved = movedState;
-}
 //This method records the possible moves the piece can make and inserts them into number of arrays for easy future acess.
-Bishop.prototype.getPotentialMoves = function getPotentialMoves(postion){
+Bishop.prototype.getPotentialMoves = function getPotentialMoves(postion) {
     var x = postion.x;
     var y = postion.y;
 	var potentialMoves = [];
@@ -28,7 +25,7 @@ Bishop.prototype.getPotentialMoves = function getPotentialMoves(postion){
     var southEastMoves = [];
     var northWestMoves = [];
     var southWestMoves = [];
-	while(vectorNorthEast == false || vectorSouthEast == false || vectorNorthWest == false || vectorSouthWest == false){
+	while(vectorNorthEast == false || vectorSouthEast == false || vectorNorthWest == false || vectorSouthWest == false) {
 		//North: Y-- South: Y++ East: X-- West: X++ 
 		if(vectorNorthEast == false) {
 			addY--;
@@ -50,7 +47,7 @@ Bishop.prototype.getPotentialMoves = function getPotentialMoves(postion){
 				addX = 0;
 				vectorSouthEast = true;
 			}
-		}else if (vectorNorthWest == false){
+		}else if (vectorNorthWest == false) {
             addY--;
 			addX++;
 			if( myGame.gameBoard.isOnBoard(new Position(x + addX,y + addY))){
@@ -60,7 +57,7 @@ Bishop.prototype.getPotentialMoves = function getPotentialMoves(postion){
 				addY = 0;
 				vectorNorthWest = true;
 			}
-		}else if (vectorSouthWest == false){
+		}else if (vectorSouthWest == false) {
 			addX++;
 			addY++;
 			if( myGame.gameBoard.isOnBoard(new Position(x + addX,y + addY))){
@@ -78,15 +75,15 @@ Bishop.prototype.getPotentialMoves = function getPotentialMoves(postion){
 	return potentialMoves;
 }
 //This method filters poential moves to produce legal moves.
-Bishop.prototype.getLegalMoves = function getLegalMoves(currentPosition){
+Bishop.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
     var legalMoves = [];
     var allMoves = this.getPotentialMoves(currentPosition)
     for(var i = 0; i < allMoves.length; i++){
         var currVectorMoves = allMoves[i];
         for(var j = 0; j < currVectorMoves.length; j++){
-            if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) == null){
+            if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) == null) {
                 legalMoves.push(currVectorMoves[j]);
-            }else if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) !== this.color){
+            }else if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) !== this.color) {
                 legalMoves.push(currVectorMoves[j]);
                 break;
             }else{
@@ -97,15 +94,15 @@ Bishop.prototype.getLegalMoves = function getLegalMoves(currentPosition){
     return legalMoves;
 }
 //This method identifies where the piece can legally attack another piece.
-Bishop.prototype.getAttacks = function getAttacks(currentPosition){
+Bishop.prototype.getAttacks = function getAttacks(currentPosition) {
     var legalMoves = [];
     var allMoves = this.getPotentialMoves(currentPosition)
     for(var i = 0; i < allMoves.length; i++){
         var currVectorMoves = allMoves[i];
         for(var j = 0; j < currVectorMoves.length; j++){
-            if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) == null){
+            if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) == null) {
                 legalMoves.push(currVectorMoves[j]);
-            }else if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) !== this.color){
+            }else if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) !== this.color) {
                 legalMoves.push(currVectorMoves[j]);
                 break;
             }else{

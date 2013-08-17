@@ -8,9 +8,6 @@ function Piece(color, type, captured, hasMoved) {
     this.hasMoved = hasMoved;
     this.image = color + "_" + type + ".svg";
 }
-Piece.prototype.setMoved = function setMoved(movedState) {
-    this.hasMoved = movedState;
-}
 
 Piece.prototype.getLegalMoves = function getLegalMoves(position) {
     var potentialMoves = [];

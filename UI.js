@@ -122,11 +122,11 @@ function showLastMove() {
         }
     }
 }
-function getBackgroundImageString(position){
+function getBackgroundImageString(position) {
     var piece = "";
     var dot = "";
     var fork = "";
-    if(myGame.gameBoard.grid[position.x][position.y].legalMove){
+    if(myGame.gameBoard.grid[position.x][position.y].legalMove) {
         dot = "url(Assets/blue_dot.svg)";
     }
     if ($("#forks").attr("checked") != undefined && myGame.gameBoard.grid[position.x][position.y].fork === true) {
@@ -136,7 +136,7 @@ function getBackgroundImageString(position){
             fork = ", url(Assets/white_fork.svg)";
         }
     }
-    if(myGame.gameBoard.getPiece(position.x, position.y) != null){
+    if(myGame.gameBoard.getPiece(position.x, position.y) != null) {
         if(dot !== "" || fork !== ""){
             piece = ", url(Assets/" + myGame.gameBoard.getPiece(position.x, position.y).image + ")";
         }else{

@@ -1,5 +1,5 @@
 "use strict";
-function Rook(color){
+function Rook(color) {
     this.color = color;
     this.captured = false;
     this.image = color + "_rook.svg";
@@ -9,10 +9,7 @@ function Rook(color){
     this.symbol = "R";
 }
 
-Rook.prototype.setMoved = function setMoved(movedState){
-    this.hasMoved = movedState;
-}
-Rook.prototype.getPotentialMoves = function getPotentialMoves(position){
+Rook.prototype.getPotentialMoves = function getPotentialMoves(position) {
     var x = position.x;
     var y = position.y;
 	var potentialMoves = [];
@@ -26,7 +23,7 @@ Rook.prototype.getPotentialMoves = function getPotentialMoves(position){
     var southMoves = [];
     var eastMoves = [];
     var westMoves = [];
-	while(vectorNorth === false || vectorSouth === false || vectorEast === false || vectorWest === false){
+	while(vectorNorth === false || vectorSouth === false || vectorEast === false || vectorWest === false) {
 		if(vectorNorth === false) {
 			addY--;
 			if( myGame.gameBoard.isOnBoard(new Position(x + addX,y + addY))){
@@ -43,7 +40,7 @@ Rook.prototype.getPotentialMoves = function getPotentialMoves(position){
 				addY = 0;
 				vectorSouth = true;
 			}
-		}else if (vectorEast === false){
+		}else if (vectorEast === false) {
             addX--;
 			if( myGame.gameBoard.isOnBoard(new Position(x + addX,y + addY))){
 				eastMoves.push(new Position (x + addX, y + addY));
@@ -51,7 +48,7 @@ Rook.prototype.getPotentialMoves = function getPotentialMoves(position){
 				addX = 0;
 				vectorEast = true;
 			}
-		}else if (vectorWest === false){
+		}else if (vectorWest === false) {
             addX++;
 			if( myGame.gameBoard.isOnBoard(new Position(x + addX,y + addY))){
 				westMoves.push(new Position (x + addX, y + addY));
@@ -67,16 +64,16 @@ Rook.prototype.getPotentialMoves = function getPotentialMoves(position){
     potentialMoves.push(westMoves);
 	return potentialMoves;
 }
-Rook.prototype.getLegalMoves = function getLegalMoves(currentPosition){
+Rook.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
     var legalMoves = [];
     var allMoves = this.getPotentialMoves(currentPosition);
 	
     for(var i = 0; i < allMoves.length; i++){
         var currVectorMoves = allMoves[i];
         for(var j = 0; j < currVectorMoves.length; j++){
-            if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) === null){
+            if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) === null) {
                 legalMoves.push(currVectorMoves[j]);
-            }else if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) !== this.color){
+            }else if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) !== this.color) {
                 legalMoves.push(currVectorMoves[j]);
                 break;
             }else{
@@ -86,16 +83,16 @@ Rook.prototype.getLegalMoves = function getLegalMoves(currentPosition){
     }
     return legalMoves;
 }
-Rook.prototype.getAttacks = function getAttacks(currentPosition){
+Rook.prototype.getAttacks = function getAttacks(currentPosition) {
     var legalMoves = [];
     var allMoves = this.getPotentialMoves(currentPosition);
 	
     for(var i = 0; i < allMoves.length; i++){
         var currVectorMoves = allMoves[i];
         for(var j = 0; j < currVectorMoves.length; j++){
-            if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) === null){
+            if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) === null) {
                 legalMoves.push(currVectorMoves[j]);
-            }else if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) !== this.color){
+            }else if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) !== this.color) {
                 legalMoves.push(currVectorMoves[j]);
                 break;
             }else{

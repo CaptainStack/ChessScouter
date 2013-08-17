@@ -10,9 +10,6 @@ function Pawn(color) {
     this.movedDouble = false;
 }
 
-Pawn.prototype.setMoved = function setMoved(movedState) {
-    this.hasMoved = movedState;
-}
 Pawn.prototype.getPotentialMoves = function getPotentialMoves(position) {
     var x = position.x;
     var y = position.y;

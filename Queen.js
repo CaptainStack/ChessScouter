@@ -8,10 +8,7 @@ function Queen(color) {
     this.symbol = "Q";
 }
 
-Queen.prototype.setMoved = function setMoved(movedState){
-    this.hasMoved = movedState;
-}
-Queen.prototype.getPotentialMoves = function getPotentialMoves(position){
+Queen.prototype.getPotentialMoves = function getPotentialMoves(position) {
     var x = position.x;
     var y = position.y;
 	var potentialMoves = [];
@@ -33,7 +30,7 @@ Queen.prototype.getPotentialMoves = function getPotentialMoves(position){
     var southEastMoves = [];
     var northWestMoves = [];
     var southWestMoves = [];
-	while(vectorNorth == false || vectorSouth == false || vectorEast == false || vectorWest == false || vectorNorthEast == false || vectorSouthEast == false || vectorNorthWest == false || vectorSouthWest == false){
+	while(vectorNorth == false || vectorSouth == false || vectorEast == false || vectorWest == false || vectorNorthEast == false || vectorSouthEast == false || vectorNorthWest == false || vectorSouthWest == false) {
 		//North: Y-- South: Y++ East: X-- West: X++ 
 		if(vectorNorth == false) {
 			addY--;
@@ -52,7 +49,7 @@ Queen.prototype.getPotentialMoves = function getPotentialMoves(position){
 				addY = 0;
 				vectorSouth = true;
 			}
-		}else if (vectorEast == false){
+		}else if (vectorEast == false) {
             addX--;
 			if( myGame.gameBoard.isOnBoard(new Position(x + addX,y + addY))){
 				eastMoves.push(new Position (x + addX, y + addY));
@@ -60,7 +57,7 @@ Queen.prototype.getPotentialMoves = function getPotentialMoves(position){
 				addX = 0;
 				vectorEast = true;
 			}
-		}else if (vectorWest == false){
+		}else if (vectorWest == false) {
             addX++;
 			if( myGame.gameBoard.isOnBoard(new Position(x + addX,y + addY))){
 				westMoves.push(new Position (x + addX, y + addY));
@@ -89,7 +86,7 @@ Queen.prototype.getPotentialMoves = function getPotentialMoves(position){
 				addX = 0;
 				vectorSouthEast = true;
 			}
-		}else if (vectorNorthWest == false){
+		}else if (vectorNorthWest == false) {
             addY--;
 			addX++;
 			if( myGame.gameBoard.isOnBoard(new Position(x + addX,y + addY))){
@@ -99,7 +96,7 @@ Queen.prototype.getPotentialMoves = function getPotentialMoves(position){
 				addY = 0;
 				vectorNorthWest = true;
 			}
-		}else if (vectorSouthWest == false){
+		}else if (vectorSouthWest == false) {
 			addX++;
 			addY++;
 			if( myGame.gameBoard.isOnBoard(new Position(x + addX,y + addY))){
@@ -120,15 +117,15 @@ Queen.prototype.getPotentialMoves = function getPotentialMoves(position){
     potentialMoves.push(southWestMoves);
 	return potentialMoves;
 }
-Queen.prototype.getLegalMoves = function getLegalMoves(currentPosition){
+Queen.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
     var legalMoves = [];
     var allMoves = this.getPotentialMoves(currentPosition)
     for(var i = 0; i < allMoves.length; i++){
         var currVectorMoves = allMoves[i];
         for(var j = 0; j < currVectorMoves.length; j++){
-            if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) == null){
+            if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) == null) {
                 legalMoves.push(currVectorMoves[j]);
-            }else if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) !== this.color){
+            }else if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) !== this.color) {
                 legalMoves.push(currVectorMoves[j]);
                 break;
             }else{
@@ -138,15 +135,15 @@ Queen.prototype.getLegalMoves = function getLegalMoves(currentPosition){
     }
     return legalMoves;
 }
-Queen.prototype.getAttacks = function getAttacks(currentPosition){
+Queen.prototype.getAttacks = function getAttacks(currentPosition) {
     var legalMoves = [];
     var allMoves = this.getPotentialMoves(currentPosition)
     for(var i = 0; i < allMoves.length; i++){
         var currVectorMoves = allMoves[i];
         for(var j = 0; j < currVectorMoves.length; j++){
-            if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) == null){
+            if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) == null) {
                 legalMoves.push(currVectorMoves[j]);
-            }else if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) !== this.color){
+            }else if(myGame.gameBoard.occupiedBy(currVectorMoves[j]) !== this.color) {
                 legalMoves.push(currVectorMoves[j]);
                 break;
             }else{
