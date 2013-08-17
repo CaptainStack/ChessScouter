@@ -236,7 +236,7 @@ Board.prototype.occupiedBy = function occupiedBy(position) {
     if (this.getPiece(x, y) == null) {
         return null;
     } else {
-        return this.getPiece(x, y).getColor();
+        return this.getPiece(x, y).color;
     }
 }
 

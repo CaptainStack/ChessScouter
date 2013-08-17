@@ -8,9 +8,7 @@ function Rook(color){
     this.type = "rook";
     this.symbol = "R";
 }
-Rook.prototype.getColor = function getColor(){
-    return this.color;
-}
+
 Rook.prototype.getImage = function getImage(){
     return this.image;
 }

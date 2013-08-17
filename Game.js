@@ -84,9 +84,9 @@ Game.prototype.getPieces = function getPieces(player) {
 				for(var j = 0; j < this.gameBoard.grid[i].length; j++){
 					var square = this.gameBoard.grid[i][j];
 					if(square.piece !== null) {
-						if(square.piece.getColor() == "white" && player == "white"){
+						if(square.piece.color == "white" && player == "white"){
 							pieceList.push(this.gameBoard.grid[i][j].piece);
-						}else if(square.piece.getColor() == "black" && player == "black"){
+						}else if(square.piece.color == "black" && player == "black"){
 							pieceList.push(this.gameBoard.grid[i][j].piece);
 						}else if(player == "all"){
 							pieceList.push(this.gameBoard.grid[i][j].piece);

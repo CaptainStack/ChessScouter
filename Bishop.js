@@ -9,9 +9,7 @@ function Bishop(color) {
     this.type = "bishop";
     this.symbol = "B";
 }
-Bishop.prototype.getColor = function getColor(){
-    return this.color;
-}
+
 Bishop.prototype.getImage = function getImage(){
     return this.image;
 }

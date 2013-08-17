@@ -9,9 +9,7 @@ function Pawn(color) {
     this.symbol = "";
     this.movedDouble = false;
 }
-Pawn.prototype.getColor = function getColor() {
-    return this.color;
-}
+
 Pawn.prototype.getImage = function getImage() {
     return this.image;
 }

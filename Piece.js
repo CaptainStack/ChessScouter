@@ -11,9 +11,7 @@ function Piece(color, type, captured, hasMoved) {
 Piece.prototype.setMoved = function setMoved(movedState) {
     this.hasMoved = movedState;
 }
-Piece.prototype.getColor = function getColor() {
-    return this.color;
-}
+
 Piece.prototype.getImage = function getImage() {
     return this.image;
 }

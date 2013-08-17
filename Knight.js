@@ -7,9 +7,7 @@ function Knight(color) {
     this.type = "knight"
     this.symbol = "N";
 }
-Knight.prototype.getColor = function getColor(){
-	return this.color;
-}
+
 Knight.prototype.getImage = function getImage(){
 	return this.image;
 }

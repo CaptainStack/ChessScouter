@@ -7,9 +7,7 @@ function Queen(color) {
     this.type = "queen";
     this.symbol = "Q";
 }
-Queen.prototype.getColor = function getColor(){
-    return this.color;
-}
+
 Queen.prototype.getImage = function getImage(){
     return this.image;
 }

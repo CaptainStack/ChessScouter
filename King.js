@@ -8,9 +8,7 @@ function King(color) {
     this.type = "king";
     this.symbol = "K";
 }
-King.prototype.getColor = function getColor(){
-    return this.color;
-}
+
 King.prototype.getImage = function getImage(){
     return this.image;
 }
