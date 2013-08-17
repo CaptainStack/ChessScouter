@@ -50,7 +50,7 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
     var submitted = undefined;
     var capture = false;
     var piece = this.grid[oldX][oldY].piece;
-    var initialAttacks = myGame.attackedPieces(myGame.otherTurn());
+    var initialAttacks = game.attackedPieces(game.otherTurn());
     if (this.isLegalMove(oldPosition, newPosition)) {
         if (this.grid[newX][newY].piece != null) {
             capture = true;
@@ -79,40 +79,40 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
             submitted = false;
             $("#board").off();
             $("#submit").on("click", function() {
-                if (myGame.gameBoard.promoPosition != undefined) {
+                if (game.board.promoPosition != undefined) {
                     var pieceType = $("#promotionOptions").val();
                     if (pieceType === "Queen") {
-                        myGame.gameBoard.grid[myGame.gameBoard.promoPosition.x][myGame.gameBoard.promoPosition.y].piece = new Queen(myGame.whoseTurn());
+                        game.board.grid[game.board.promoPosition.x][game.board.promoPosition.y].piece = new Queen(game.whoseTurn());
                     } else if (pieceType === "Rook") {
-                        myGame.gameBoard.grid[myGame.gameBoard.promoPosition.x][myGame.gameBoard.promoPosition.y].piece = new Rook(myGame.whoseTurn());
+                        game.board.grid[game.board.promoPosition.x][game.board.promoPosition.y].piece = new Rook(game.whoseTurn());
                     } else if (pieceType === "Bishop") {
-                        myGame.gameBoard.grid[myGame.gameBoard.promoPosition.x][myGame.gameBoard.promoPosition.y].piece = new Bishop(myGame.whoseTurn());
+                        game.board.grid[game.board.promoPosition.x][game.board.promoPosition.y].piece = new Bishop(game.whoseTurn());
                     } else if (pieceType === "Knight") {
-                        myGame.gameBoard.grid[myGame.gameBoard.promoPosition.x][myGame.gameBoard.promoPosition.y].piece = new Knight(myGame.whoseTurn());
+                        game.board.grid[game.board.promoPosition.x][game.board.promoPosition.y].piece = new Knight(game.whoseTurn());
                     }
                     $("#promotion").hide();
                     submitted = true;
                     $("#board").on("click", "td", boardClicks);
-                    myGame.turn++;
-                    myGame.gameBoard.promoPosition = undefined;
+                    game.turn++;
+                    game.board.promoPosition = undefined;
                     layoutBoard();
                 }
             });
         }
         
-        var afterAttacks = myGame.attackedPieces(myGame.otherTurn());
+        var afterAttacks = game.attackedPieces(game.otherTurn());
         this.addFlair(initialAttacks, afterAttacks);
         this.grid[oldX][oldY].previous = true;
         this.grid[newX][newY].current = true;
         this.addForks();
-        if (myGame.whoseTurn() == "white") {
+        if (game.whoseTurn() == "white") {
             $("#moveList").append("<li>" + this.createMoveString(piece, oldPosition, newPosition, capture) + "</li>");
         } 
         else{
             $("#moveList").children()[$("#moveList").children().length - 1].textContent += "     " + this.createMoveString(piece, oldPosition, newPosition, capture);
         }
         if (submitted === undefined) {
-            myGame.turn++;
+            game.turn++;
         } else {
             this.promoPosition = new Position(newPosition.x, newPosition.y);
         }
@@ -141,9 +141,9 @@ Board.prototype.createMoveString = function createMoveString (piece, oldPosition
         }
         moveString += "x";
     }
-    myGame.getPieces(piece.color).forEach(function (otherPiece) {
+    game.getPieces(piece.color).forEach(function (otherPiece) {
         if (piece.type === otherPiece.type && piece !== otherPiece && piece.type != "pawn") {
-            var otherPosition = myGame.gameBoard.getPosition(otherPiece);
+            var otherPosition = game.board.getPosition(otherPiece);
             otherPiece.getAttacks(otherPosition).forEach(function(otherMove) {
                 if (otherMove.x == newPosition.x && otherMove.y == newPosition.y) {
                     if (otherPosition.x !== oldPosition.x) {
@@ -158,8 +158,8 @@ Board.prototype.createMoveString = function createMoveString (piece, oldPosition
         }
     });
     moveString += String.fromCharCode(97 + newPosition.x) + newPosition.y;
-    if (myGame.isInCheck(myGame.otherPlayer(piece.color))) {
-        if (myGame.isInCheckmate(myGame.otherPlayer(piece.color))) {
+    if (game.isInCheck(game.otherPlayer(piece.color))) {
+        if (game.isInCheckmate(game.otherPlayer(piece.color))) {
             moveString += "#";
         }else {
             moveString += "+";
@@ -207,22 +207,22 @@ Board.prototype.addFlair = function addFlair(initialAttacks, afterAttacks) {
 }
 
 Board.prototype.addForks = function addForks() {
-    var forks = myGame.getWhiteForks();
+    var forks = game.getWhiteForks();
     for(var i = 0; i < forks.length; i++){
         this.grid[forks[i].x][forks[i].y].fork = true;
     }
 }
 
 Board.prototype.checkStates = function checkStates() {
-    if (myGame.isInStalemate(myGame.whoseTurn())) {
+    if (game.isInStalemate(game.whoseTurn())) {
         $("#board").off();
         return "stalemate!";
-    }else if (myGame.insufficientMatingMaterial()){
+    }else if (game.insufficientMatingMaterial()){
         $("#board").off();
         return "Insufficient pieces for checkmate. Draw!";
     }    
-    else if (myGame.isInCheck(myGame.whoseTurn())) {
-        if (myGame.isInCheckmate(myGame.whoseTurn())) {
+    else if (game.isInCheck(game.whoseTurn())) {
+        if (game.isInCheckmate(game.whoseTurn())) {
             $("#board").off();
             return "checkmate!";
         }
@@ -246,9 +246,9 @@ Board.prototype.isLegalMove = function isLegalMove(oldPosition, newPosition) {
     var newX = newPosition.x;
     var newY = newPosition.y;
     var piece = this.grid[oldX][oldY].piece;
-    var legalMoves = myGame.pieceLegalMoves(oldPosition);
+    var legalMoves = game.pieceLegalMoves(oldPosition);
     var moved = false;
-    var initialAttacks = myGame.attackedPieces(myGame.otherTurn());
+    var initialAttacks = game.attackedPieces(game.otherTurn());
     for (var i = 0; i < legalMoves.length; i++) {
         if (legalMoves[i].x == newX && legalMoves[i].y == newY) {
             return true;

@@ -52,7 +52,7 @@ function Game() {
 			grid[j][i] = new Square(j, i, null);
 		}
 	}
-	this.gameBoard = new Board(grid);
+	this.board = new Board(grid);
 }
 Game.prototype.whoseTurn = function whoseTurn(){
 	if(this.turn % 2 === 0) {
@@ -80,16 +80,16 @@ Game.prototype.getPieces = function getPieces(player) {
 	var pieceList = [];
 	try{
 		if(player == "white" || player == "black" || player == "all"){
-			for(var i = 0; i < this.gameBoard.grid.length; i++){
-				for(var j = 0; j < this.gameBoard.grid[i].length; j++){
-					var square = this.gameBoard.grid[i][j];
+			for(var i = 0; i < this.board.grid.length; i++){
+				for(var j = 0; j < this.board.grid[i].length; j++){
+					var square = this.board.grid[i][j];
 					if(square.piece !== null) {
 						if(square.piece.color == "white" && player == "white"){
-							pieceList.push(this.gameBoard.grid[i][j].piece);
+							pieceList.push(this.board.grid[i][j].piece);
 						}else if(square.piece.color == "black" && player == "black"){
-							pieceList.push(this.gameBoard.grid[i][j].piece);
+							pieceList.push(this.board.grid[i][j].piece);
 						}else if(player == "all"){
-							pieceList.push(this.gameBoard.grid[i][j].piece);
+							pieceList.push(this.board.grid[i][j].piece);
 						}
 					}
 				}
@@ -111,7 +111,7 @@ Game.prototype.getAllLegalAttacks = function getAllLegalAttacks(player) {
 		if(player == "white" || player == "black"){
 			var pieces = this.getPieces(player);
 			for(var i = 0; i < pieces.length; i++){
-				var pieceAttack = pieces[i].getAttacks(this.gameBoard.getPosition(pieces[i]));
+				var pieceAttack = pieces[i].getAttacks(this.board.getPosition(pieces[i]));
 				for(var j = 0; j < pieceAttack.length; j++){
 					attacks.push(pieceAttack[j]);
 				}
@@ -128,7 +128,7 @@ Game.prototype.getAllLegalAttacks = function getAllLegalAttacks(player) {
 
 //Add try catch behavior
 Game.prototype.isInCheck = function isInCheck(player) {
-	var pieces = myGame.getPieces(player);
+	var pieces = game.getPieces(player);
     var king = this.findKing(player);
 	var enemyAttacks;
 	if(player == "white"){
@@ -137,7 +137,7 @@ Game.prototype.isInCheck = function isInCheck(player) {
 		enemyAttacks = this.getAllLegalAttacks("white");
 	}
 	for(var i = 0; i < enemyAttacks.length; i++){
-		if(enemyAttacks[i].x == myGame.gameBoard.getPosition(king).x && enemyAttacks[i].y == myGame.gameBoard.getPosition(king).y) {
+		if(enemyAttacks[i].x == game.board.getPosition(king).x && enemyAttacks[i].y == game.board.getPosition(king).y) {
 			return true;
 			break;
 		}
@@ -166,7 +166,7 @@ Game.prototype.isInCheckmate = function isInCheckmate(player) {
     var pieces = this.getPieces(player);
     var legalMoves = [];
     for(var i = 0; i < pieces.length; i++){
-        var pieceMoves = this.pieceLegalMoves(myGame.gameBoard.getPosition(pieces[i]));
+        var pieceMoves = this.pieceLegalMoves(game.board.getPosition(pieces[i]));
         for(var j = 0; j < pieceMoves.length; j++){
             legalMoves.push(pieceMoves[i]);
         }
@@ -181,7 +181,7 @@ Game.prototype.isInStalemate = function isInStalemate(player) {
     var pieces = this.getPieces(player);
     var legalMoves = [];
     for(var i = 0; i < pieces.length; i++){
-        var pieceMoves = this.pieceLegalMoves(myGame.gameBoard.getPosition(pieces[i]));
+        var pieceMoves = this.pieceLegalMoves(game.board.getPosition(pieces[i]));
         for(var j = 0; j < pieceMoves.length; j++){
             legalMoves.push(pieceMoves[i]);
         }
@@ -223,11 +223,11 @@ Game.prototype.insufficientMatingMaterial = function insufficientMatingMaterial(
                 case "bishop":
                     if(color === "black"){
                         blackBishops++;
-                        blackBishopSquareColor = this.gameBoard.getPosition(allPieces[i]).x % 2 === this.gameBoard.getPosition(allPieces[i]).y % 2;
+                        blackBishopSquareColor = this.board.getPosition(allPieces[i]).x % 2 === this.board.getPosition(allPieces[i]).y % 2;
                         break;
                     }else{
                         whiteBishops++;
-                        whiteBishopSquareColor = this.gameBoard.getPosition(allPieces[i]).x % 2 === this.gameBoard.getPosition(allPieces[i]).y % 2;
+                        whiteBishopSquareColor = this.board.getPosition(allPieces[i]).x % 2 === this.board.getPosition(allPieces[i]).y % 2;
                         break;
                     }
                 case "knight":
@@ -259,19 +259,19 @@ Game.prototype.insufficientMatingMaterial = function insufficientMatingMaterial(
 }
 
 Game.prototype.pieceLegalMoves = function pieceLegalMoves(position) {
-    var piece = myGame.gameBoard.grid[position.x][position.y].piece;
+    var piece = game.board.grid[position.x][position.y].piece;
     var legalMoves = piece.getLegalMoves(position);
     for(var i = legalMoves.length - 1; i >= 0; i--){
-        var foreignContents = myGame.gameBoard.grid[legalMoves[i].x][legalMoves[i].y].piece;
-        myGame.gameBoard.grid[position.x][position.y].piece = null;
-        myGame.gameBoard.grid[legalMoves[i].x][legalMoves[i].y].piece = piece;
-        if(this.isInCheck(myGame.whoseTurn())){
-            myGame.gameBoard.grid[position.x][position.y].piece = piece;
-            myGame.gameBoard.grid[legalMoves[i].x][legalMoves[i].y].piece = foreignContents;
+        var foreignContents = game.board.grid[legalMoves[i].x][legalMoves[i].y].piece;
+        game.board.grid[position.x][position.y].piece = null;
+        game.board.grid[legalMoves[i].x][legalMoves[i].y].piece = piece;
+        if(this.isInCheck(game.whoseTurn())){
+            game.board.grid[position.x][position.y].piece = piece;
+            game.board.grid[legalMoves[i].x][legalMoves[i].y].piece = foreignContents;
             legalMoves.splice(i, 1);
         }else{
-            myGame.gameBoard.grid[position.x][position.y].piece = piece;
-            myGame.gameBoard.grid[legalMoves[i].x][legalMoves[i].y].piece = foreignContents;
+            game.board.grid[position.x][position.y].piece = piece;
+            game.board.grid[legalMoves[i].x][legalMoves[i].y].piece = foreignContents;
         }
     }
     return legalMoves;
@@ -279,8 +279,8 @@ Game.prototype.pieceLegalMoves = function pieceLegalMoves(position) {
 Game.prototype.attackedPieces = function attackedPieces(player) {
     var initialAttacks = this.getAllLegalAttacks(this.otherPlayer(player));
     for(var i = initialAttacks.length - 1; i >= 0; i--){
-        if(this.gameBoard.grid[initialAttacks[i].x][initialAttacks[i].y].piece == null ||
-        this.gameBoard.grid[initialAttacks[i].x][initialAttacks[i].y].piece.color == this.otherPlayer(player)) {
+        if(this.board.grid[initialAttacks[i].x][initialAttacks[i].y].piece == null ||
+        this.board.grid[initialAttacks[i].x][initialAttacks[i].y].piece.color == this.otherPlayer(player)) {
             initialAttacks.splice(i, 1);
         }
     }
@@ -290,16 +290,16 @@ Game.prototype.getWhiteForks = function getWhiteForks(){
     var forks = [];
     var pieces = this.getPieces("white");
     for(var i = 0; i < pieces.length; i++){
-        var pieceMoves = pieces[i].getLegalMoves(this.gameBoard.getPosition(pieces[i]));
+        var pieceMoves = pieces[i].getLegalMoves(this.board.getPosition(pieces[i]));
         for(var j = 0; j < pieceMoves.length; j++){
             var initialAttacks = this.attackedPieces("black");
             //Make the move but save information so move can be undone
             
             var piece = pieces[i];
-            var oldPosition = this.gameBoard.getPosition(piece);
-            var foreignContents = this.gameBoard.grid[pieceMoves[j].x][pieceMoves[j].y].piece;
-            this.gameBoard.grid[pieceMoves[j].x][pieceMoves[j].y].piece = piece;
-            this.gameBoard.grid[oldPosition.x][oldPosition.y].piece = null;
+            var oldPosition = this.board.getPosition(piece);
+            var foreignContents = this.board.grid[pieceMoves[j].x][pieceMoves[j].y].piece;
+            this.board.grid[pieceMoves[j].x][pieceMoves[j].y].piece = piece;
+            this.board.grid[oldPosition.x][oldPosition.y].piece = null;
             
             var afterAttacks = this.attackedPieces("black");
             for (var k = afterAttacks.length - 1; k >= 0; k--) {
@@ -315,8 +315,8 @@ Game.prototype.getWhiteForks = function getWhiteForks(){
             if(afterAttacks.length >= 2) {
                 forks.push(pieceMoves[j]);
             }
-            this.gameBoard.grid[oldPosition.x][oldPosition.y].piece = piece;
-            this.gameBoard.grid[pieceMoves[j].x][pieceMoves[j].y].piece = foreignContents;
+            this.board.grid[oldPosition.x][oldPosition.y].piece = piece;
+            this.board.grid[pieceMoves[j].x][pieceMoves[j].y].piece = foreignContents;
         }
     }
     return forks;

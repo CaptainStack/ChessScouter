@@ -23,7 +23,7 @@ King.prototype.getPotentialMoves = function getPotentialMoves(startPosition) {
 						new Position(x - 1, y - 1)
 						];
 	for(var i = potentialMoves.length - 1; i >= 0; i--){
-		if(!myGame.gameBoard.isOnBoard(potentialMoves[i])){
+		if(!game.board.isOnBoard(potentialMoves[i])){
 			potentialMoves.splice(i, 1);
 		}
 	}
@@ -32,21 +32,21 @@ King.prototype.getPotentialMoves = function getPotentialMoves(startPosition) {
 King.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
     var legalMoves = this.getPotentialMoves(currentPosition);
     for(var i = legalMoves.length - 1; i >= 0; i--){
-        if(myGame.gameBoard.occupiedBy(new Position(legalMoves[i].x, legalMoves[i].y)) == this.color) {
+        if(game.board.occupiedBy(new Position(legalMoves[i].x, legalMoves[i].y)) == this.color) {
             legalMoves.splice(i, 1);
         }
     }
     //Castling logic
-    if(this.color === "white" && !myGame.isInCheck("white") && !this.hasMoved) {
+    if(this.color === "white" && !game.isInCheck("white") && !this.hasMoved) {
         if(
-            myGame.gameBoard.grid[5][7].piece === null && 
-            myGame.gameBoard.grid[6][7].piece === null && 
-            myGame.gameBoard.grid[7][7].piece !== null &&
-            !myGame.gameBoard.grid[7][7].piece.hasMoved && 
-            myGame.gameBoard.grid[7][7].piece.image === "white_rook.svg"
+            game.board.grid[5][7].piece === null && 
+            game.board.grid[6][7].piece === null && 
+            game.board.grid[7][7].piece !== null &&
+            !game.board.grid[7][7].piece.hasMoved && 
+            game.board.grid[7][7].piece.image === "white_rook.svg"
         ) {
             var throughCheck = false;
-            var otherAttacks = myGame.getAllLegalAttacks("black");
+            var otherAttacks = game.getAllLegalAttacks("black");
             for(var i = 0; i < otherAttacks.length; i++){
                 if((otherAttacks[i].x == 5 && otherAttacks[i].y == 7) || (otherAttacks[i].x == 6 && otherAttacks[i].y == 7)){
                     throughCheck = true;
@@ -57,15 +57,15 @@ King.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
             }
         }
         if(
-            myGame.gameBoard.grid[1][7].piece === null && 
-            myGame.gameBoard.grid[2][7].piece === null && 
-            myGame.gameBoard.grid[3][7].piece === null && 
-            myGame.gameBoard.grid[0][7].piece !== null &&
-            !myGame.gameBoard.grid[0][7].piece.hasMoved &&
-            myGame.gameBoard.grid[0][7].piece.image === "white_rook.svg"
+            game.board.grid[1][7].piece === null && 
+            game.board.grid[2][7].piece === null && 
+            game.board.grid[3][7].piece === null && 
+            game.board.grid[0][7].piece !== null &&
+            !game.board.grid[0][7].piece.hasMoved &&
+            game.board.grid[0][7].piece.image === "white_rook.svg"
         ) {
             var throughCheck = false;
-            var otherAttacks = myGame.getAllLegalAttacks("black");
+            var otherAttacks = game.getAllLegalAttacks("black");
             for(var i = 0; i < otherAttacks.length; i++){
                 if((otherAttacks[i].x == 1 && otherAttacks[i].y == 7) || (otherAttacks[i].x == 2 && otherAttacks[i].y == 7) || (otherAttacks[i].x == 3 && otherAttacks[i].y == 7)){
                     throughCheck = true;
@@ -75,16 +75,16 @@ King.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
                 legalMoves.push(new Position(2, 7));
             }
         }
-    }else if (this.color === "black" && !myGame.isInCheck("black") && !this.hasMoved) {
+    }else if (this.color === "black" && !game.isInCheck("black") && !this.hasMoved) {
         if(
-            myGame.gameBoard.grid[5][0].piece === null && 
-            myGame.gameBoard.grid[6][0].piece === null && 
-            myGame.gameBoard.grid[7][0].piece !== null &&
-            !myGame.gameBoard.grid[7][0].piece.hasMoved && 
-            myGame.gameBoard.grid[7][0].piece.image === "black_rook.svg"
+            game.board.grid[5][0].piece === null && 
+            game.board.grid[6][0].piece === null && 
+            game.board.grid[7][0].piece !== null &&
+            !game.board.grid[7][0].piece.hasMoved && 
+            game.board.grid[7][0].piece.image === "black_rook.svg"
         ) {
             var throughCheck = false;
-            var otherAttacks = myGame.getAllLegalAttacks("white");
+            var otherAttacks = game.getAllLegalAttacks("white");
             for(var i = 0; i < otherAttacks.length; i++){
                 if((otherAttacks[i].x == 5 && otherAttacks[i].y == 0) || (otherAttacks[i].x == 6 && otherAttacks[i].y == 0)){
                     throughCheck = true;
@@ -95,15 +95,15 @@ King.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
             }
         }
         if(
-            myGame.gameBoard.grid[1][0].piece === null && 
-            myGame.gameBoard.grid[2][0].piece === null && 
-            myGame.gameBoard.grid[3][0].piece === null && 
-            myGame.gameBoard.grid[0][0].piece !== null &&
-            !myGame.gameBoard.grid[0][0].piece.hasMoved && 
-            myGame.gameBoard.grid[0][0].piece.image === "black_rook.svg"
+            game.board.grid[1][0].piece === null && 
+            game.board.grid[2][0].piece === null && 
+            game.board.grid[3][0].piece === null && 
+            game.board.grid[0][0].piece !== null &&
+            !game.board.grid[0][0].piece.hasMoved && 
+            game.board.grid[0][0].piece.image === "black_rook.svg"
         ) {
             var throughCheck = false;
-            var otherAttacks = myGame.getAllLegalAttacks("white");
+            var otherAttacks = game.getAllLegalAttacks("white");
             for(var i = 0; i < otherAttacks.length; i++){
                 if((otherAttacks[i].x == 1 && otherAttacks[i].y == 0) || (otherAttacks[i].x == 2 && otherAttacks[i].y == 0) || (otherAttacks[i].x == 3 && otherAttacks[i].y == 0)){
                     throughCheck = true;

@@ -35,51 +35,51 @@ Pawn.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
     var x = currentPosition.x;
     var y = currentPosition.y;
     if(this.color == "white"){
-        if(myGame.gameBoard.occupiedBy(new Position(x, y - 1)) == null) {
+        if(game.board.occupiedBy(new Position(x, y - 1)) == null) {
             potentialMoves.push(new Position(x, y - 1));
-            if(!this.hasMoved && myGame.gameBoard.occupiedBy(new Position(x, y - 2)) == null) {
+            if(!this.hasMoved && game.board.occupiedBy(new Position(x, y - 2)) == null) {
                 potentialMoves.push(new Position(x, y - 2));
             }
         }
-        if(myGame.gameBoard.occupiedBy(new Position(x - 1, y - 1)) == "black") {
+        if(game.board.occupiedBy(new Position(x - 1, y - 1)) == "black") {
             potentialMoves.push(new Position(x - 1, y - 1));
         }
-        if(myGame.gameBoard.occupiedBy(new Position(x + 1, y - 1)) == "black") {
+        if(game.board.occupiedBy(new Position(x + 1, y - 1)) == "black") {
             potentialMoves.push(new Position(x + 1, y - 1));
         }
-        if(y == 3 && myGame.gameBoard.lastPiece instanceof Pawn && myGame.gameBoard.getPosition(myGame.gameBoard.lastPiece).y == 3 && myGame.gameBoard.lastPiece.movedDouble) {
-            if(myGame.gameBoard.getPosition(myGame.gameBoard.lastPiece).x == x - 1) {
+        if(y == 3 && game.board.lastPiece instanceof Pawn && game.board.getPosition(game.board.lastPiece).y == 3 && game.board.lastPiece.movedDouble) {
+            if(game.board.getPosition(game.board.lastPiece).x == x - 1) {
                 potentialMoves.push(new Position(x - 1, y - 1));
             }
-            else if(myGame.gameBoard.getPosition(myGame.gameBoard.lastPiece).x == myGame.gameBoard.getPosition(this).x + 1) {
+            else if(game.board.getPosition(game.board.lastPiece).x == game.board.getPosition(this).x + 1) {
                 potentialMoves.push(new Position(x + 1, y - 1));
             }
         }
     } else {
-        if(myGame.gameBoard.occupiedBy(new Position(x, y + 1)) == null) {
+        if(game.board.occupiedBy(new Position(x, y + 1)) == null) {
             potentialMoves.push(new Position(x, y + 1));
-            if(!this.hasMoved && myGame.gameBoard.occupiedBy(new Position(x, y + 2)) == null) {
+            if(!this.hasMoved && game.board.occupiedBy(new Position(x, y + 2)) == null) {
                 potentialMoves.push(new Position(x, y + 2));
             }
         }
-        if(myGame.gameBoard.occupiedBy(new Position(x - 1, y + 1)) == "white") {
+        if(game.board.occupiedBy(new Position(x - 1, y + 1)) == "white") {
             potentialMoves.push(new Position(x - 1, y + 1));
         }
-        if(myGame.gameBoard.occupiedBy(new Position(x + 1, y + 1)) == "white") {
+        if(game.board.occupiedBy(new Position(x + 1, y + 1)) == "white") {
             potentialMoves.push(new Position(x + 1, y + 1));
         }
-        if(y == 4 && myGame.gameBoard.lastPiece instanceof Pawn && myGame.gameBoard.getPosition(myGame.gameBoard.lastPiece).y == 4 && myGame.gameBoard.lastPiece.movedDouble) {
-            if(myGame.gameBoard.getPosition(myGame.gameBoard.lastPiece).x == x - 1) {
+        if(y == 4 && game.board.lastPiece instanceof Pawn && game.board.getPosition(game.board.lastPiece).y == 4 && game.board.lastPiece.movedDouble) {
+            if(game.board.getPosition(game.board.lastPiece).x == x - 1) {
                 potentialMoves.push(new Position(x - 1, y + 1));
             }
-            else if(myGame.gameBoard.getPosition(myGame.gameBoard.lastPiece).x == myGame.gameBoard.getPosition(this).x + 1) {
+            else if(game.board.getPosition(game.board.lastPiece).x == game.board.getPosition(this).x + 1) {
                 potentialMoves.push(new Position(x + 1, y + 1));
             }
         }
     }
-	// var thisPosition = myGame.gameBoard.getPosition(this);
+	// var thisPosition = game.board.getPosition(this);
 	for(var i = potentialMoves.length - 1; i >= 0; i--) {
-		if(!myGame.gameBoard.isOnBoard(potentialMoves[i])) {
+		if(!game.board.isOnBoard(potentialMoves[i])) {
 			potentialMoves.splice(i, 1);
 		}
 	}
@@ -98,7 +98,7 @@ Pawn.prototype.getAttacks = function getAttacks(currentPosition) {
 		attacks.push(new Position(x + 1, y + 1));
     }
 	for(var i = attacks.length - 1; i >= 0; i--){
-		if(!myGame.gameBoard.isOnBoard(attacks[i])) {
+		if(!game.board.isOnBoard(attacks[i])) {
 			attacks.splice(i, 1);
 		}
 	}
