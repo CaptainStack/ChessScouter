@@ -18,10 +18,28 @@ $(function() {
     //TODO just pass legal moves to movePiece so you don't need to check twice.
     $("#board").on("click", "td", boardClicks);
     $(".help").click(alertHelp);
+    $("#moveHistory").on("click", "button", downloadPgn);
     $("#filters").on("click", "input", function() {
         layoutBoard();
     })
 });
+
+function downloadPgn () {
+    var pgn = "";
+    for (var i = 0; i < $("#moveList").children().length; i++) {
+        pgn += (i + 1) + ". " + $("#moveList").children()[i].textContent + " ";
+    }
+    var b = new Blob([pgn], {type: 'pgn'});
+    var fileURL = URL.createObjectURL(b);
+    
+    var a = document.createElement('a'),
+    e = document.createEvent("MouseEvents");  // simulated click
+    e.initMouseEvent("click", true, false, self, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+    a.setAttribute('href', fileURL);
+    a.setAttribute('target', '_blank');           // fallback behaviour
+    a.setAttribute('download', 'ChessScouterGame.pgn'); // file name
+    a.dispatchEvent(e);                           // download
+}
 
 function alertHelp(){
     var text = $(this).context.parentNode.textContent;

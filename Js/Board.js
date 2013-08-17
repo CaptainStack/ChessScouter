@@ -109,7 +109,7 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
             $("#moveList").append("<li>" + this.createMoveString(piece, oldPosition, newPosition, capture) + "</li>");
         } 
         else{
-            $("#moveList").children()[$("#moveList").children().length - 1].textContent += "     " + this.createMoveString(piece, oldPosition, newPosition, capture);
+            $("#moveList").children()[$("#moveList").children().length - 1].textContent += " " + this.createMoveString(piece, oldPosition, newPosition, capture);
         }
         if (submitted === undefined) {
             game.turn++;
@@ -149,15 +149,15 @@ Board.prototype.createMoveString = function createMoveString (piece, oldPosition
                     if (otherPosition.x !== oldPosition.x) {
                         moveString += String.fromCharCode(97 + oldPosition.x);
                     } else if (otherPosition.y !== oldPosition.y) {
-                        moveString += oldPosition.y;
+                        moveString += 8 - oldPosition.y;
                     } else {
-                        moveString += String.fromCharCode(97 + oldPosition.x) + oldPosition.y;
+                        moveString += String.fromCharCode(97 + oldPosition.x) + (8 - oldPosition.y);
                     }
                 }
             })
         }
     });
-    moveString += String.fromCharCode(97 + newPosition.x) + newPosition.y;
+    moveString += String.fromCharCode(97 + newPosition.x) + (8 - newPosition.y);
     if (game.isInCheck(game.otherPlayer(piece.color))) {
         if (game.isInCheckmate(game.otherPlayer(piece.color))) {
             moveString += "#";
