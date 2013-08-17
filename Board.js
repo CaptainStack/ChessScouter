@@ -273,10 +273,6 @@ Board.prototype.getPosition = function getPosition(piece) {
     return new Position(piece.x, piece.y);
 }
 
-Board.prototype.getKing = function getKing(player) {
-    if (player == "white") {} else {}
-}
-
 Board.prototype.removeFlair = function removeFlair() {
     for (var i = 0; i < this.grid.length; i++) {
         for (var j = 0; j < this.grid[i].length; j++) {
