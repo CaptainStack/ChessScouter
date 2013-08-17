@@ -10,9 +10,6 @@ function Bishop(color) {
     this.symbol = "B";
 }
 
-Bishop.prototype.isCaptured = function isCaptured(){
-    return this.captured;
-}
 Bishop.prototype.setMoved = function setMoved(movedState){
     this.hasMoved = movedState;
 }

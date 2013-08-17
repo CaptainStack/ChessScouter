@@ -10,9 +10,6 @@ function Pawn(color) {
     this.movedDouble = false;
 }
 
-Pawn.prototype.isCaptured = function isCaptured() {
-    return this.captured;
-}
 Pawn.prototype.setMoved = function setMoved(movedState) {
     this.hasMoved = movedState;
 }

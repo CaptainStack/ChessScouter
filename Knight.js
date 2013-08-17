@@ -8,9 +8,6 @@ function Knight(color) {
     this.symbol = "N";
 }
 
-Knight.prototype.isCaptured = function isCaptured(){
-	return this.captured;
-}
 Knight.prototype.setMoved = function setMoved(movedState){
 	this.hasMoved = movedState;
 }

@@ -9,9 +9,6 @@ function King(color) {
     this.symbol = "K";
 }
 
-King.prototype.isCaptured = function isCaptured(){
-    return this.captured;
-}
 King.prototype.setMoved = function setMoved(movedState){
     this.hasMoved = movedState;
 }

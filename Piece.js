@@ -12,9 +12,6 @@ Piece.prototype.setMoved = function setMoved(movedState) {
     this.hasMoved = movedState;
 }
 
-Piece.prototype.isCaptured = function isCaptured() {
-    return this.captured;
-}
 Piece.prototype.getLegalMoves = function getLegalMoves(position) {
     var potentialMoves = [];
     for (var i = 0; i < 8; i++) {

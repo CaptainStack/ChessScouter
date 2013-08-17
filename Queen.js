@@ -8,9 +8,6 @@ function Queen(color) {
     this.symbol = "Q";
 }
 
-Queen.prototype.isCaptured = function isCaptured(){
-    return this.captured;
-}
 Queen.prototype.setMoved = function setMoved(movedState){
     this.hasMoved = movedState;
 }

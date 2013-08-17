@@ -9,9 +9,6 @@ function Rook(color){
     this.symbol = "R";
 }
 
-Rook.prototype.isCaptured = function isCaptured(){
-    return this.captured;
-}
 Rook.prototype.setMoved = function setMoved(movedState){
     this.hasMoved = movedState;
 }
