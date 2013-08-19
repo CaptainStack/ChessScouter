@@ -10,6 +10,17 @@ function Bishop(color) {
     this.symbol = "B";
 }
 
+Bishop.prototype.getPosition = function getPosition() {
+    for (var i = 0; i < game.board.grid.length; i++) {
+        for (var j = 0; j < game.board.grid[i].length; j++) {
+            if (game.board.grid[j][i].piece === this) {
+                return new Position(j, i);
+            }
+        }
+    }
+    return new Position(this.x, this.y);
+}
+
 //This method records the possible moves the piece can make and inserts them into number of arrays for easy future acess.
 Bishop.prototype.getPotentialMoves = function getPotentialMoves(postion) {
     var x = postion.x;

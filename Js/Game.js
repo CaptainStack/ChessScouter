@@ -111,7 +111,7 @@ Game.prototype.getAllLegalAttacks = function getAllLegalAttacks(player) {
 		if(player == "white" || player == "black"){
 			var pieces = this.getPieces(player);
 			for(var i = 0; i < pieces.length; i++){
-				var pieceAttack = pieces[i].getAttacks(this.board.getPosition(pieces[i]));
+				var pieceAttack = pieces[i].getAttacks(pieces[i].getPosition());
 				for(var j = 0; j < pieceAttack.length; j++){
 					attacks.push(pieceAttack[j]);
 				}
@@ -137,7 +137,7 @@ Game.prototype.isInCheck = function isInCheck(player) {
 		enemyAttacks = this.getAllLegalAttacks("white");
 	}
 	for(var i = 0; i < enemyAttacks.length; i++){
-		if(enemyAttacks[i].x == game.board.getPosition(king).x && enemyAttacks[i].y == game.board.getPosition(king).y) {
+		if(enemyAttacks[i].x == king.getPosition().x && enemyAttacks[i].y == king.getPosition().y) {
 			return true;
 			break;
 		}
@@ -166,7 +166,7 @@ Game.prototype.isInCheckmate = function isInCheckmate(player) {
     var pieces = this.getPieces(player);
     var legalMoves = [];
     for(var i = 0; i < pieces.length; i++){
-        var pieceMoves = this.pieceLegalMoves(game.board.getPosition(pieces[i]));
+        var pieceMoves = this.pieceLegalMoves(pieces[i].getPosition());
         for(var j = 0; j < pieceMoves.length; j++){
             legalMoves.push(pieceMoves[i]);
         }
@@ -181,7 +181,7 @@ Game.prototype.isInStalemate = function isInStalemate(player) {
     var pieces = this.getPieces(player);
     var legalMoves = [];
     for(var i = 0; i < pieces.length; i++){
-        var pieceMoves = this.pieceLegalMoves(game.board.getPosition(pieces[i]));
+        var pieceMoves = this.pieceLegalMoves(pieces[i].getPosition());
         for(var j = 0; j < pieceMoves.length; j++){
             legalMoves.push(pieceMoves[i]);
         }
@@ -223,11 +223,11 @@ Game.prototype.insufficientMatingMaterial = function insufficientMatingMaterial(
                 case "bishop":
                     if(color === "black"){
                         blackBishops++;
-                        blackBishopSquareColor = this.board.getPosition(allPieces[i]).x % 2 === this.board.getPosition(allPieces[i]).y % 2;
+                        blackBishopSquareColor = allPieces[i].getPosition().x % 2 === allPieces[i].getPosition().y % 2;
                         break;
                     }else{
                         whiteBishops++;
-                        whiteBishopSquareColor = this.board.getPosition(allPieces[i]).x % 2 === this.board.getPosition(allPieces[i]).y % 2;
+                        whiteBishopSquareColor = allPieces[i].getPosition().x % 2 === allPieces[i].getPosition().y % 2;
                         break;
                     }
                 case "knight":
@@ -290,13 +290,13 @@ Game.prototype.getWhiteForks = function getWhiteForks(){
     var forks = [];
     var pieces = this.getPieces("white");
     for(var i = 0; i < pieces.length; i++){
-        var pieceMoves = pieces[i].getLegalMoves(this.board.getPosition(pieces[i]));
+        var pieceMoves = pieces[i].getLegalMoves(pieces[i].getPosition());
         for(var j = 0; j < pieceMoves.length; j++){
             var initialAttacks = this.attackedPieces("black");
             //Make the move but save information so move can be undone
             
             var piece = pieces[i];
-            var oldPosition = this.board.getPosition(piece);
+            var oldPosition = piece.getPosition();
             var foreignContents = this.board.grid[pieceMoves[j].x][pieceMoves[j].y].piece;
             this.board.grid[pieceMoves[j].x][pieceMoves[j].y].piece = piece;
             this.board.grid[oldPosition.x][oldPosition.y].piece = null;

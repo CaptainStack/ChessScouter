@@ -143,7 +143,7 @@ Board.prototype.createMoveString = function createMoveString (piece, oldPosition
     }
     game.getPieces(piece.color).forEach(function (otherPiece) {
         if (piece.type === otherPiece.type && piece !== otherPiece && piece.type != "pawn") {
-            var otherPosition = game.board.getPosition(otherPiece);
+            var otherPosition = otherPiece.getPosition();
             otherPiece.getAttacks(otherPosition).forEach(function(otherMove) {
                 if (otherMove.x == newPosition.x && otherMove.y == newPosition.y) {
                     if (otherPosition.x !== oldPosition.x) {
@@ -260,17 +260,6 @@ Board.prototype.isLegalMove = function isLegalMove(oldPosition, newPosition) {
 // Returns whether the given position is on the board
 Board.prototype.isOnBoard = function isOnBoard(position) {
     return !(position.x < 0 || position.x > 7 || position.y < 0 || position.y > 7);
-}
-
-Board.prototype.getPosition = function getPosition(piece) {
-    for (var i = 0; i < this.grid.length; i++) {
-        for (var j = 0; j < this.grid[i].length; j++) {
-            if (this.grid[j][i].piece === piece) {
-                return new Position(j, i);
-            }
-        }
-    }
-    return new Position(piece.x, piece.y);
 }
 
 Board.prototype.removeFlair = function removeFlair() {

@@ -10,6 +10,17 @@ function Pawn(color) {
     this.movedDouble = false;
 }
 
+Pawn.prototype.getPosition = function getPosition() {
+    for (var i = 0; i < game.board.grid.length; i++) {
+        for (var j = 0; j < game.board.grid[i].length; j++) {
+            if (game.board.grid[j][i].piece === this) {
+                return new Position(j, i);
+            }
+        }
+    }
+    return new Position(this.x, this.y);
+}
+
 Pawn.prototype.getPotentialMoves = function getPotentialMoves(position) {
     var x = position.x;
     var y = position.y;
@@ -47,11 +58,11 @@ Pawn.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
         if(game.board.occupiedBy(new Position(x + 1, y - 1)) == "black") {
             potentialMoves.push(new Position(x + 1, y - 1));
         }
-        if(y == 3 && game.board.lastPiece instanceof Pawn && game.board.getPosition(game.board.lastPiece).y == 3 && game.board.lastPiece.movedDouble) {
-            if(game.board.getPosition(game.board.lastPiece).x == x - 1) {
+        if(y == 3 && game.board.lastPiece instanceof Pawn && game.board.lastPiece.getPosition().y == 3 && game.board.lastPiece.movedDouble) {
+            if(game.board.lastPiece.getPosition().x == x - 1) {
                 potentialMoves.push(new Position(x - 1, y - 1));
             }
-            else if(game.board.getPosition(game.board.lastPiece).x == game.board.getPosition(this).x + 1) {
+            else if(game.board.lastPiece.getPosition().x == this.getPosition().x + 1) {
                 potentialMoves.push(new Position(x + 1, y - 1));
             }
         }
@@ -68,16 +79,15 @@ Pawn.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
         if(game.board.occupiedBy(new Position(x + 1, y + 1)) == "white") {
             potentialMoves.push(new Position(x + 1, y + 1));
         }
-        if(y == 4 && game.board.lastPiece instanceof Pawn && game.board.getPosition(game.board.lastPiece).y == 4 && game.board.lastPiece.movedDouble) {
+        if(y == 4 && game.board.lastPiece instanceof Pawn && game.board.lastPiece.getPosition().y == 4 && game.board.lastPiece.movedDouble) {
             if(game.board.getPosition(game.board.lastPiece).x == x - 1) {
                 potentialMoves.push(new Position(x - 1, y + 1));
             }
-            else if(game.board.getPosition(game.board.lastPiece).x == game.board.getPosition(this).x + 1) {
+            else if(game.board.lastPiece.getPosition().x == this.getPosition().x + 1) {
                 potentialMoves.push(new Position(x + 1, y + 1));
             }
         }
     }
-	// var thisPosition = game.board.getPosition(this);
 	for(var i = potentialMoves.length - 1; i >= 0; i--) {
 		if(!game.board.isOnBoard(potentialMoves[i])) {
 			potentialMoves.splice(i, 1);

@@ -8,6 +8,17 @@ function Knight(color) {
     this.symbol = "N";
 }
 
+Knight.prototype.getPosition = function getPosition() {
+    for (var i = 0; i < game.board.grid.length; i++) {
+        for (var j = 0; j < game.board.grid[i].length; j++) {
+            if (game.board.grid[j][i].piece === this) {
+                return new Position(j, i);
+            }
+        }
+    }
+    return new Position(this.x, this.y);
+}
+
 Knight.prototype.getPotentialMoves = function getPotentialMoves(position) {
 	var x = position.x;
 	var y = position.y;
