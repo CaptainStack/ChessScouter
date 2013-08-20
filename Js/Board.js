@@ -168,7 +168,7 @@ Board.prototype.createMoveString = function createMoveString (piece, oldPosition
     return moveString;
 }
 
-Board.prototype.removeLegalMoves = function removeLegalMoves(){
+Board.prototype.removeLegalMoves = function removeLegalMoves() {
     for (var i = 0; i < this.grid.length; i++) {
         for (var j = 0; j < this.grid[i].length; j++) {
             this.grid[i][j].legalMove = false;
@@ -176,7 +176,7 @@ Board.prototype.removeLegalMoves = function removeLegalMoves(){
     }
 }
 
-Board.prototype.removeForks = function removeForks(){
+Board.prototype.removeForks = function removeForks() {
     for (var i = 0; i < this.grid.length; i++) {
         for (var j = 0; j < this.grid[i].length; j++) {
             this.grid[i][j].fork = false;
