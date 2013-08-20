@@ -55,7 +55,7 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
         if (this.grid[newX][newY].piece != null) {
             capture = true;
         }
-        if (piece instanceof Pawn && !this.grid[newPosition.x][newPosition.y].piece) {
+        if (piece instanceof Pawn && !this.grid[newX][newY].piece) {
             this.grid[oldX][oldY].piece = null;
             this.grid[newX][newY].piece = piece;
             this.grid[newX][oldY].piece = null;
@@ -66,15 +66,15 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
         this.grid[newX][newY].piece.hasMoved = true;
         piece.movedDouble = this.isMovingDouble(piece, oldPosition, newPosition);
         if (this.isCastling(piece, oldPosition, newPosition)){
-            if (newPosition.x - oldPosition.x === 2) {
-                this.grid[5][oldPosition.y].piece = this.grid[7][oldPosition.y].piece;
-                this.grid[7][oldPosition.y].piece = null;
-            }else if (newPosition.x - oldPosition.x === -2) {
-                this.grid[3][oldPosition.y].piece = this.grid[0][oldPosition.y].piece;
-                this.grid[0][oldPosition.y].piece = null;
+            if (newX - oldX === 2) {
+                this.grid[5][newY].piece = this.grid[7][newY].piece;
+                this.grid[7][newY].piece = null;
+            }else if (newX - oldX === -2) {
+                this.grid[3][newY].piece = this.grid[0][newY].piece;
+                this.grid[0][newY].piece = null;
             }
         }
-        if ((newPosition.y === 0 || newPosition.y === 7) && this.grid[newPosition.x][newPosition.y].piece.image.indexOf("pawn") !== -1) {
+        if ((newY === 0 || newY === 7) && this.grid[newX][newY].piece.image.indexOf("pawn") !== -1) {
             $("#promotion").show();
             submitted = false;
             $("#board").off();
@@ -114,7 +114,7 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
         if (submitted === undefined) {
             game.turn++;
         } else {
-            this.promoPosition = new Position(newPosition.x, newPosition.y);
+            this.promoPosition = new Position(newX, newY);
         }
         layoutBoard();
         message = this.checkStates();
@@ -145,7 +145,7 @@ Board.prototype.createMoveString = function createMoveString (piece, oldPosition
         if (piece.type === otherPiece.type && piece !== otherPiece && piece.type != "pawn") {
             var otherPosition = otherPiece.getPosition();
             otherPiece.getAttacks(otherPosition).forEach(function(otherMove) {
-                if (otherMove.x == newPosition.x && otherMove.y == newPosition.y) {
+                if (otherMove.x == newPosition.x && otherMove.y == newY) {
                     if (otherPosition.x !== oldPosition.x) {
                         moveString += String.fromCharCode(97 + oldPosition.x);
                     } else if (otherPosition.y !== oldPosition.y) {
@@ -157,7 +157,7 @@ Board.prototype.createMoveString = function createMoveString (piece, oldPosition
             })
         }
     });
-    moveString += String.fromCharCode(97 + newPosition.x) + (8 - newPosition.y);
+    moveString += String.fromCharCode(97 + newPosition.x) + (8 - newY);
     if (game.isInCheck(game.otherPlayer(piece.color))) {
         if (game.isInCheckmate(game.otherPlayer(piece.color))) {
             moveString += "#";
