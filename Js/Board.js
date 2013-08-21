@@ -7,6 +7,7 @@ function Board() {
     this.lastPiece = undefined;
     
     var grid = [];
+    
 	for(var i = 0; i < 8; i++){
 		var row = [];
 		for(var j = 0; j < 8; j++){        
@@ -14,6 +15,7 @@ function Board() {
 		}
 		grid[i] = row;
 	}
+    
 	grid[0][0] = new Square(0, 0, new Rook("black"));
 	grid[1][0] = new Square(1, 0, new Knight("black"));
 	grid[2][0] = new Square(2, 0, new Bishop("black"));
@@ -268,16 +270,17 @@ Board.prototype.checkStates = function checkStates() {
     if (game.isInStalemate(game.whoseTurn())) {
         $("#board").off();
         return "stalemate!";
-    }else if (game.insufficientMatingMaterial()){
+    } else if (game.insufficientMatingMaterial()){
         $("#board").off();
         return "Insufficient pieces for checkmate. Draw!";
-    }    
-    else if (game.isInCheck(game.whoseTurn())) {
+    } else if (game.isInCheck(game.whoseTurn())) {
         if (game.isInCheckmate(game.whoseTurn())) {
             $("#board").off();
             return "checkmate!";
         }
         return "check!";
+    } else {
+        return "normal";
     }
 }
 
