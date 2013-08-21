@@ -54,6 +54,7 @@ function Game() {
 	}
 	this.board = new Board(grid);
 }
+
 Game.prototype.whoseTurn = function whoseTurn(){
 	if(this.turn % 2 === 0) {
 		return "black";
@@ -61,6 +62,7 @@ Game.prototype.whoseTurn = function whoseTurn(){
 		return "white";
 	}
 }
+
 Game.prototype.otherTurn = function otherTurn(){
 	if(this.turn % 2 === 0) {
 		return "white";
@@ -68,6 +70,7 @@ Game.prototype.otherTurn = function otherTurn(){
 		return "black";
 	}
 }
+
 Game.prototype.otherPlayer = function otherPlayer(player) {
     if(player === "white"){
         return "black";
@@ -143,6 +146,7 @@ Game.prototype.isInCheck = function isInCheck(player) {
 		}
 	}
 }
+
 Game.prototype.findKing = function findKing(player) {
     var pieces = this.getPieces(player);
 	var king = null;
@@ -162,6 +166,7 @@ Game.prototype.findKing = function findKing(player) {
         return null;
     }
 }
+
 Game.prototype.isInCheckmate = function isInCheckmate(player) {
     var pieces = this.getPieces(player);
     var legalMoves = [];
@@ -177,6 +182,7 @@ Game.prototype.isInCheckmate = function isInCheckmate(player) {
         return false;
     }
 }
+
 Game.prototype.isInStalemate = function isInStalemate(player) {
     var pieces = this.getPieces(player);
     var legalMoves = [];
@@ -196,6 +202,7 @@ Game.prototype.isInStalemate = function isInStalemate(player) {
         return false;
     }
 }
+
 Game.prototype.insufficientMatingMaterial = function insufficientMatingMaterial(){
     var sufficient = true;
     var whitePieces = this.getPieces("white");
@@ -276,6 +283,7 @@ Game.prototype.pieceLegalMoves = function pieceLegalMoves(position) {
     }
     return legalMoves;
 }
+
 Game.prototype.attackedPieces = function attackedPieces(player) {
     var initialAttacks = this.getAllLegalAttacks(this.otherPlayer(player));
     for(var i = initialAttacks.length - 1; i >= 0; i--){
@@ -286,6 +294,7 @@ Game.prototype.attackedPieces = function attackedPieces(player) {
     }
     return initialAttacks;
 }
+
 Game.prototype.getWhiteForks = function getWhiteForks(){
     var forks = [];
     var pieces = this.getPieces("white");
