@@ -52,4 +52,15 @@ Knight.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
 
 Knight.prototype.getAttacks = function getAttacks(currentPosition) {
 	return this.getPotentialMoves(currentPosition);
+}
+Knight.prototype.cloneSelf = function cloneSelf() {
+    var selfClone = new Knight(this.color);
+    selfClone.color = this.color;
+    selfClone.captured = this.captured;
+    selfClone.image = this.image;
+    selfClone.hasMoved = this.hasMoved;
+    selfClone.material = this.material;
+    selfClone.type = this.type;
+    selfClone.symbol = this.symbol;
+    return selfClone;
 };

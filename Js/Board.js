@@ -3,8 +3,9 @@
 "use strict";
 
 function Board() {
-    this.promoPosition = undefined;
-    this.lastPiece = undefined;
+    this.promoPosition = null;
+    this.lastPiece = null;
+    this.lastBoard = null;
     
     var grid = [];
     
@@ -93,14 +94,15 @@ Board.prototype.getPiece = function getPiece(x, y) {
 
 //TODO If destination is enemy piece, don't null out, but set to captured and move out of the way.
 Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
+    this.lastBoard = this.cloneBoard();
     this.removeFlair();
     this.removeForks();
     var oldX = oldPosition.x;
     var oldY = oldPosition.y;
     var newX = newPosition.x;
     var newY = newPosition.y;
-    var message = undefined;
-    var submitted = undefined;
+    var message = null;
+    var submitted = null;
     var capture = false;
     var piece = this.grid[oldX][oldY].piece;
     var initialAttacks = game.attackedPieces(game.otherTurn());
@@ -132,7 +134,7 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
             submitted = false;
             $("#board").off();
             $("#submit").on("click", function() {
-                if (game.board.promoPosition != undefined) {
+                if (game.board.promoPosition != null) {
                     var pieceType = $("#promotionOptions").val();
                     if (pieceType === "Queen") {
                         game.board.grid[game.board.promoPosition.x][game.board.promoPosition.y].piece = new Queen(game.whoseTurn());
@@ -147,7 +149,7 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
                     submitted = true;
                     $("#board").on("click", "td", boardClicks);
                     game.turn++;
-                    game.board.promoPosition = undefined;
+                    game.board.promoPosition = null;
                     layoutBoard();
                 }
             });
@@ -164,7 +166,7 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
         else {
             $("#moveList").children()[$("#moveList").children().length - 1].textContent += " " + this.createMoveString(piece, oldPosition, newPosition, capture);
         }
-        if (submitted === undefined) {
+        if (submitted === null) {
             game.turn++;
         } else {
             this.promoPosition = new Position(newX, newY);
@@ -179,14 +181,34 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
         layoutBoard();
         message = 'That is an illegal move!';
     }
-    if (message !== undefined) {
+    if (message !== null) {
         messageUser(message, true);
     }
     this.removeLegalMoves();
     this.lastPiece = piece;
 }
 
-Board.prototype.createMoveString = function createMoveString (piece, oldPosition, newPosition, capture, check, promotionType) {
+Board.prototype.cloneBoard = function cloneBoard() {
+    var boardClone = new Board();
+    for (var i = 0; i < this.grid.length; i++) {
+        for (var j = 0; j < this.grid[i].length; j++) {
+            if (this.grid[i][j].piece) {
+                boardClone.grid[i][j].piece = this.grid[i][j].piece.cloneSelf();
+            } else {
+                boardClone.grid[i][j].piece = null;
+            }
+        }
+    }
+    return boardClone;
+}
+
+Board.prototype.undoMove = function undoMove() {
+    game.turn--;
+    game.board = this.lastBoard;
+    layoutBoard();
+}
+
+Board.prototype.createMoveString = function createMoveString(piece, oldPosition, newPosition, capture, check, promotionType) {
     var moveString = piece.symbol;
     if (capture) {
         if (piece instanceof Pawn) {
@@ -280,7 +302,7 @@ Board.prototype.checkStates = function checkStates() {
         }
         return "check!";
     } else {
-        return "normal";
+        return null;
     }
 }
 
