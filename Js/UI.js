@@ -41,7 +41,7 @@ function downloadPgn () {
     a.dispatchEvent(e);                           // download
 }
 
-function alertHelp(){
+function alertHelp() {
     var text = $(this).context.parentNode.textContent;
     var option = text.substring(0, text.length - 4);
     $.getJSON("Js/Messages.json", function(json) {
@@ -140,39 +140,41 @@ function showLastMove() {
         }
     }
 }
+
 function getBackgroundImageString(position) {
     var piece = "";
     var dot = "";
     var fork = "";
-    if(game.board.grid[position.x][position.y].legalMove) {
+    if (game.board.grid[position.x][position.y].legalMove) {
         dot = "url(Assets/blue_dot.svg)";
     }
     if ($("#forks").attr("checked") != undefined && game.board.grid[position.x][position.y].fork === true) {
-        if(dot === ""){
+        if (dot === "") {
             fork = "url(Assets/white_fork.svg)";
-        }else{
+        } else{
             fork = ", url(Assets/white_fork.svg)";
         }
     }
-    if(game.board.getPiece(position.x, position.y) != null) {
-        if(dot !== "" || fork !== ""){
+    if (game.board.getPiece(position.x, position.y) != null) {
+        if (dot !== "" || fork !== "") {
             piece = ", url(Assets/" + game.board.getPiece(position.x, position.y).image + ")";
-        }else{
+        } else{
             piece = "url(Assets/" + game.board.getPiece(position.x, position.y).image + ")";
         }
     }
-    if(fork !== ""){
+    if (fork !== "") {
         var backgroundPosition = "bottom right";
-        if(dot !== ""){
+        if (dot !== "") {
             backgroundPosition = "center center, " + backgroundPosition;
         }
-        if(piece !== ""){
+        if (piece !== "") {
             backgroundPosition += ", center center";
         }
         getTableData(position.x, position.y).css("background-position", backgroundPosition);
     }
     return dot + fork + piece;
 }
+
 function showSpaceControl() {
     var blackAttacks = game.getAllLegalAttacks("black");
     for (var i = 0; i < blackAttacks.length; i++) {

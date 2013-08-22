@@ -43,76 +43,76 @@ Queen.prototype.getPotentialMoves = function getPotentialMoves(position) {
     var southWestMoves = [];
 	while(vectorNorth == false || vectorSouth == false || vectorEast == false || vectorWest == false || vectorNorthEast == false || vectorSouthEast == false || vectorNorthWest == false || vectorSouthWest == false) {
 		//North: Y-- South: Y++ East: X-- West: X++ 
-		if(vectorNorth == false) {
+		if (vectorNorth == false) {
 			addY--;
-			if( game.board.isOnBoard(new Position(x + addX,y + addY))){
+			if ( game.board.isOnBoard(new Position(x + addX,y + addY))) {
 				northMoves.push(new Position (x + addX, y + addY));
                 //northMoves.push({x: x + addX, y: y + addY});
-			}else {
+			} else {
 				addY = 0;
 				vectorNorth = true;
 			}
-		}else if (vectorSouth == false) {
+		} else if (vectorSouth == false) {
 			addY++;
-			if( game.board.isOnBoard(new Position(x + addX,y + addY))){
+			if ( game.board.isOnBoard(new Position(x + addX,y + addY))) {
 				southMoves.push(new Position (x + addX, y + addY));
-			}else {
+			} else {
 				addY = 0;
 				vectorSouth = true;
 			}
-		}else if (vectorEast == false) {
+		} else if (vectorEast == false) {
             addX--;
-			if( game.board.isOnBoard(new Position(x + addX,y + addY))){
+			if ( game.board.isOnBoard(new Position(x + addX,y + addY))) {
 				eastMoves.push(new Position (x + addX, y + addY));
-			}else {
+			} else {
 				addX = 0;
 				vectorEast = true;
 			}
-		}else if (vectorWest == false) {
+		} else if (vectorWest == false) {
             addX++;
-			if( game.board.isOnBoard(new Position(x + addX,y + addY))){
+			if ( game.board.isOnBoard(new Position(x + addX,y + addY))) {
 				westMoves.push(new Position (x + addX, y + addY));
-			}else {
+			} else {
 				addX = 0;
 				vectorWest = true;
 			}
-		}else if(vectorNorthEast == false) {
+		} else if (vectorNorthEast == false) {
 			addY--;
 			addX--;
-			if( game.board.isOnBoard(new Position(x + addX,y + addY))){
+			if ( game.board.isOnBoard(new Position(x + addX,y + addY))) {
 				northEastMoves.push(new Position (x + addX, y + addY));
                 //northMoves.push({x: x + addX, y: y + addY});
-			}else {
+			} else {
 				addY = 0;
 				addX = 0;
 				vectorNorthEast = true;
 			}
-		}else if (vectorSouthEast == false) {
+		} else if (vectorSouthEast == false) {
 			addY++;
 			addX--;
-			if( game.board.isOnBoard(new Position(x + addX,y + addY))){
+			if ( game.board.isOnBoard(new Position(x + addX,y + addY))) {
 				southEastMoves.push(new Position (x + addX, y + addY));
-			}else {
+			} else {
 				addY = 0;
 				addX = 0;
 				vectorSouthEast = true;
 			}
-		}else if (vectorNorthWest == false) {
+		} else if (vectorNorthWest == false) {
             addY--;
 			addX++;
-			if( game.board.isOnBoard(new Position(x + addX,y + addY))){
+			if ( game.board.isOnBoard(new Position(x + addX,y + addY))) {
 				northWestMoves.push(new Position (x + addX, y + addY));
-			}else {
+			} else {
 				addX = 0;
 				addY = 0;
 				vectorNorthWest = true;
 			}
-		}else if (vectorSouthWest == false) {
+		} else if (vectorSouthWest == false) {
 			addX++;
 			addY++;
-			if( game.board.isOnBoard(new Position(x + addX,y + addY))){
+			if ( game.board.isOnBoard(new Position(x + addX,y + addY))) {
 				southWestMoves.push(new Position (x + addX, y + addY));
-			}else {
+			} else {
 				addX = 0;
 				vectorSouthWest = true;
 			}
@@ -132,15 +132,15 @@ Queen.prototype.getPotentialMoves = function getPotentialMoves(position) {
 Queen.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
     var legalMoves = [];
     var allMoves = this.getPotentialMoves(currentPosition)
-    for(var i = 0; i < allMoves.length; i++){
+    for(var i = 0; i < allMoves.length; i++) {
         var currVectorMoves = allMoves[i];
-        for(var j = 0; j < currVectorMoves.length; j++){
-            if(game.board.occupiedBy(currVectorMoves[j]) == null) {
+        for(var j = 0; j < currVectorMoves.length; j++) {
+            if (game.board.occupiedBy(currVectorMoves[j]) == null) {
                 legalMoves.push(currVectorMoves[j]);
-            }else if(game.board.occupiedBy(currVectorMoves[j]) !== this.color) {
+            } else if (game.board.occupiedBy(currVectorMoves[j]) !== this.color) {
                 legalMoves.push(currVectorMoves[j]);
                 break;
-            }else{
+            } else{
                 break;
             }
         }
@@ -151,15 +151,15 @@ Queen.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
 Queen.prototype.getAttacks = function getAttacks(currentPosition) {
     var legalMoves = [];
     var allMoves = this.getPotentialMoves(currentPosition)
-    for(var i = 0; i < allMoves.length; i++){
+    for(var i = 0; i < allMoves.length; i++) {
         var currVectorMoves = allMoves[i];
-        for(var j = 0; j < currVectorMoves.length; j++){
-            if(game.board.occupiedBy(currVectorMoves[j]) == null) {
+        for(var j = 0; j < currVectorMoves.length; j++) {
+            if (game.board.occupiedBy(currVectorMoves[j]) == null) {
                 legalMoves.push(currVectorMoves[j]);
-            }else if(game.board.occupiedBy(currVectorMoves[j]) !== this.color) {
+            } else if (game.board.occupiedBy(currVectorMoves[j]) !== this.color) {
                 legalMoves.push(currVectorMoves[j]);
                 break;
-            }else{
+            } else{
                 legalMoves.push(currVectorMoves[j]);
                 break;
             }

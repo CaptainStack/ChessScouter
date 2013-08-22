@@ -8,9 +8,9 @@ function Board() {
     
     var grid = [];
     
-	for(var i = 0; i < 8; i++){
+	for(var i = 0; i < 8; i++) {
 		var row = [];
-		for(var j = 0; j < 8; j++){        
+		for(var j = 0; j < 8; j++) {        
 			row[j] = new Square(i, j, null);
 		}
 		grid[i] = row;
@@ -52,8 +52,8 @@ function Board() {
 	grid[6][7] = new Square(6, 7, new Knight("white"));
 	grid[7][7] = new Square(7, 7, new Rook("white"));
 
-	for(var i = 2; i < 6; i++){
-		for(var j = 0; j < 8; j++){
+	for(var i = 2; i < 6; i++) {
+		for(var j = 0; j < 8; j++) {
 			grid[j][i] = new Square(j, i, null);
 		}
 	}
@@ -118,11 +118,11 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
         }
         this.grid[newX][newY].piece.hasMoved = true;
         piece.movedDouble = this.isMovingDouble(piece, oldPosition, newPosition);
-        if (this.isCastling(piece, oldPosition, newPosition)){
+        if (this.isCastling(piece, oldPosition, newPosition)) {
             if (newX - oldX === 2) {
                 this.grid[5][newY].piece = this.grid[7][newY].piece;
                 this.grid[7][newY].piece = null;
-            }else if (newX - oldX === -2) {
+            } else if (newX - oldX === -2) {
                 this.grid[3][newY].piece = this.grid[0][newY].piece;
                 this.grid[0][newY].piece = null;
             }
@@ -214,7 +214,7 @@ Board.prototype.createMoveString = function createMoveString (piece, oldPosition
     if (game.isInCheck(game.otherPlayer(piece.color))) {
         if (game.isInCheckmate(game.otherPlayer(piece.color))) {
             moveString += "#";
-        }else {
+        } else {
             moveString += "+";
         }   
     }
@@ -261,7 +261,7 @@ Board.prototype.addFlair = function addFlair(initialAttacks, afterAttacks) {
 
 Board.prototype.addForks = function addForks() {
     var forks = game.getWhiteForks();
-    for(var i = 0; i < forks.length; i++){
+    for(var i = 0; i < forks.length; i++) {
         this.grid[forks[i].x][forks[i].y].fork = true;
     }
 }
@@ -270,7 +270,7 @@ Board.prototype.checkStates = function checkStates() {
     if (game.isInStalemate(game.whoseTurn())) {
         $("#board").off();
         return "stalemate!";
-    } else if (game.insufficientMatingMaterial()){
+    } else if (game.insufficientMatingMaterial()) {
         $("#board").off();
         return "Insufficient pieces for checkmate. Draw!";
     } else if (game.isInCheck(game.whoseTurn())) {
