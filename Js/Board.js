@@ -5,7 +5,6 @@
 function Board() {
     this.promoPosition = null;
     this.lastPiece = null;
-    this.lastBoard = null;
     
     var grid = [];
     
@@ -94,7 +93,6 @@ Board.prototype.getPiece = function getPiece(x, y) {
 
 //TODO If destination is enemy piece, don't null out, but set to captured and move out of the way.
 Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
-    //this.lastBoard = this.cloneBoard();
     game.moveHistory.push(this.cloneBoard());
     this.removeFlair();
     this.removeForks();
@@ -189,6 +187,15 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
     this.lastPiece = piece;
 }
 
+Board.prototype.convertFromAlgebra = function convertFromAlgebra(move) {
+    ["+", "x", "B", "K", "N", "Q", "R"].forEach(function(character){
+        move.replace(character, "");
+    });
+    var oldPosition = new Position(move.charCodeAt(0) - 97, move.charAt(1));
+    var newPosition = new Position(move.charCodeAt(move.length - 2) - 97, move.charAt(move.length - 1));
+    this.movePiece(oldPosition, newPosition);
+}
+
 Board.prototype.cloneBoard = function cloneBoard() {
     var boardClone = new Board();
     for (var i = 0; i < this.grid.length; i++) {
@@ -204,8 +211,14 @@ Board.prototype.cloneBoard = function cloneBoard() {
 }
 
 Board.prototype.undoMove = function undoMove() {
-    game.turn--;
     game.board = game.moveHistory.pop();
+    if (game.whoseTurn() == "white") {
+        var moveString = $("#moveList").children()[$("#moveList").children().length - 1].textContent;
+        $("#moveList").children()[$("#moveList").children().length - 1].textContent = moveString.substring(moveString.indexOf(" "));
+    } else {
+        $("#moveList").children()[$("#moveList").children().length - 1].remove();
+    }
+    game.turn--;
     layoutBoard();
 }
 
