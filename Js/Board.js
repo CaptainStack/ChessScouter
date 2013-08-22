@@ -161,7 +161,7 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
         if (game.whoseTurn() == "white") {
             $("#moveList").append("<li>" + this.createMoveString(piece, oldPosition, newPosition, capture) + "</li>");
         } 
-        else{
+        else {
             $("#moveList").children()[$("#moveList").children().length - 1].textContent += " " + this.createMoveString(piece, oldPosition, newPosition, capture);
         }
         if (submitted === undefined) {

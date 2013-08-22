@@ -31,7 +31,7 @@ Game.prototype.otherPlayer = function otherPlayer(player) {
 
 Game.prototype.getPieces = function getPieces(player) {
 	var pieceList = [];
-	try{
+	try {
 		if (player == "white" || player == "black" || player == "all") {
 			for(var i = 0; i < this.board.grid.length; i++) {
 				for(var j = 0; j < this.board.grid[i].length; j++) {
@@ -51,7 +51,7 @@ Game.prototype.getPieces = function getPieces(player) {
 		} else {
 			throw new Error("bad input");
 		}
-	}catch(err) {
+	} catch(err) {
 		alert(err + "player must be \"black\" or \"white\" or \"all\"");
 	}
 }
@@ -60,7 +60,7 @@ Game.prototype.getPieces = function getPieces(player) {
 //differently from how it attacks. For now it's easier but we should get inheritance working so it's less
 //stupid.
 Game.prototype.getAllLegalAttacks = function getAllLegalAttacks(player) {
-	try{
+	try {
 		var attacks = [];
 		if (player == "white" || player == "black") {
 			var pieces = this.getPieces(player);
@@ -74,7 +74,7 @@ Game.prototype.getAllLegalAttacks = function getAllLegalAttacks(player) {
 		} else {
 			throw "bad input";
 		}
-	}catch(err) {
+	} catch(err) {
 		alert(err + " player must be \"black\" or \"white\"");
 	}
 }
