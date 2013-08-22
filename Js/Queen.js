@@ -128,6 +128,7 @@ Queen.prototype.getPotentialMoves = function getPotentialMoves(position) {
     potentialMoves.push(southWestMoves);
 	return potentialMoves;
 }
+
 Queen.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
     var legalMoves = [];
     var allMoves = this.getPotentialMoves(currentPosition)
@@ -146,6 +147,7 @@ Queen.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
     }
     return legalMoves;
 }
+
 Queen.prototype.getAttacks = function getAttacks(currentPosition) {
     var legalMoves = [];
     var allMoves = this.getPotentialMoves(currentPosition)

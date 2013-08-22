@@ -75,6 +75,7 @@ Rook.prototype.getPotentialMoves = function getPotentialMoves(position) {
     potentialMoves.push(westMoves);
 	return potentialMoves;
 }
+
 Rook.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
     var legalMoves = [];
     var allMoves = this.getPotentialMoves(currentPosition);
@@ -94,6 +95,7 @@ Rook.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
     }
     return legalMoves;
 }
+
 Rook.prototype.getAttacks = function getAttacks(currentPosition) {
     var legalMoves = [];
     var allMoves = this.getPotentialMoves(currentPosition);

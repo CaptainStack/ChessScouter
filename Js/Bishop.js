@@ -104,6 +104,7 @@ Bishop.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
     }
     return legalMoves;
 }
+
 //This method identifies where the piece can legally attack another piece.
 Bishop.prototype.getAttacks = function getAttacks(currentPosition) {
     var legalMoves = [];

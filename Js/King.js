@@ -127,6 +127,7 @@ King.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
     }
     return legalMoves;
 }
+
 King.prototype.getAttacks = function getAttacks(currentPosition) {
     return this.getPotentialMoves(currentPosition);
 };
