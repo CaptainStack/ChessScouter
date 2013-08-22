@@ -94,7 +94,8 @@ Board.prototype.getPiece = function getPiece(x, y) {
 
 //TODO If destination is enemy piece, don't null out, but set to captured and move out of the way.
 Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
-    this.lastBoard = this.cloneBoard();
+    //this.lastBoard = this.cloneBoard();
+    game.moveHistory.push(this.cloneBoard());
     this.removeFlair();
     this.removeForks();
     var oldX = oldPosition.x;
@@ -204,7 +205,7 @@ Board.prototype.cloneBoard = function cloneBoard() {
 
 Board.prototype.undoMove = function undoMove() {
     game.turn--;
-    game.board = this.lastBoard;
+    game.board = game.moveHistory.pop();
     layoutBoard();
 }
 

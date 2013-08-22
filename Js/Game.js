@@ -3,6 +3,7 @@
 function Game() {    
 	this.turn = 1;
 	this.board = new Board();
+    this.moveHistory = [];
 }
 
 Game.prototype.whoseTurn = function whoseTurn() {
