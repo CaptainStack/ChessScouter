@@ -6,7 +6,7 @@ function Game() {
 }
 
 Game.prototype.whoseTurn = function whoseTurn() {
-	if(this.turn % 2 === 0) {
+	if (this.turn % 2 === 0) {
 		return "black";
 	}else{
 		return "white";
@@ -14,7 +14,7 @@ Game.prototype.whoseTurn = function whoseTurn() {
 }
 
 Game.prototype.otherTurn = function otherTurn() {
-	if(this.turn % 2 === 0) {
+	if (this.turn % 2 === 0) {
 		return "white";
 	}else{
 		return "black";
@@ -22,7 +22,7 @@ Game.prototype.otherTurn = function otherTurn() {
 }
 
 Game.prototype.otherPlayer = function otherPlayer(player) {
-    if(player === "white") {
+    if (player === "white") {
         return "black";
     }else{
         return "white"
@@ -32,16 +32,16 @@ Game.prototype.otherPlayer = function otherPlayer(player) {
 Game.prototype.getPieces = function getPieces(player) {
 	var pieceList = [];
 	try{
-		if(player == "white" || player == "black" || player == "all") {
+		if (player == "white" || player == "black" || player == "all") {
 			for(var i = 0; i < this.board.grid.length; i++) {
 				for(var j = 0; j < this.board.grid[i].length; j++) {
 					var square = this.board.grid[i][j];
-					if(square.piece !== null) {
-						if(square.piece.color == "white" && player == "white") {
+					if (square.piece !== null) {
+						if (square.piece.color == "white" && player == "white") {
 							pieceList.push(this.board.grid[i][j].piece);
-						}else if(square.piece.color == "black" && player == "black") {
+						}else if (square.piece.color == "black" && player == "black") {
 							pieceList.push(this.board.grid[i][j].piece);
-						}else if(player == "all") {
+						}else if (player == "all") {
 							pieceList.push(this.board.grid[i][j].piece);
 						}
 					}
@@ -61,7 +61,7 @@ Game.prototype.getPieces = function getPieces(player) {
 Game.prototype.getAllLegalAttacks = function getAllLegalAttacks(player) {
 	try{
 		var attacks = [];
-		if(player == "white" || player == "black") {
+		if (player == "white" || player == "black") {
 			var pieces = this.getPieces(player);
 			for(var i = 0; i < pieces.length; i++) {
 				var pieceAttack = pieces[i].getAttacks(pieces[i].getPosition());
@@ -84,13 +84,13 @@ Game.prototype.isInCheck = function isInCheck(player) {
 	var pieces = game.getPieces(player);
     var king = this.findKing(player);
 	var enemyAttacks;
-	if(player == "white") {
+	if (player == "white") {
 		enemyAttacks = this.getAllLegalAttacks("black");
 	}else{
 		enemyAttacks = this.getAllLegalAttacks("white");
 	}
 	for(var i = 0; i < enemyAttacks.length; i++) {
-		if(enemyAttacks[i].x == king.getPosition().x && enemyAttacks[i].y == king.getPosition().y) {
+		if (enemyAttacks[i].x == king.getPosition().x && enemyAttacks[i].y == king.getPosition().y) {
 			return true;
 			break;
 		}
@@ -110,7 +110,7 @@ Game.prototype.findKing = function findKing(player) {
 		}
 		counter++;
 	}
-    if(kingFound) {
+    if (kingFound) {
         return king;
     }else{
         return null;
@@ -126,7 +126,7 @@ Game.prototype.isInCheckmate = function isInCheckmate(player) {
             legalMoves.push(pieceMoves[i]);
         }
     }
-    if(legalMoves.length === 0 && this.isInCheck(player)) {
+    if (legalMoves.length === 0 && this.isInCheck(player)) {
         return true;
     }else{
         return false;
@@ -142,7 +142,7 @@ Game.prototype.isInStalemate = function isInStalemate(player) {
             legalMoves.push(pieceMoves[i]);
         }
     }
-    if(
+    if (
         (legalMoves.length === 0 && !this.isInCheck(player)) || 
         ((this.getPieces("white").length === 1 && this.findKing(player) !== null) && (this.getPieces("black").length === 1 && this.findKing(player))) ||
         ((this.getPieces("white").length === 1 && this.getPieces("white")[0] instanceof King) && (this.getPieces("black").length === 1 && this.getPieces("black")[0] instanceof King))
@@ -159,7 +159,7 @@ Game.prototype.insufficientMatingMaterial = function insufficientMatingMaterial(
     var blackPieces = this.getPieces("black");
     var allPieces = this.getPieces("all");
     
-    if(allPieces.length > 4) {
+    if (allPieces.length > 4) {
         return false;
     }else{
         var whiteKnights = 0;
@@ -169,7 +169,7 @@ Game.prototype.insufficientMatingMaterial = function insufficientMatingMaterial(
         var whiteBishopSquareColor = undefined;
         var blackBishopSquareColor = undefined;
         for(var i = 0; i < allPieces.length; i++) {
-            if(allPieces[i] instanceof Rook || allPieces[i] instanceof Queen || allPieces[i] instanceof Pawn) {
+            if (allPieces[i] instanceof Rook || allPieces[i] instanceof Queen || allPieces[i] instanceof Pawn) {
                 return false;
             }else{
                 var color = allPieces[i].color;
@@ -178,7 +178,7 @@ Game.prototype.insufficientMatingMaterial = function insufficientMatingMaterial(
                 switch(type)
                 {
                 case "bishop":
-                    if(color === "black") {
+                    if (color === "black") {
                         blackBishops++;
                         blackBishopSquareColor = allPieces[i].getPosition().x % 2 === allPieces[i].getPosition().y % 2;
                         break;
@@ -188,7 +188,7 @@ Game.prototype.insufficientMatingMaterial = function insufficientMatingMaterial(
                         break;
                     }
                 case "knight":
-                    if(color === "black") {
+                    if (color === "black") {
                         blackKnights++;
                     }else{
                         whiteKnights++;
@@ -199,7 +199,7 @@ Game.prototype.insufficientMatingMaterial = function insufficientMatingMaterial(
                 }
             }
         }
-        if(
+        if (
             (whiteKnights === 0 && whiteBishops === 0 && blackKnights === 0 && blackBishops === 0) ||
             (whiteKnights === 1 && whiteBishops === 0 && blackKnights === 0 && blackBishops === 0) ||
             (whiteKnights === 0 && whiteBishops === 1 && blackKnights === 0 && blackBishops === 0) ||
@@ -222,7 +222,7 @@ Game.prototype.pieceLegalMoves = function pieceLegalMoves(position) {
         var foreignContents = game.board.grid[legalMoves[i].x][legalMoves[i].y].piece;
         game.board.grid[position.x][position.y].piece = null;
         game.board.grid[legalMoves[i].x][legalMoves[i].y].piece = piece;
-        if(this.isInCheck(game.whoseTurn())) {
+        if (this.isInCheck(game.whoseTurn())) {
             game.board.grid[position.x][position.y].piece = piece;
             game.board.grid[legalMoves[i].x][legalMoves[i].y].piece = foreignContents;
             legalMoves.splice(i, 1);
@@ -237,7 +237,7 @@ Game.prototype.pieceLegalMoves = function pieceLegalMoves(position) {
 Game.prototype.attackedPieces = function attackedPieces(player) {
     var initialAttacks = this.getAllLegalAttacks(this.otherPlayer(player));
     for(var i = initialAttacks.length - 1; i >= 0; i--) {
-        if(this.board.grid[initialAttacks[i].x][initialAttacks[i].y].piece == null ||
+        if (this.board.grid[initialAttacks[i].x][initialAttacks[i].y].piece == null ||
         this.board.grid[initialAttacks[i].x][initialAttacks[i].y].piece.color == this.otherPlayer(player)) {
             initialAttacks.splice(i, 1);
         }
@@ -271,7 +271,7 @@ Game.prototype.getWhiteForks = function getWhiteForks() {
                 }
             }
             //Check if move results in more than 2 pieces under attack
-            if(afterAttacks.length >= 2) {
+            if (afterAttacks.length >= 2) {
                 forks.push(pieceMoves[j]);
             }
             this.board.grid[oldPosition.x][oldPosition.y].piece = piece;
