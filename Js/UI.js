@@ -22,6 +22,23 @@ $(function() {
     $("#filters").on("click", "input", function() {
         layoutBoard();
     })
+    
+    
+    //Watch for ctrl + z for undo
+    var ctrlDown = false;
+    var ctrlKey = 17, zKey = 90, yKey = 89;
+    
+    $(document).keydown(function(e) {
+        if (e.keyCode == ctrlKey) ctrlDown = true;
+    }).keyup(function(e){
+        if (e.keyCode == ctrlKey) ctrlDown = false;
+    });
+    
+    $(document).keydown(function(e){
+        if (ctrlDown && (e.keyCode == zKey)){
+            game.board.undoMove();
+        }
+    });
 });
 
 function downloadPgn () {
@@ -29,16 +46,21 @@ function downloadPgn () {
     for (var i = 0; i < $("#moveList").children().length; i++) {
         pgn += (i + 1) + ". " + $("#moveList").children()[i].textContent + " ";
     }
-    var b = new Blob([pgn], {type: 'pgn'});
-    var fileURL = URL.createObjectURL(b);
     
-    var a = document.createElement('a'),
-    e = document.createEvent("MouseEvents");  // simulated click
-    e.initMouseEvent("click", true, false, self, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-    a.setAttribute('href', fileURL);
-    a.setAttribute('target', '_blank');           // fallback behaviour
-    a.setAttribute('download', 'ChessScouterGame.pgn'); // file name
-    a.dispatchEvent(e);                           // download
+    if (pgn != "") {
+        var b = new Blob([pgn], {type: 'pgn'});
+        var fileURL = URL.createObjectURL(b);
+        
+        var a = document.createElement('a'),
+        e = document.createEvent("MouseEvents");  // simulated click
+        e.initMouseEvent("click", true, false, self, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+        a.setAttribute('href', fileURL);
+        a.setAttribute('target', '_blank');           // fallback behaviour
+        a.setAttribute('download', 'ChessScouterGame.pgn'); // file name
+        a.dispatchEvent(e);                           // download
+    } else {
+        alert("PGN has no contents yet. Make some moves and try again");
+    }
 }
 
 function alertHelp() {
@@ -209,14 +231,16 @@ function getImage(x, y) {
 
 // send a message to the user
 function messageUser(message, important) {
-    var $messages = $('#messages');
-    $messages.empty();
-    var $p = $('<p>').text(message);
-    if (important) $p.addClass('important');
-    $messages.append($p);
-    $p.fadeOut(7000, function() {
-        $(this).remove();
-    });
+    if (message !== null) {
+        var $messages = $('#messages');
+        $messages.empty();
+        var $p = $('<p>').text(message);
+        if (important) $p.addClass('important');
+        $messages.append($p);
+        $p.fadeOut(7000, function() {
+            $(this).remove();
+        });
+    }
 }
 
 function getBackgroundColor(x, y) {

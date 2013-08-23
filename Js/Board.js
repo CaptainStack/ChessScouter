@@ -94,6 +94,7 @@ Board.prototype.getPiece = function getPiece(x, y) {
 //TODO If destination is enemy piece, don't null out, but set to captured and move out of the way.
 Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
     game.moveHistory.push(this.cloneBoard());
+    
     this.removeFlair();
     this.removeForks();
     var oldX = oldPosition.x;
@@ -105,53 +106,44 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
     var capture = false;
     var piece = this.grid[oldX][oldY].piece;
     var initialAttacks = game.attackedPieces(game.otherTurn());
+    
     if (this.isLegalMove(oldPosition, newPosition)) {
+        //Determine if move is a capture (needed for algebraic move history)
         if (this.grid[newX][newY].piece != null) {
             capture = true;
         }
-        if (piece instanceof Pawn && !this.grid[newX][newY].piece) {
-            this.grid[oldX][oldY].piece = null;
-            this.grid[newX][newY].piece = piece;
-            this.grid[newX][oldY].piece = null;
-        } else{
-            this.grid[oldX][oldY].piece = null;
-            this.grid[newX][newY].piece = piece;
-        }
-        this.grid[newX][newY].piece.hasMoved = true;
+        piece.hasMoved = true;
         piece.movedDouble = this.isMovingDouble(piece, oldPosition, newPosition);
-        if (this.isCastling(piece, oldPosition, newPosition)) {
-            if (newX - oldX === 2) {
-                this.grid[5][newY].piece = this.grid[7][newY].piece;
-                this.grid[7][newY].piece = null;
-            } else if (newX - oldX === -2) {
-                this.grid[3][newY].piece = this.grid[0][newY].piece;
-                this.grid[0][newY].piece = null;
-            }
-        }
-        if ((newY === 0 || newY === 7) && this.grid[newX][newY].piece.image.indexOf("pawn") !== -1) {
+        
+        this.grid[oldX][oldY].piece = null;
+        this.grid[newX][newY].piece = piece;
+        this.completeCastle(piece, oldPosition, newPosition);
+        
+        if ((newY === 0 || newY === 7) && this.grid[newX][newY].piece instanceof Pawn) {
             $("#promotion").show();
             submitted = false;
             $("#board").off();
             $("#submit").on("click", function() {
-                if (game.board.promoPosition != null) {
+                if (this.promoPosition != null) {
                     var pieceType = $("#promotionOptions").val();
                     if (pieceType === "Queen") {
-                        game.board.grid[game.board.promoPosition.x][game.board.promoPosition.y].piece = new Queen(game.whoseTurn());
+                        this.grid[this.promoPosition.x][this.promoPosition.y].piece = new Queen(game.whoseTurn());
                     } else if (pieceType === "Rook") {
-                        game.board.grid[game.board.promoPosition.x][game.board.promoPosition.y].piece = new Rook(game.whoseTurn());
+                        this.grid[this.promoPosition.x][this.promoPosition.y].piece = new Rook(game.whoseTurn());
                     } else if (pieceType === "Bishop") {
-                        game.board.grid[game.board.promoPosition.x][game.board.promoPosition.y].piece = new Bishop(game.whoseTurn());
+                        this.grid[this.promoPosition.x][this.promoPosition.y].piece = new Bishop(game.whoseTurn());
                     } else if (pieceType === "Knight") {
-                        game.board.grid[game.board.promoPosition.x][game.board.promoPosition.y].piece = new Knight(game.whoseTurn());
+                        this.grid[this.promoPosition.x][this.promoPosition.y].piece = new Knight(game.whoseTurn());
                     }
+                    
                     $("#promotion").hide();
                     submitted = true;
                     $("#board").on("click", "td", boardClicks);
                     game.turn++;
-                    game.board.promoPosition = null;
+                    this.promoPosition = null;
                     layoutBoard();
                 }
-            });
+            }.bind(this));
         }
         
         var afterAttacks = game.attackedPieces(game.otherTurn());
@@ -159,30 +151,31 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
         this.grid[oldX][oldY].previous = true;
         this.grid[newX][newY].current = true;
         this.addForks();
+        
         if (game.whoseTurn() == "white") {
             $("#moveList").append("<li>" + this.createMoveString(piece, oldPosition, newPosition, capture) + "</li>");
-        } 
-        else {
+        } else {
             $("#moveList").children()[$("#moveList").children().length - 1].textContent += " " + this.createMoveString(piece, oldPosition, newPosition, capture);
         }
+        
         if (submitted === null) {
             game.turn++;
         } else {
             this.promoPosition = new Position(newX, newY);
         }
-        layoutBoard();
+        
         message = this.checkStates();
     } else if (oldX == newX && oldY == newY) {
-        layoutBoard();
-        message = '';
-    }
-    else {
-        layoutBoard();
+        //Cancel selection
+    } else {
         message = 'That is an illegal move!';
     }
+    
     if (message !== null) {
         messageUser(message, true);
     }
+    
+    layoutBoard();
     this.removeLegalMoves();
     this.lastPiece = piece;
 }
@@ -211,15 +204,20 @@ Board.prototype.cloneBoard = function cloneBoard() {
 }
 
 Board.prototype.undoMove = function undoMove() {
-    game.board = game.moveHistory.pop();
-    if (game.whoseTurn() == "white") {
-        var moveString = $("#moveList").children()[$("#moveList").children().length - 1].textContent;
-        $("#moveList").children()[$("#moveList").children().length - 1].textContent = moveString.substring(moveString.indexOf(" "));
-    } else {
-        $("#moveList").children()[$("#moveList").children().length - 1].remove();
+    if (game.moveHistory.length > 0) {
+        var currentState = game.moveHistory.pop();
+        game.board = currentState;
+        game.moveRedos.push(currentState);
+        
+        if (game.whoseTurn() == "white") {
+            var moveString = $("#moveList").children()[$("#moveList").children().length - 1].textContent;
+            $("#moveList").children()[$("#moveList").children().length - 1].textContent = moveString.substring(moveString.indexOf(" "));
+        } else {
+            $("#moveList").children()[$("#moveList").children().length - 1].remove();
+        }
+        game.turn--;
+        layoutBoard();
     }
-    game.turn--;
-    layoutBoard();
 }
 
 Board.prototype.createMoveString = function createMoveString(piece, oldPosition, newPosition, capture, check, promotionType) {
@@ -231,7 +229,7 @@ Board.prototype.createMoveString = function createMoveString(piece, oldPosition,
         moveString += "x";
     }
     game.getPieces(piece.color).forEach(function(otherPiece) {
-        if (piece.type === otherPiece.type && piece !== otherPiece && piece.type != "pawn") {
+        if (piece.type === otherPiece.type && piece !== otherPiece && !piece instanceof Pawn) {
             var otherPosition = otherPiece.getPosition();
             otherPiece.getAttacks(otherPosition).forEach(function(otherMove) {
                 if (otherMove.x == newPosition.x && otherMove.y == newPosition.y) {
@@ -243,7 +241,7 @@ Board.prototype.createMoveString = function createMoveString(piece, oldPosition,
                         moveString += String.fromCharCode(97 + oldPosition.x) + (8 - oldPosition.y);
                     }
                 }
-            })
+            });
         }
     });
     moveString += String.fromCharCode(97 + newPosition.x) + (8 - newPosition.y);
@@ -276,8 +274,17 @@ Board.prototype.removeForks = function removeForks() {
 Board.prototype.isMovingDouble = function isMovingDouble(piece, oldPosition, newPosition) {
     return piece instanceof Pawn && Math.abs(newPosition.y - oldPosition.y) === 2;
 }
-Board.prototype.isCastling = function isCastling(piece, oldPosition, newPosition) {
-    return piece instanceof King && Math.abs(newPosition.x - oldPosition.x) === 2;
+
+Board.prototype.completeCastle = function completeCastle(piece, oldPosition, newPosition) {
+    if (piece instanceof King && Math.abs(newPosition.x - oldPosition.x) === 2) {
+        if (newPosition.x - oldPosition.x === 2) {
+            this.grid[5][newPosition.y].piece = this.grid[7][newPosition.y].piece;
+            this.grid[7][newPosition.y].piece = null;
+        } else if (newPosition.x - oldPosition.x === -2) {
+            this.grid[3][newPosition.y].piece = this.grid[0][newPosition.y].piece;
+            this.grid[0][newPosition.y].piece = null;
+        }
+    }
 }
 
 Board.prototype.addFlair = function addFlair(initialAttacks, afterAttacks) {
