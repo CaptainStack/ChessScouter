@@ -255,7 +255,6 @@ Game.prototype.getWhiteForks = function getWhiteForks() {
         for(var j = 0; j < pieceMoves.length; j++) {
             var initialAttacks = this.attackedPieces("black");
             //Make the move but save information so move can be undone
-            
             var piece = pieces[i];
             var oldPosition = piece.getPosition();
             var foreignContents = this.board.grid[pieceMoves[j].x][pieceMoves[j].y].piece;
@@ -272,6 +271,7 @@ Game.prototype.getWhiteForks = function getWhiteForks() {
                     }
                 }
             }
+            
             //Check if move results in more than 2 pieces under attack
             if (afterAttacks.length >= 2) {
                 forks.push(pieceMoves[j]);
