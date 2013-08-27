@@ -53,6 +53,7 @@ Knight.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
 Knight.prototype.getAttacks = function getAttacks(currentPosition) {
 	return this.getPotentialMoves(currentPosition);
 }
+
 Knight.prototype.cloneSelf = function cloneSelf() {
     var selfClone = new Knight(this.color);
     selfClone.color = this.color;
