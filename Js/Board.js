@@ -61,6 +61,7 @@ function Board() {
     this.grid = grid;
 }
 
+//Testing function. No real purpose.
 Board.prototype.showPieces = function showPieces() {
     var message = "The current pieces on the board are: ";
     for (var i = 0; i < this.grid.length; i++) {

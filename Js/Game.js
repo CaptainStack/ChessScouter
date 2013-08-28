@@ -1,4 +1,4 @@
-//This object initializes a board and pieces and manages the state of the game.
+//This object initializes a board and manages the state of the game.
 "use strict";
 function Game() {    
 	this.turn = 1;
