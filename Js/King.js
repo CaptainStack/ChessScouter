@@ -9,16 +9,16 @@ function King(color) {
     this.symbol = "K";
 }
 
-King.prototype.getPosition = function getPosition() {
-    for (var i = 0; i < game.board.grid.length; i++) {
-        for (var j = 0; j < game.board.grid[i].length; j++) {
-            if (game.board.grid[j][i].piece === this) {
-                return new Position(j, i);
-            }
-        }
-    }
-    return new Position(this.x, this.y);
-}
+// King.prototype.getPosition = function getPosition() {
+    // for (var i = 0; i < game.board.grid.length; i++) {
+        // for (var j = 0; j < game.board.grid[i].length; j++) {
+            // if (game.board.grid[j][i].piece === this) {
+                // return new Position(j, i);
+            // }
+        // }
+    // }
+    // return new Position(this.x, this.y);
+// }
 
 King.prototype.getPotentialMoves = function getPotentialMoves(startPosition) {
 	var x = startPosition.x;
@@ -135,14 +135,14 @@ King.prototype.getAttacks = function getAttacks(currentPosition) {
     return this.getPotentialMoves(currentPosition);
 }
 
-King.prototype.cloneSelf = function cloneSelf() {
-    var selfClone = new King(this.color);
-    selfClone.color = this.color;
-    selfClone.captured = this.captured;
-    selfClone.image = this.image;
-    selfClone.hasMoved = this.hasMoved;
-    selfClone.material = this.material;
-    selfClone.type = this.type;
-    selfClone.symbol = this.symbol;
-    return selfClone;
-};
+// King.prototype.cloneSelf = function cloneSelf() {
+    // var selfClone = new King(this.color);
+    // selfClone.color = this.color;
+    // selfClone.captured = this.captured;
+    // selfClone.image = this.image;
+    // selfClone.hasMoved = this.hasMoved;
+    // selfClone.material = this.material;
+    // selfClone.type = this.type;
+    // selfClone.symbol = this.symbol;
+    // return selfClone;
+// };
