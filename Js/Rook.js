@@ -9,16 +9,16 @@ function Rook(color) {
     this.symbol = "R";
 }
 
-Rook.prototype.getPosition = function getPosition() {
-    for (var i = 0; i < game.board.grid.length; i++) {
-        for (var j = 0; j < game.board.grid[i].length; j++) {
-            if (game.board.grid[j][i].piece === this) {
-                return new Position(j, i);
-            }
-        }
-    }
-    return new Position(this.x, this.y);
-}
+// Rook.prototype.getPosition = function getPosition() {
+    // for (var i = 0; i < game.board.grid.length; i++) {
+        // for (var j = 0; j < game.board.grid[i].length; j++) {
+            // if (game.board.grid[j][i].piece === this) {
+                // return new Position(j, i);
+            // }
+        // }
+    // }
+    // return new Position(this.x, this.y);
+// }
 
 Rook.prototype.getPotentialMoves = function getPotentialMoves(position) {
     var x = position.x;
@@ -116,14 +116,14 @@ Rook.prototype.getAttacks = function getAttacks(currentPosition) {
     }
     return legalMoves;
 }
-Rook.prototype.cloneSelf = function cloneSelf() {
-    var selfClone = new Rook(this.color);
-    selfClone.color = this.color;
-    selfClone.captured = this.captured;
-    selfClone.image = this.image;
-    selfClone.hasMoved = this.hasMoved;
-    selfClone.material = this.material;
-    selfClone.type = this.type;
-    selfClone.symbol = this.symbol;
-    return selfClone;
-};
+// Rook.prototype.cloneSelf = function cloneSelf() {
+    // var selfClone = new Rook(this.color);
+    // selfClone.color = this.color;
+    // selfClone.captured = this.captured;
+    // selfClone.image = this.image;
+    // selfClone.hasMoved = this.hasMoved;
+    // selfClone.material = this.material;
+    // selfClone.type = this.type;
+    // selfClone.symbol = this.symbol;
+    // return selfClone;
+// };
