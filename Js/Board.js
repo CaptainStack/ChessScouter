@@ -2,22 +2,33 @@
 //It has functions that can return information about the board.
 "use strict";
 
-function Board() {
+
+function Board(fenString) {
     this.promoPosition = null;
     this.lastPiece = null;
-    
+
+	if (typeof fenString !== 'string'){
+		fenString = Fen.starting;
+	}
+		
+	this.fen = new Fen(fenString);
+	
     var grid = [];
-    
+	// var fenRows = this.fen.getRows();
 	for(var i = 0; i < 8; i++) {
 		var row = [];
+		// var fenRow = fenRows[i];
 		for(var j = 0; j < 8; j++) {        
 			row[j] = new Square(i, j, null);
 		}
 		grid[i] = row;
 	}
+	
     
 	grid[0][0] = new Square(0, 0, new Rook("black"));
-	grid[1][0] = new Square(1, 0, new Knight("black"));
+	// grid[1][0] = new Square(1, 0, new Knight("black"));
+	alert('creating a pice');
+	grid[1][0] = new Square(1, 0, new Piece("n"));
 	grid[2][0] = new Square(2, 0, new Bishop("black"));
 	grid[3][0] = new Square(3, 0, new Queen("black"));
 	grid[4][0] = new Square(4, 0, new King("black"));
@@ -59,7 +70,68 @@ function Board() {
 	}
     
     this.grid = grid;
+	
+	var f = new Fen('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
 }
+
+// function Board() {
+    // this.promoPosition = null;
+    // this.lastPiece = null;
+    
+    // var grid = [];
+    
+	// for(var i = 0; i < 8; i++) {
+		// var row = [];
+		// for(var j = 0; j < 8; j++) {        
+			// row[j] = new Square(i, j, null);
+		// }
+		// grid[i] = row;
+	// }
+    
+	// grid[0][0] = new Square(0, 0, new Rook("black"));
+	// grid[1][0] = new Square(1, 0, new Knight("black"));
+	// grid[2][0] = new Square(2, 0, new Bishop("black"));
+	// grid[3][0] = new Square(3, 0, new Queen("black"));
+	// grid[4][0] = new Square(4, 0, new King("black"));
+	// grid[5][0] = new Square(5, 0, new Bishop("black"));
+	// grid[6][0] = new Square(6, 0, new Knight("black"));
+	// grid[7][0] = new Square(7, 0, new Rook("black"));
+
+	// grid[0][1] = new Square(0, 1, new Pawn("black"));
+	// grid[1][1] = new Square(1, 1, new Pawn("black"));
+	// grid[2][1] = new Square(2, 1, new Pawn("black"));
+	// grid[3][1] = new Square(3, 1, new Pawn("black"));
+	// grid[4][1] = new Square(4, 1, new Pawn("black"));
+	// grid[5][1] = new Square(5, 1, new Pawn("black"));
+	// grid[6][1] = new Square(6, 1, new Pawn("black"));
+	// grid[7][1] = new Square(7, 1, new Pawn("black"));
+
+	// grid[0][6] = new Square(0, 6, new Pawn("white"));
+	// grid[1][6] = new Square(1, 6, new Pawn("white"));
+	// grid[2][6] = new Square(2, 6, new Pawn("white"));
+	// grid[3][6] = new Square(3, 6, new Pawn("white"));
+	// grid[4][6] = new Square(4, 6, new Pawn("white"));
+	// grid[5][6] = new Square(5, 6, new Pawn("white"));
+	// grid[6][6] = new Square(6, 6, new Pawn("white"));
+	// grid[7][6] = new Square(7, 6, new Pawn("white"));
+
+	// grid[0][7] = new Square(0, 7, new Rook("white"));
+	// grid[1][7] = new Square(1, 7, new Knight("white"));
+	// grid[2][7] = new Square(2, 7, new Bishop("white"));
+	// grid[3][7] = new Square(3, 7, new Queen("white"));
+	// grid[4][7] = new Square(4, 7, new King("white"));
+	// grid[5][7] = new Square(5, 7, new Bishop("white"));
+	// grid[6][7] = new Square(6, 7, new Knight("white"));
+	// grid[7][7] = new Square(7, 7, new Rook("white"));
+
+	// for(var i = 2; i < 6; i++) {
+		// for(var j = 0; j < 8; j++) {
+			// grid[j][i] = new Square(j, i, null);
+		// }
+	// }
+    
+    // this.grid = grid;
+// }
 
 //Testing function. No real purpose.
 Board.prototype.showPieces = function showPieces() {
@@ -364,4 +436,8 @@ Board.prototype.removeFlair = function removeFlair() {
             this.grid[i][j].previous = false;
         }
     }
+};
+
+Board.prototype.getFen = function (){
+	
 };
