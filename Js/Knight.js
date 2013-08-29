@@ -13,15 +13,15 @@ Knight.prototype.getPotentialMoves = function getPotentialMoves(position) {
 	var x = position.x;
 	var y = position.y;
 	var potentialMoves = [
-						new Position(x - 2, y + 1), 
-						new Position(x - 2, y - 1), 
-						new Position(x + 1, y - 2), 
-						new Position(x - 1, y - 2), 
-						new Position(x + 2, y + 1), 
-						new Position(x + 2, y - 1), 
-						new Position(x - 1, y + 2), 
-						new Position(x + 1, y + 2)
-						];
+		new Position(x - 2, y + 1), 
+		new Position(x - 2, y - 1), 
+		new Position(x + 1, y - 2), 
+		new Position(x - 1, y - 2), 
+		new Position(x + 2, y + 1), 
+		new Position(x + 2, y - 1), 
+		new Position(x - 1, y + 2), 
+		new Position(x + 1, y + 2)
+		];
 	for(var i = potentialMoves.length - 1; i >= 0; i--) {
 		if (!game.board.isOnBoard(potentialMoves[i])) {
 			potentialMoves.splice(i, 1);
