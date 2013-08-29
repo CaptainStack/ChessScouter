@@ -28,7 +28,7 @@
         <h1>Chess Scouter</h1>
         <h2 id="turnSpace"></h2> 
         <div id="moveHistory">
-            <h3>Move History <button id="pgn">PGN</button></h3>
+            <h3>Move History <label class="help" id="history"> [?]</label><button id="pgn">PGN</button><label class="help" id="pgn"> [?]</label></h3>
             <ol id="moveList">
             </ol>
         </div>
@@ -62,11 +62,11 @@
         </div>
         <div id="filters">
             <h3>Visualizations</h3>
-            <p><label><input id="space" type="checkbox" checked="checked">Space Control</label><label class="help"> [?]</label></p>
-            <p><label><input id="legalMoves" type="checkbox" checked="checked">Legal Moves</label><label class="help"> [?]</label></p>
-            <p><label><input id="pieceFlair" type="checkbox" checked="checked">Piece Flair</label><label class="help"> [?]</label></p>
-            <p><label><input id="forks" type="checkbox" checked="checked">Forks</label><label class="help"> [?]</label></p>
-            <p><label><input id="pins" type="checkbox" checked="checked">Pins</label><label class="help"> [?]</label></p>
+            <p><label><input id="space" type="checkbox" checked="checked">Space Control</label><label class="help" id = "space control"> [?]</label></p>
+            <p><label><input id="legalMoves" type="checkbox" checked="checked">Legal Moves</label><label class="help" id = "legal moves"> [?]</label></p>
+            <p><label><input id="pieceFlair" type="checkbox" checked="checked">Piece Flair</label><label class="help" id = "piece flair"> [?]</label></p>
+            <p><label><input id="forks" type="checkbox" checked="checked">Forks</label><label class="help" id = "forks"> [?]</label></p>
+            <p><label><input id="pins" type="checkbox" checked="checked">Pins</label><label class="help" id = "pins"> [?]</label></p>
         </div>
 
         <!-- Messages to the user go here, -->

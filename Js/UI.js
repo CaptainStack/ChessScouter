@@ -65,7 +65,8 @@ function downloadPgn () {
 
 function alertHelp() {
     var text = $(this).context.parentNode.textContent;
-    var option = text.substring(0, text.length - 4);
+    // var option = text.substring(0, text.length - 4);
+    var option = $(this).attr("id");
     $.getJSON("Js/Messages.json", function(json) {
         alert(json[option]);
     });
