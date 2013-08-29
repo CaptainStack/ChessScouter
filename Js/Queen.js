@@ -120,40 +120,40 @@ Queen.prototype.getPotentialMoves = function getPotentialMoves(position) {
 };
 
 Queen.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
-    var legalMoves = [];
-    var allMoves = this.getPotentialMoves(currentPosition)
-    for(var i = 0; i < allMoves.length; i++) {
-        var currVectorMoves = allMoves[i];
-        for(var j = 0; j < currVectorMoves.length; j++) {
-            if (game.board.occupiedBy(currVectorMoves[j]) == null) {
-                legalMoves.push(currVectorMoves[j]);
-            } else if (game.board.occupiedBy(currVectorMoves[j]) !== this.color) {
-                legalMoves.push(currVectorMoves[j]);
-                break;
-            } else{
-                break;
-            }
-        }
+  var legalMoves = [];
+  var allMoves = this.getPotentialMoves(currentPosition)
+  for(var i = 0; i < allMoves.length; i++) {
+    var currVectorMoves = allMoves[i];
+    for(var j = 0; j < currVectorMoves.length; j++) {
+      if (game.board.occupiedBy(currVectorMoves[j]) == null) {
+        legalMoves.push(currVectorMoves[j]);
+      } else if (game.board.occupiedBy(currVectorMoves[j]) !== this.color()) {
+        legalMoves.push(currVectorMoves[j]);
+        break;
+      } else{
+        break;
+      }
     }
-    return legalMoves;
+  }
+  return legalMoves;
 };
 
 Queen.prototype.getAttacks = function getAttacks(currentPosition) {
-    var legalMoves = [];
-    var allMoves = this.getPotentialMoves(currentPosition)
-    for(var i = 0; i < allMoves.length; i++) {
-        var currVectorMoves = allMoves[i];
-        for(var j = 0; j < currVectorMoves.length; j++) {
-            if (game.board.occupiedBy(currVectorMoves[j]) == null) {
-                legalMoves.push(currVectorMoves[j]);
-            } else if (game.board.occupiedBy(currVectorMoves[j]) !== this.color) {
-                legalMoves.push(currVectorMoves[j]);
-                break;
-            } else{
-                legalMoves.push(currVectorMoves[j]);
-                break;
-            }
-        }
+  var legalMoves = [];
+  var allMoves = this.getPotentialMoves(currentPosition)
+  for(var i = 0; i < allMoves.length; i++) {
+    var currVectorMoves = allMoves[i];
+    for(var j = 0; j < currVectorMoves.length; j++) {
+      if (game.board.occupiedBy(currVectorMoves[j]) == null) {
+        legalMoves.push(currVectorMoves[j]);
+      } else if (game.board.occupiedBy(currVectorMoves[j]) !== this.color()) {
+        legalMoves.push(currVectorMoves[j]);
+        break;
+      } else{
+        legalMoves.push(currVectorMoves[j]);
+        break;
+      }
     }
-    return legalMoves;
+  }
+  return legalMoves;
 };
