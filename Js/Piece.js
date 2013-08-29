@@ -91,7 +91,11 @@ Piece.prototype.name = function(){
 };
 
 Piece.prototype.symbol = function(){
-  return this._pieceChar.toUpperCase();
+  var symbol = this._pieceChar.toUpperCase();
+  if (symbol === 'P'){
+    return '';
+  }
+  return symbol;
 };
 
 Piece.prototype.imageFileName = function(){
