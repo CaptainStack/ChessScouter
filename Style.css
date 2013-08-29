@@ -25,11 +25,18 @@ body, button{
     width: 50%;
 }
 
+#functions {
+    float: left;
+    width:  250px;
+    text-align: left;
+}
+
 #messages {
     float: left;
     width:  100px;
     text-align: left;
 }
+
 
 .important {
     color: red;
