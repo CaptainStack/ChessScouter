@@ -1,25 +1,15 @@
 //This file controls the behavior of the bishop pieces on the board.
 "use strict";
-//Records the color of the piece and whether or not it is captured
-function Bishop(color) {
-    this.color = color;
-    this.captured = false;
-    this.image = color + "_bishop.svg";
-    this.material = 3;
-    this.type = "bishop";
-    this.symbol = "B";
-}
 
-Bishop.prototype.getPosition = function getPosition() {
-    for (var i = 0; i < game.board.grid.length; i++) {
-        for (var j = 0; j < game.board.grid[i].length; j++) {
-            if (game.board.grid[j][i].piece === this) {
-                return new Position(j, i);
-            }
-        }
-    }
-    return new Position(this.x, this.y);
-}
+//Records the color of the piece and whether or not it is captured
+var Bishop = function(color){
+  if (color === 'white'){
+    this.init('B');
+  }else{
+    this.init('b');
+  }
+};
+Bishop.prototype = new Piece; // inherit from Piece
 
 //This method records the possible moves the piece can make and inserts them into number of arrays for easy future acess.
 Bishop.prototype.getPotentialMoves = function getPotentialMoves(postion) {
@@ -84,7 +74,7 @@ Bishop.prototype.getPotentialMoves = function getPotentialMoves(postion) {
     potentialMoves.push(northWestMoves);
     potentialMoves.push(southWestMoves);
 	return potentialMoves;
-}
+};
 
 //This method filters poential moves to produce legal moves.
 Bishop.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
@@ -104,7 +94,7 @@ Bishop.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
         }
     }
     return legalMoves;
-}
+};
 
 //This method identifies where the piece can legally attack another piece.
 Bishop.prototype.getAttacks = function getAttacks(currentPosition) {
@@ -125,15 +115,4 @@ Bishop.prototype.getAttacks = function getAttacks(currentPosition) {
         }
     }
     return legalMoves;
-}
-// Bishop.prototype.cloneSelf = function cloneSelf() {
-    // var selfClone = new Bishop(this.color);
-    // selfClone.color = this.color;
-    // selfClone.captured = this.captured;
-    // selfClone.image = this.image;
-    // selfClone.hasMoved = this.hasMoved;
-    // selfClone.material = this.material;
-    // selfClone.type = this.type;
-    // selfClone.symbol = this.symbol;
-    // return selfClone;
-// };
+};
