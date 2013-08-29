@@ -8,6 +8,7 @@ function Board(fenString) {
     this.lastPiece = null;
 
 	if (typeof fenString !== 'string'){
+		// TODO: don't silently set to starting position on input error
 		fenString = Fen.starting;
 	}
 		
@@ -27,8 +28,7 @@ function Board(fenString) {
     
 	grid[0][0] = new Square(0, 0, new Rook("black"));
 	// grid[1][0] = new Square(1, 0, new Knight("black"));
-	alert('creating a pice');
-	grid[1][0] = new Square(1, 0, new Piece("n"));
+	grid[1][0] = new Square(1, 0, new Knight("black"));
 	grid[2][0] = new Square(2, 0, new Bishop("black"));
 	grid[3][0] = new Square(3, 0, new Queen("black"));
 	grid[4][0] = new Square(4, 0, new King("black"));
@@ -70,8 +70,6 @@ function Board(fenString) {
 	}
     
     this.grid = grid;
-	
-	var f = new Fen('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
 }
 
 // function Board() {
@@ -139,7 +137,7 @@ Board.prototype.showPieces = function showPieces() {
     for (var i = 0; i < this.grid.length; i++) {
         for (var j = 0; j < this.grid[i].length; j++) {
             if (this.grid[j][i].piece !== null && !this.grid[j][i].piece.captured) {
-                message += this.grid[j][i].piece.color + " " + this.grid[j][i].piece.type + ", ";
+                message += this.grid[j][i].piece.color() + " " + this.grid[j][i].piece.name() + ", ";
             }
         }
     }
@@ -266,8 +264,10 @@ Board.prototype.cloneBoard = function cloneBoard() {
     var boardClone = new Board();
     for (var i = 0; i < this.grid.length; i++) {
         for (var j = 0; j < this.grid[i].length; j++) {
-            if (this.grid[i][j].piece) {
-                boardClone.grid[i][j].piece = this.grid[i][j].piece.cloneSelf();
+			var thisPiece = this.grid[i][j].piece;
+            if (thisPiece) {
+                // boardClone.grid[i][j].piece = this.grid[i][j].piece.cloneSelf();
+				boardClone.grid[i][j].piece = thisPiece.cloneSelf();
             } else {
                 boardClone.grid[i][j].piece = null;
             }
@@ -294,15 +294,15 @@ Board.prototype.undoMove = function undoMove() {
 }
 
 Board.prototype.createMoveString = function createMoveString(piece, oldPosition, newPosition, capture, check, promotionType) {
-    var moveString = piece.symbol;
+    var moveString = piece.symbol();
     if (capture) {
         if (piece instanceof Pawn) {
             moveString += String.fromCharCode(97 + oldPosition.x);
         }
         moveString += "x";
     }
-    game.getPieces(piece.color).forEach(function(otherPiece) {
-        if (piece.type === otherPiece.type && piece !== otherPiece && !piece instanceof Pawn) {
+    game.getPieces(piece.color()).forEach(function(otherPiece) {
+        if (piece.type() === otherPiece.type() && piece !== otherPiece && !piece instanceof Pawn) {
             var otherPosition = otherPiece.getPosition();
             otherPiece.getAttacks(otherPosition).forEach(function(otherMove) {
                 if (otherMove.x == newPosition.x && otherMove.y == newPosition.y) {
@@ -318,8 +318,8 @@ Board.prototype.createMoveString = function createMoveString(piece, oldPosition,
         }
     });
     moveString += String.fromCharCode(97 + newPosition.x) + (8 - newPosition.y);
-    if (game.isInCheck(game.otherPlayer(piece.color))) {
-        if (game.isInCheckmate(game.otherPlayer(piece.color))) {
+    if (game.isInCheck(game.otherPlayer(piece.color()))) {
+        if (game.isInCheckmate(game.otherPlayer(piece.color()))) {
             moveString += "#";
         } else {
             moveString += "+";
