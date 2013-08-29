@@ -1,23 +1,13 @@
 "use strict";
-function Queen(color) {
-    this.color = color;
-    this.captured = false;
-    this.image = color + "_queen.svg";
-    this.material = 9;
-    this.type = "queen";
-    this.symbol = "Q";
-}
 
-// Queen.prototype.getPosition = function getPosition() {
-    // for (var i = 0; i < game.board.grid.length; i++) {
-        // for (var j = 0; j < game.board.grid[i].length; j++) {
-            // if (game.board.grid[j][i].piece === this) {
-                // return new Position(j, i);
-            // }
-        // }
-    // }
-    // return new Position(this.x, this.y);
-// }
+var Queen = function(color){
+  if (color === 'white'){
+    this.init('Q');
+  }else{
+    this.init('q');
+  }
+};
+Queen.prototype = new Piece; // inherit from Piece
 
 Queen.prototype.getPotentialMoves = function getPotentialMoves(position) {
     var x = position.x;
@@ -127,7 +117,7 @@ Queen.prototype.getPotentialMoves = function getPotentialMoves(position) {
     potentialMoves.push(northWestMoves);
     potentialMoves.push(southWestMoves);
 	return potentialMoves;
-}
+};
 
 Queen.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
     var legalMoves = [];
@@ -146,7 +136,7 @@ Queen.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
         }
     }
     return legalMoves;
-}
+};
 
 Queen.prototype.getAttacks = function getAttacks(currentPosition) {
     var legalMoves = [];
@@ -166,15 +156,4 @@ Queen.prototype.getAttacks = function getAttacks(currentPosition) {
         }
     }
     return legalMoves;
-}
-// Queen.prototype.cloneSelf = function cloneSelf() {
-    // var selfClone = new Queen(this.color);
-    // selfClone.color = this.color;
-    // selfClone.captured = this.captured;
-    // selfClone.image = this.image;
-    // selfClone.hasMoved = this.hasMoved;
-    // selfClone.material = this.material;
-    // selfClone.type = this.type;
-    // selfClone.symbol = this.symbol;
-    // return selfClone;
-// };
+};
