@@ -78,7 +78,7 @@ function movePiece(first, second) {
         firstClick = null;
     }
     var piece = game.board.getPiece(firstX, firstY);
-    if (game.whoseTurn() === piece.color) {
+    if (game.whoseTurn() === piece.color()) {
         var secondX = second.x;
         var secondY = second.y;
         game.board.movePiece(new Position(firstX, firstY), new Position(secondX, secondY));
@@ -90,7 +90,7 @@ function movePiece(first, second) {
 function boardClicks() {
     var firstX = $(this).context.cellIndex;
     var firstY = $(this).context.parentNode.rowIndex;
-    if (firstClick == null && game.board.getPiece(firstX, firstY) !== null && game.board.getPiece(firstX, firstY).color == game.whoseTurn()) {
+    if (firstClick == null && game.board.getPiece(firstX, firstY) !== null && game.board.getPiece(firstX, firstY).color() == game.whoseTurn()) {
         firstClick = $(this);
         firstClick = new Position(firstX, firstY);
         var piece = game.board.getPiece(firstX, firstY);
