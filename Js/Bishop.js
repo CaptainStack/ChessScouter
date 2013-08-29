@@ -1,6 +1,5 @@
 //This file controls the behavior of the bishop pieces on the board.
 "use strict";
-
 //Records the color of the piece and whether or not it is captured
 var Bishop = function(color){
   if (color === 'white'){
@@ -13,20 +12,20 @@ Bishop.prototype = new Piece; // inherit from Piece
 
 //This method records the possible moves the piece can make and inserts them into number of arrays for easy future acess.
 Bishop.prototype.getPotentialMoves = function getPotentialMoves(postion) {
-    var x = postion.x;
-    var y = postion.y;
-	var potentialMoves = [];
-	var vectorNorthEast = false;
-	var vectorSouthEast = false;
-	var vectorNorthWest = false;
-	var vectorSouthWest = false;
-	var addX = 0
-	var addY = 0
-	var northEastMoves = [];
-    var southEastMoves = [];
-    var northWestMoves = [];
-    var southWestMoves = [];
-	while(vectorNorthEast == false || vectorSouthEast == false || vectorNorthWest == false || vectorSouthWest == false) {
+  var x = postion.x;
+  var y = postion.y;
+  var potentialMoves = [];
+  var vectorNorthEast = false;
+  var vectorSouthEast = false;
+  var vectorNorthWest = false;
+  var vectorSouthWest = false;
+  var addX = 0;
+  var addY = 0;
+  var northEastMoves = [];
+  var southEastMoves = [];
+  var northWestMoves = [];
+  var southWestMoves = [];
+  while(vectorNorthEast == false || vectorSouthEast == false || vectorNorthWest == false || vectorSouthWest == false) {
 		//North: Y-- South: Y++ East: X-- West: X++ 
 		if (vectorNorthEast == false) {
 			addY--;
@@ -69,50 +68,50 @@ Bishop.prototype.getPotentialMoves = function getPotentialMoves(postion) {
 			}
 		}
 	}
-	potentialMoves.push(northEastMoves);
-    potentialMoves.push(southEastMoves);
-    potentialMoves.push(northWestMoves);
-    potentialMoves.push(southWestMoves);
-	return potentialMoves;
+  potentialMoves.push(northEastMoves);
+  potentialMoves.push(southEastMoves);
+  potentialMoves.push(northWestMoves);
+  potentialMoves.push(southWestMoves);
+  return potentialMoves;
 };
 
 //This method filters poential moves to produce legal moves.
 Bishop.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
-    var legalMoves = [];
-    var allMoves = this.getPotentialMoves(currentPosition)
-    for(var i = 0; i < allMoves.length; i++) {
-        var currVectorMoves = allMoves[i];
-        for(var j = 0; j < currVectorMoves.length; j++) {
-            if (game.board.occupiedBy(currVectorMoves[j]) == null) {
-                legalMoves.push(currVectorMoves[j]);
-            } else if (game.board.occupiedBy(currVectorMoves[j]) !== this.color) {
-                legalMoves.push(currVectorMoves[j]);
-                break;
-            } else{
-                break;
-            }
-        }
+  var legalMoves = [];
+  var allMoves = this.getPotentialMoves(currentPosition);
+  for(var i = 0; i < allMoves.length; i++) {
+    var currVectorMoves = allMoves[i];
+    for(var j = 0; j < currVectorMoves.length; j++) {
+      if (game.board.occupiedBy(currVectorMoves[j]) == null) {
+          legalMoves.push(currVectorMoves[j]);
+      } else if (game.board.occupiedBy(currVectorMoves[j]) !== this.color()) {
+          legalMoves.push(currVectorMoves[j]);
+          break;
+      } else{
+          break;
+      }
     }
-    return legalMoves;
+  }
+  return legalMoves;
 };
 
 //This method identifies where the piece can legally attack another piece.
 Bishop.prototype.getAttacks = function getAttacks(currentPosition) {
-    var legalMoves = [];
-    var allMoves = this.getPotentialMoves(currentPosition)
-    for(var i = 0; i < allMoves.length; i++) {
-        var currVectorMoves = allMoves[i];
-        for(var j = 0; j < currVectorMoves.length; j++) {
-            if (game.board.occupiedBy(currVectorMoves[j]) == null) {
-                legalMoves.push(currVectorMoves[j]);
-            } else if (game.board.occupiedBy(currVectorMoves[j]) !== this.color) {
-                legalMoves.push(currVectorMoves[j]);
-                break;
-            } else{
-                legalMoves.push(currVectorMoves[j]);
-                break;
-            }
-        }
+  var legalMoves = [];
+  var allMoves = this.getPotentialMoves(currentPosition)
+  for(var i = 0; i < allMoves.length; i++) {
+    var currVectorMoves = allMoves[i];
+    for(var j = 0; j < currVectorMoves.length; j++) {
+      if (game.board.occupiedBy(currVectorMoves[j]) == null) {
+        legalMoves.push(currVectorMoves[j]);
+      } else if (game.board.occupiedBy(currVectorMoves[j]) !== this.color()) {
+        legalMoves.push(currVectorMoves[j]);
+        break;
+      } else{
+        legalMoves.push(currVectorMoves[j]);
+        break;
+      }
     }
-    return legalMoves;
+  }
+  return legalMoves;
 };
