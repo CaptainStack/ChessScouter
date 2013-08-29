@@ -1,38 +1,28 @@
 "use strict";
-function King(color) {
-    this.color = color;
-    this.captured = false;
-    this.image = color + "_king.svg";
-    this.hasMoved = false;
-    this.material = 100;
-    this.type = "king";
-    this.symbol = "K";
-}
 
-// King.prototype.getPosition = function getPosition() {
-    // for (var i = 0; i < game.board.grid.length; i++) {
-        // for (var j = 0; j < game.board.grid[i].length; j++) {
-            // if (game.board.grid[j][i].piece === this) {
-                // return new Position(j, i);
-            // }
-        // }
-    // }
-    // return new Position(this.x, this.y);
-// }
+//Records the color of the piece and whether or not it is captured
+var King = function(color){
+  if (color === 'white'){
+    this.init('K');
+  }else{
+    this.init('k');
+  }
+}
+King.prototype = new Piece; // inherit from Piece
 
 King.prototype.getPotentialMoves = function getPotentialMoves(startPosition) {
 	var x = startPosition.x;
 	var y = startPosition.y;
 	var potentialMoves = [
-						new Position(x, y + 1), 
-						new Position(x, y - 1),
-						new Position(x + 1, y),
-						new Position(x - 1, y),
-						new Position(x + 1, y + 1),
-						new Position(x + 1, y - 1),
-						new Position(x - 1, y + 1),
-						new Position(x - 1, y - 1)
-						];
+		new Position(x, y + 1), 
+		new Position(x, y - 1),
+		new Position(x + 1, y),
+		new Position(x - 1, y),
+		new Position(x + 1, y + 1),
+		new Position(x + 1, y - 1),
+		new Position(x - 1, y + 1),
+		new Position(x - 1, y - 1)
+		];
 	for(var i = potentialMoves.length - 1; i >= 0; i--) {
 		if (!game.board.isOnBoard(potentialMoves[i])) {
 			potentialMoves.splice(i, 1);
@@ -135,14 +125,3 @@ King.prototype.getAttacks = function getAttacks(currentPosition) {
     return this.getPotentialMoves(currentPosition);
 }
 
-// King.prototype.cloneSelf = function cloneSelf() {
-    // var selfClone = new King(this.color);
-    // selfClone.color = this.color;
-    // selfClone.captured = this.captured;
-    // selfClone.image = this.image;
-    // selfClone.hasMoved = this.hasMoved;
-    // selfClone.material = this.material;
-    // selfClone.type = this.type;
-    // selfClone.symbol = this.symbol;
-    // return selfClone;
-// };
