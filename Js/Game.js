@@ -36,14 +36,14 @@ Game.prototype.getPieces = function getPieces(player) {
 		if (player == "white" || player == "black" || player == "all") {
 			for(var i = 0; i < this.board.grid.length; i++) {
 				for(var j = 0; j < this.board.grid[i].length; j++) {
-					var square = this.board.grid[i][j];
-					if (square.piece !== null) {
-						if (square.piece.color == "white" && player == "white") {
-							pieceList.push(this.board.grid[i][j].piece);
-						} else if (square.piece.color == "black" && player == "black") {
-							pieceList.push(this.board.grid[i][j].piece);
+					var piece = this.board.grid[i][j].piece;
+					if (piece) {
+						if (piece.color() == "white" && player == "white") {
+							pieceList.push(piece);
+						} else if (piece.color() == "black" && player == "black") {
+							pieceList.push(piece);
 						} else if (player == "all") {
-							pieceList.push(this.board.grid[i][j].piece);
+							pieceList.push(piece);
 						}
 					}
 				}
@@ -240,7 +240,7 @@ Game.prototype.attackedPieces = function attackedPieces(player) {
     var initialAttacks = this.getAllLegalAttacks(this.otherPlayer(player));
     for(var i = initialAttacks.length - 1; i >= 0; i--) {
         if (this.board.grid[initialAttacks[i].x][initialAttacks[i].y].piece == null ||
-        this.board.grid[initialAttacks[i].x][initialAttacks[i].y].piece.color == this.otherPlayer(player)) {
+        this.board.grid[initialAttacks[i].x][initialAttacks[i].y].piece.color() == this.otherPlayer(player)) {
             initialAttacks.splice(i, 1);
         }
     }
