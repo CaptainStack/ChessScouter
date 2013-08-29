@@ -7,7 +7,7 @@ var King = function(color){
   }else{
     this.init('k');
   }
-}
+};
 King.prototype = new Piece; // inherit from Piece
 
 King.prototype.getPotentialMoves = function getPotentialMoves(startPosition) {
@@ -29,7 +29,7 @@ King.prototype.getPotentialMoves = function getPotentialMoves(startPosition) {
     }
   }
   return potentialMoves;
-}
+};
 
 King.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
   var legalMoves = this.getPotentialMoves(currentPosition);
@@ -81,11 +81,11 @@ King.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
     }
   } else if (this.color() === "black" && !game.isInCheck("black") && !this.hasMoved) {
     if (
-        game.board.grid[5][0].piece === null && 
-        game.board.grid[6][0].piece === null && 
-        game.board.grid[7][0].piece !== null &&
-        !game.board.grid[7][0].piece.hasMoved && 
-        game.board.grid[7][0].piece.image === "black_rook.svg"
+      game.board.grid[5][0].piece === null && 
+      game.board.grid[6][0].piece === null && 
+      game.board.grid[7][0].piece !== null &&
+      !game.board.grid[7][0].piece.hasMoved && 
+      game.board.grid[7][0].piece.image === "black_rook.svg"
     ) {
       var throughCheck = false;
       var otherAttacks = game.getAllLegalAttacks("white");
@@ -109,9 +109,9 @@ King.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
       var throughCheck = false;
       var otherAttacks = game.getAllLegalAttacks("white");
       for(var i = 0; i < otherAttacks.length; i++) {
-          if ((otherAttacks[i].x == 1 && otherAttacks[i].y == 0) || (otherAttacks[i].x == 2 && otherAttacks[i].y == 0) || (otherAttacks[i].x == 3 && otherAttacks[i].y == 0)) {
-              throughCheck = true;
-          }
+        if ((otherAttacks[i].x == 1 && otherAttacks[i].y == 0) || (otherAttacks[i].x == 2 && otherAttacks[i].y == 0) || (otherAttacks[i].x == 3 && otherAttacks[i].y == 0)) {
+          throughCheck = true;
+        }
       }
       if (!throughCheck) {
           legalMoves.push(new Position(2, 0));
@@ -119,9 +119,9 @@ King.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
     }
   }
   return legalMoves;
-}
+};
 
 King.prototype.getAttacks = function getAttacks(currentPosition) {
-    return this.getPotentialMoves(currentPosition);
-}
+  return this.getPotentialMoves(currentPosition);
+};
 
