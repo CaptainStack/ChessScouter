@@ -1,25 +1,16 @@
+/* 
+	Class Pawn
+*/
 "use strict";
-function Pawn(color) {
-    this.color = color;
-    this.captured = false;
-    this.hasMoved = false;
-    this.image = color + "_pawn.svg";
-    this.material = 1;
-    this.type = "pawn";
-    this.symbol = "";
-    this.movedDouble = false;
+//Pawn constructor
+var Pawn = function(color){
+  if (color === 'white'){
+    this.init('P');
+  }else{
+    this.init('p');
+  }
 }
-
-Pawn.prototype.getPosition = function getPosition() {
-    for (var i = 0; i < game.board.grid.length; i++) {
-        for (var j = 0; j < game.board.grid[i].length; j++) {
-            if (game.board.grid[j][i].piece === this) {
-                return new Position(j, i);
-            }
-        }
-    }
-    return new Position(this.x, this.y);
-}
+Pawn.prototype = new Piece; // inherit from Piece before defining subclass methods
 
 Pawn.prototype.getPotentialMoves = function getPotentialMoves(position) {
     var x = position.x;
@@ -114,14 +105,3 @@ Pawn.prototype.getAttacks = function getAttacks(currentPosition) {
 	}
     return attacks;
 }
-Pawn.prototype.cloneSelf = function cloneSelf() {
-    var selfClone = new Pawn(this.color);
-    selfClone.color = this.color;
-    selfClone.captured = this.captured;
-    selfClone.image = this.image;
-    selfClone.hasMoved = this.hasMoved;
-    selfClone.material = this.material;
-    selfClone.type = this.type;
-    selfClone.symbol = this.symbol;
-    return selfClone;
-};
