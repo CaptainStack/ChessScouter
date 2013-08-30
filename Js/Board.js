@@ -225,7 +225,7 @@ Board.prototype.undoMove = function undoMove() {
     if (game.moveHistory.length > 0) {
         var currentState = game.moveHistory.pop();
         game.board = currentState;
-        game.moveRedos.push(currentState);
+        // game.moveRedos.push(currentState);
         
         if (game.whoseTurn() == "white") {
             var moveString = $("#moveList").children()[$("#moveList").children().length - 1].textContent;
