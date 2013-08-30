@@ -24,7 +24,6 @@ $(function() {
         layoutBoard();
     })
     
-    
     //Watch for ctrl + z for undo
     var ctrlDown = false;
     var ctrlKey = 17, zKey = 90, yKey = 89;
@@ -66,7 +65,6 @@ function downloadPgn () {
 
 function alertHelp() {
     var text = $(this).context.parentNode.textContent;
-    // var option = text.substring(0, text.length - 4);
     var option = $(this).attr("id");
     $.getJSON("Js/Messages.json", function(json) {
         alert(json[option]);
@@ -118,6 +116,7 @@ function boardClicks() {
 
 // 'Update' function updates the visual state of the board
 function layoutBoard() {
+    $("#turnSpace").text("It is " + game.whoseTurn() + "'s turn");
     $("#board").empty();
     for (var i = 0; i < game.board.grid.length; i++) {
         $("<tr>").attr("id", "tr" + i).addClass("gridLabel").appendTo($("#board"));
@@ -143,6 +142,7 @@ function layoutBoard() {
     }
     showLastMove();
 }
+
 function showPieceFlair() {
     for (var i = 0; i < game.board.grid.length; i++) {
         for (var j = 0; j < game.board.grid[i].length; j++) {
@@ -152,16 +152,29 @@ function showPieceFlair() {
         }
     }
 }
-function showLastMove() {
-    for (var i = 0; i < game.board.grid.length; i++) {
-        for (var j = 0; j < game.board.grid[i].length; j++) {
-            if (game.board.grid[i][j].previous === true) {
-                $(getTableData(i, j)).attr("id", "previous");
+
+function showSpaceControl() {
+    for (var i = 0; i < 8; i++) {
+        for (var j = 0; j < 8; j++) {
+            var square = getTableData(i, j);
+            if (!game.board.grid[i][j].whiteControl && !game.board.grid[i][j].blackControl) {
+                var control = null;
+            } else {
+                var control = game.board.grid[i][j].whiteControl - game.board.grid[i][j].blackControl;
             }
-            if (game.board.grid[i][j].current === true) {
-                $(getTableData(i, j)).attr("id", "current");
-            }
+            console.log(i + " " + j + " " + control);
+            var color = calculateColor(control);
+            square.css("background-color", color);
         }
+    }
+}
+
+function showLastMove() {
+    if (game.previousMove){
+        $(getTableData(game.previousMove.x, game.previousMove.y)).attr("id", "previous");
+    }
+    if (game.currentMove) {
+        $(getTableData(game.currentMove.x, game.currentMove.y)).attr("id", "current");
     }
 }
 
@@ -199,37 +212,20 @@ function getBackgroundImageString(position) {
     return dot + fork + piece;
 }
 
-// function showSpaceControl() {
-    // var blackAttacks = game.getAllLegalAttacks("black");
-    // for (var i = 0; i < blackAttacks.length; i++) {
-        // getTableData(blackAttacks[i].x, blackAttacks[i].y).css("background-color", "lightpink");
-    // }
-    // var whiteAttacks = game.getAllLegalAttacks("white");
-    // for (var i = 0; i < whiteAttacks.length; i++) {
-        // if ($(getTableData(whiteAttacks[i].x, whiteAttacks[i].y)).css("background-color") == "rgb(255, 182, 193)" || $(getTableData(whiteAttacks[i].x, whiteAttacks[i].y)).css("background-color") == "rgb(204, 255, 51)") {
-            // getTableData(whiteAttacks[i].x, whiteAttacks[i].y).css("background-color", "#CCFF33");
-        // } else {
-            // getTableData(whiteAttacks[i].x, whiteAttacks[i].y).css("background-color", "lightgreen");
-        // }
-    // }
-    // $("#turnSpace").text("It is " + game.whoseTurn() + "'s turn");
-// }
-
-function showSpaceControl() {
-    for (var i = 0; i < 8; i++) {
-        for (var j = 0; j < 8; j++) {
-            var square = getTableData(i, j);
-            if (!game.board.grid[i][j].whiteControl && !game.board.grid[i][j].blackControl) {
-                var control = null;
-            }
-            else {
-                var control = game.board.grid[i][j].whiteControl - game.board.grid[i][j].blackControl;
-            }
-            console.log(i + " " + j + " " + control);
-            var color = calculateColor(control);
-            square.css("background-color", color);
+function showSimpleSpaceControl() {
+    var blackAttacks = game.getAllLegalAttacks("black");
+    for (var i = 0; i < blackAttacks.length; i++) {
+        getTableData(blackAttacks[i].x, blackAttacks[i].y).css("background-color", "lightpink");
+    }
+    var whiteAttacks = game.getAllLegalAttacks("white");
+    for (var i = 0; i < whiteAttacks.length; i++) {
+        if ($(getTableData(whiteAttacks[i].x, whiteAttacks[i].y)).css("background-color") == "rgb(255, 182, 193)" || $(getTableData(whiteAttacks[i].x, whiteAttacks[i].y)).css("background-color") == "rgb(204, 255, 51)") {
+            getTableData(whiteAttacks[i].x, whiteAttacks[i].y).css("background-color", "#CCFF33");
+        } else {
+            getTableData(whiteAttacks[i].x, whiteAttacks[i].y).css("background-color", "lightgreen");
         }
     }
+    
 }
 
 function calculateColor (scale) {
@@ -266,22 +262,6 @@ function calculateColor (scale) {
     }
     else if (scale < -4) {
         return "#FF0000";
-    }
-}
-
-function getText(x, y) {
-    if (game.board.getPiece(x, y) !== null && !game.board.getPiece(x, y).captured) {
-        return game.board.getPiece(x, y).getSymbol();
-    } else {
-        return "";
-    }
-}
-
-function getImage(x, y) {
-    if (game.board.getPiece(x, y) !== null && !game.board.getPiece(x, y).captured) {
-        return game.board.getPiece(x, y).image;
-    } else {
-        return "";
     }
 }
 

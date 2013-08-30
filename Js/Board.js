@@ -60,28 +60,6 @@ function Board() {
     this.grid = grid;
 }
 
-//Testing function. No real purpose.
-Board.prototype.showPieces = function showPieces() {
-    var message = "The current pieces on the board are: ";
-    for (var i = 0; i < this.grid.length; i++) {
-        for (var j = 0; j < this.grid[i].length; j++) {
-            if (this.grid[j][i].piece !== null && !this.grid[j][i].piece.captured) {
-                message += this.grid[j][i].piece.color + " " + this.grid[j][i].piece.type + ", ";
-            }
-        }
-    }
-    alert(message);
-}
-
-Board.prototype.removePiece = function removePiece(id) {
-    for (var i = 0; i < this.grid.length; i++) {
-        if (this.grid[i].id === id) {
-            this.grid[i].captured = true;
-            break;
-        }
-    }
-}
-
 //Pass me a square's x and y coordinates and I'll return the piece on that square. Null if not any
 Board.prototype.getPiece = function getPiece(x, y) {
     if (this.isOnBoard(new Position(x, y))) {
@@ -95,8 +73,8 @@ Board.prototype.getPiece = function getPiece(x, y) {
 Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
     game.moveHistory.push(this.cloneBoard());
     
-    this.removeFlair();
-    this.removeForks();
+    this.resetVisualData();
+    
     var oldX = oldPosition.x;
     var oldY = oldPosition.y;
     var newX = newPosition.x;
@@ -148,8 +126,8 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
         
         var afterAttacks = game.attackedPieces(game.otherTurn());
         this.addFlair(initialAttacks, afterAttacks);
-        this.grid[oldX][oldY].previous = true;
-        this.grid[newX][newY].current = true;
+        game.previousMove = new Position(oldX, oldY);
+        game.currentMove = new Position(newX, newY);
         this.addForks();
         
         if (game.whoseTurn() == "white") {
@@ -176,18 +154,10 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
     }
     this.sumSquareControl();
     layoutBoard();
-    this.removeLegalMoves();
     this.lastPiece = piece;
 }
 
-Board.prototype.sumSquareControl = function sumSquareControl() {
-    for (var i = 0; i < this.grid.length; i++) {
-        for (var j = 0; j < this.grid[i].length; j++) {
-            this.grid[i][j].blackControl = null;
-            this.grid[i][j].whiteControl = null;
-        }
-    }
-    
+Board.prototype.sumSquareControl = function sumSquareControl() {   
     var blackAttacks = game.getAllLegalAttacks("black");
     var whiteAttacks = game.getAllLegalAttacks("white");
     for (var i = 0; i < blackAttacks.length; i++) {
@@ -273,18 +243,14 @@ Board.prototype.createMoveString = function createMoveString(piece, oldPosition,
     return moveString;
 }
 
-Board.prototype.removeLegalMoves = function removeLegalMoves() {
+Board.prototype.resetVisualData = function resetVisualData() {
     for (var i = 0; i < this.grid.length; i++) {
         for (var j = 0; j < this.grid[i].length; j++) {
             this.grid[i][j].legalMove = false;
-        }
-    }
-}
-
-Board.prototype.removeForks = function removeForks() {
-    for (var i = 0; i < this.grid.length; i++) {
-        for (var j = 0; j < this.grid[i].length; j++) {
             this.grid[i][j].fork = false;
+            this.grid[i][j].flair = false;
+            this.grid[i][j].blackControl = null;
+            this.grid[i][j].whiteControl = null;
         }
     }
 }
@@ -371,14 +337,4 @@ Board.prototype.isLegalMove = function isLegalMove(oldPosition, newPosition) {
 // Returns whether the given position is on the board
 Board.prototype.isOnBoard = function isOnBoard(position) {
     return !(position.x < 0 || position.x > 7 || position.y < 0 || position.y > 7);
-}
-
-Board.prototype.removeFlair = function removeFlair() {
-    for (var i = 0; i < this.grid.length; i++) {
-        for (var j = 0; j < this.grid[i].length; j++) {
-            this.grid[i][j].flair = false;
-            this.grid[i][j].current = false;
-            this.grid[i][j].previous = false;
-        }
-    }
 };
