@@ -57,7 +57,6 @@ function Board() {
 			grid[j][i] = new Square(j, i, null);
 		}
 	}
-    
     this.grid = grid;
 }
 
@@ -175,10 +174,28 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
     if (message !== null) {
         messageUser(message, true);
     }
-    
+    this.sumSquareControl();
     layoutBoard();
     this.removeLegalMoves();
     this.lastPiece = piece;
+}
+
+Board.prototype.sumSquareControl = function sumSquareControl() {
+    for (var i = 0; i < this.grid.length; i++) {
+        for (var j = 0; j < this.grid[i].length; j++) {
+            this.grid[i][j].blackControl = null;
+            this.grid[i][j].whiteControl = null;
+        }
+    }
+    
+    var blackAttacks = game.getAllLegalAttacks("black");
+    var whiteAttacks = game.getAllLegalAttacks("white");
+    for (var i = 0; i < blackAttacks.length; i++) {
+        this.grid[blackAttacks[i].x][blackAttacks[i].y].blackControl++;
+    }
+    for (var i = 0; i < whiteAttacks.length; i++) {
+        this.grid[whiteAttacks[i].x][whiteAttacks[i].y].whiteControl++;
+    }
 }
 
 Board.prototype.convertFromAlgebra = function convertFromAlgebra(move) {

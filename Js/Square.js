@@ -10,4 +10,6 @@ function Square(x, y, piece) {
     this.fork = false;
     this.current = false;
     this.previous = false;
+    this.blackControl = null;
+    this.whiteControl = null;
 };

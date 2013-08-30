@@ -10,6 +10,7 @@ var game;
 
 $(function() {
     game = new Game();
+    game.board.sumSquareControl();
     layoutBoard();
     $("#turnSpace").text("It is " + game.whoseTurn() + "'s turn");
     var temp = $("#board");
@@ -198,20 +199,74 @@ function getBackgroundImageString(position) {
     return dot + fork + piece;
 }
 
+// function showSpaceControl() {
+    // var blackAttacks = game.getAllLegalAttacks("black");
+    // for (var i = 0; i < blackAttacks.length; i++) {
+        // getTableData(blackAttacks[i].x, blackAttacks[i].y).css("background-color", "lightpink");
+    // }
+    // var whiteAttacks = game.getAllLegalAttacks("white");
+    // for (var i = 0; i < whiteAttacks.length; i++) {
+        // if ($(getTableData(whiteAttacks[i].x, whiteAttacks[i].y)).css("background-color") == "rgb(255, 182, 193)" || $(getTableData(whiteAttacks[i].x, whiteAttacks[i].y)).css("background-color") == "rgb(204, 255, 51)") {
+            // getTableData(whiteAttacks[i].x, whiteAttacks[i].y).css("background-color", "#CCFF33");
+        // } else {
+            // getTableData(whiteAttacks[i].x, whiteAttacks[i].y).css("background-color", "lightgreen");
+        // }
+    // }
+    // $("#turnSpace").text("It is " + game.whoseTurn() + "'s turn");
+// }
+
 function showSpaceControl() {
-    var blackAttacks = game.getAllLegalAttacks("black");
-    for (var i = 0; i < blackAttacks.length; i++) {
-        getTableData(blackAttacks[i].x, blackAttacks[i].y).css("background-color", "lightpink");
-    }
-    var whiteAttacks = game.getAllLegalAttacks("white");
-    for (var i = 0; i < whiteAttacks.length; i++) {
-        if ($(getTableData(whiteAttacks[i].x, whiteAttacks[i].y)).css("background-color") == "rgb(255, 182, 193)" || $(getTableData(whiteAttacks[i].x, whiteAttacks[i].y)).css("background-color") == "rgb(204, 255, 51)") {
-            getTableData(whiteAttacks[i].x, whiteAttacks[i].y).css("background-color", "#CCFF33");
-        } else {
-            getTableData(whiteAttacks[i].x, whiteAttacks[i].y).css("background-color", "lightgreen");
+    for (var i = 0; i < 8; i++) {
+        for (var j = 0; j < 8; j++) {
+            var square = getTableData(i, j);
+            if (!game.board.grid[i][j].whiteControl && !game.board.grid[i][j].blackControl) {
+                var control = null;
+            }
+            else {
+                var control = game.board.grid[i][j].whiteControl - game.board.grid[i][j].blackControl;
+            }
+            console.log(i + " " + j + " " + control);
+            var color = calculateColor(control);
+            square.css("background-color", color);
         }
     }
-    $("#turnSpace").text("It is " + game.whoseTurn() + "'s turn");
+}
+
+function calculateColor (scale) {
+    // alert(scale);
+    if (scale == 0) {
+        return "#F0E68C";
+    }
+    else if (scale == 1) {
+        return "#CCF5CC";
+    }
+    else if (scale == 2) {
+        return "#99EB99"
+    }
+    else if (scale == 3) {
+        return "#66E066"
+    }
+    else if (scale == 4) {
+        return "#33D633"
+    }
+    else if (scale > 4) {
+        return "#00CC00"
+    }
+    else if (scale == -1) {
+        return "#FFCCCC";
+    }
+    else if (scale == -2) {
+        return "#FF9999";
+    }
+    else if (scale == -3) {
+        return "#FF6666";
+    }
+    else if (scale == -4) {
+        return "#FF3333";
+    }
+    else if (scale < -4) {
+        return "#FF0000";
+    }
 }
 
 function getText(x, y) {
