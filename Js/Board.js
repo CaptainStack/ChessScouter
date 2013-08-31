@@ -93,8 +93,16 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
         piece.hasMoved = true;
         piece.movedDouble = this.isMovingDouble(piece, oldPosition, newPosition);
         
-        this.grid[oldX][oldY].piece = null;
-        this.grid[newX][newY].piece = piece;
+        if (piece instanceof Pawn && !this.grid[newPosition.x][newPosition.y].piece) {
+            //Check for enpassant. Removed piece is in a different spot than newPosition
+            this.grid[oldX][oldY].piece = null;
+            this.grid[newX][newY].piece = piece;
+            this.grid[newX][oldY].piece = null;
+        } else{
+            this.grid[oldX][oldY].piece = null;
+            this.grid[newX][newY].piece = piece;
+        }
+
         this.completeCastle(piece, oldPosition, newPosition);
         
         if ((newY === 0 || newY === 7) && this.grid[newX][newY].piece instanceof Pawn) {
@@ -169,7 +177,8 @@ Board.prototype.sumSquareControl = function sumSquareControl() {
 }
 
 Board.prototype.convertFromAlgebra = function convertFromAlgebra(move) {
-    ["+", "x", "B", "K", "N", "Q", "R"].forEach(function(character){
+    //Qxd7+
+    ["+", "x"].forEach(function(character){
         move.replace(character, "");
     });
     var oldPosition = new Position(move.charCodeAt(0) - 97, move.charAt(1));
