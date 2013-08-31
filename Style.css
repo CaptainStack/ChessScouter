@@ -45,34 +45,34 @@ tr{
     vertical-align: middle;
 }
 tr td{
-    background-color: #DDDDDD;
+    background-color: rgb(210, 210, 210);
 }
 tr:nth-child(even) td:nth-child(odd) {
-    background-color: white;
+    background-color: rgb(240, 240, 240);
 }
 tr:nth-child(odd) td:nth-child(even) {
-    background-color: white;
+    background-color: rgb(240, 240, 240);
 }
 td{
-    border: 2px solid black;
+    border: 1px solid white;
     margin: 100px;
     padding: 10px;    
     border-spacing: 10px 5px;
 }
 #previous{
-    border: 2px dotted black;
+    border: 1px dotted black;
 }
 #current{
-    border: 2px dotted black;
+    border: 1px dotted black;
 }
 #previous:hover{
-    border: 2px dotted red;
+    border: 1px dotted blue;
 }
 #current:hover{
-    border: 2px dotted red;
+    border: 1px dotted blue;
 }
 .help{
-    color: blue;
+    color: rgb(79, 129, 188);
     decoration: none;
     font-size: 8pt;
 }
@@ -85,7 +85,7 @@ table{
     margin-right: auto;
 }
 td:hover {
-	border-color: red;
+	border-color: blue;
 }
 .gridLabel{
     font-weight: bold;
