@@ -126,8 +126,8 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
         
         var afterAttacks = game.attackedPieces(game.otherTurn());
         this.addFlair(initialAttacks, afterAttacks);
-        game.previousMove = new Position(oldX, oldY);
-        game.currentMove = new Position(newX, newY);
+        this.previousMove = new Position(oldX, oldY);
+        this.currentMove = new Position(newX, newY);
         this.addForks();
         
         if (game.whoseTurn() == "white") {
@@ -188,6 +188,13 @@ Board.prototype.cloneBoard = function cloneBoard() {
             }
         }
     }
+    if (this.previousMove) {
+        boardClone.previousMove = new Position(this.previousMove.x, this.previousMove.y);
+    }
+    if (this.currentMove) {
+        boardClone.currentMove = new Position(this.currentMove.x, this.currentMove.y);
+    }
+    boardClone.sumSquareControl();
     return boardClone;
 }
 
@@ -195,7 +202,6 @@ Board.prototype.undoMove = function undoMove() {
     if (game.moveHistory.length > 0) {
         var currentState = game.moveHistory.pop();
         game.board = currentState;
-        // game.moveRedos.push(currentState);
         
         if (game.whoseTurn() == "white") {
             var moveString = $("#moveList").children()[$("#moveList").children().length - 1].textContent;

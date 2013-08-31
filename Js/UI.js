@@ -162,7 +162,6 @@ function showSpaceControl() {
             } else {
                 var control = game.board.grid[i][j].whiteControl - game.board.grid[i][j].blackControl;
             }
-            console.log(i + " " + j + " " + control);
             var color = calculateColor(control);
             square.css("background-color", color);
         }
@@ -170,11 +169,11 @@ function showSpaceControl() {
 }
 
 function showLastMove() {
-    if (game.previousMove){
-        $(getTableData(game.previousMove.x, game.previousMove.y)).attr("id", "previous");
+    if (game.board.previousMove){
+        $(getTableData(game.board.previousMove.x, game.board.previousMove.y)).attr("id", "previous");
     }
-    if (game.currentMove) {
-        $(getTableData(game.currentMove.x, game.currentMove.y)).attr("id", "current");
+    if (game.board.currentMove) {
+        $(getTableData(game.board.currentMove.x, game.board.currentMove.y)).attr("id", "current");
     }
 }
 
