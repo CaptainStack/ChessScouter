@@ -65,10 +65,10 @@ footer{
 #board #current{
     border: 1px dotted black;
 }
-#previous:hover{
+#board #previous:hover{
     border: 1px dotted blue;
 }
-#current:hover{
+#board #current:hover{
     border: 1px dotted blue;
 }
 .help{
