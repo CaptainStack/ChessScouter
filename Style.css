@@ -41,6 +41,9 @@ footer{
 	width: 98%;
     clear: both;
 }
+#moveList td{
+    padding: 0px 0px 5px 5px;
+}
 #board tr{
     vertical-align: middle;
 }
