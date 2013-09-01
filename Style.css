@@ -1,5 +1,5 @@
 body, button{
-	font-family: Sans-serif;
+	font-family: "Segoe UI Light";
 	font-size: 14pt;
 	text-align: center;
 }
@@ -41,28 +41,28 @@ footer{
 	width: 98%;
     clear: both;
 }
-tr{
+#board tr{
     vertical-align: middle;
 }
-tr td{
+#board tr td{
     background-color: rgb(210, 210, 210);
 }
-tr:nth-child(even) td:nth-child(odd) {
+#board tr:nth-child(even) td:nth-child(odd) {
     background-color: rgb(240, 240, 240);
 }
-tr:nth-child(odd) td:nth-child(even) {
+#board tr:nth-child(odd) td:nth-child(even) {
     background-color: rgb(240, 240, 240);
 }
-td{
+#board td{
     border: 1px solid white;
     margin: 100px;
     padding: 10px;    
     border-spacing: 10px 5px;
 }
-#previous{
+#board #previous{
     border: 1px dotted black;
 }
-#current{
+#board #current{
     border: 1px dotted black;
 }
 #previous:hover{
@@ -84,7 +84,7 @@ table{
     margin-left: auto;
     margin-right: auto;
 }
-td:hover {
+#board td:hover {
 	border-color: blue;
 }
 .gridLabel{

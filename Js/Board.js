@@ -139,9 +139,13 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
         this.addForks();
         
         if (game.whoseTurn() == "white") {
-            $("#moveList").append("<li>" + this.createMoveString(piece, oldPosition, newPosition, capture) + "</li>");
+            // $("#moveList").append("<li>" + this.createMoveString(piece, oldPosition, newPosition, capture) + "</li>");
+            $("#moveList").append("<tr>" + "<td>" + ($("#moveList").children().length + 1) + "." + "</td>" + "<td>" + this.createMoveString(piece, oldPosition, newPosition, capture) + "</td>" + "<td></td>" + "</tr>");
         } else {
-            $("#moveList").children()[$("#moveList").children().length - 1].textContent += " " + this.createMoveString(piece, oldPosition, newPosition, capture);
+            // $("#moveList").append("<tr>" + "<td>" + this.createMoveString(piece, oldPosition, newPosition, capture) + "</td>" + "</tr>");
+            // $("#moveList").children()[$("#moveList").children().length - 1].insertCell(1);
+            $("#moveList").children()[$("#moveList").children().length - 1].cells[2].textContent = this.createMoveString(piece, oldPosition, newPosition, capture);
+            // $("#moveList").children()[$("#moveList").children().length - 1].textContent += " " + this.createMoveString(piece, oldPosition, newPosition, capture);
         }
         
         if (submitted === null) {

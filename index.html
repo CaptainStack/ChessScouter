@@ -25,12 +25,19 @@
         <link href="Style.css" type="text/css" rel="stylesheet" />
     </head>
     <body>
-        <h1>Chess Scouter</h1>
-        <h2 id="turnSpace"></h2> 
+        <header>
+			<h1>Chess Scouter</h1>
+            <h2 id="turnSpace"></h2> 
+		</header>
+        
         <div id="moveHistory">
             <h3>Move History <label class="help" id="history"> [?]</label><button id="pgn">PGN</button><label class="help" id="pgn"> [?]</label></h3>
-            <ol id="moveList">
-            </ol>
+            <!--<ol id="moveList">
+            </ol>-->
+            <table>
+                <tbody id="moveList">
+                </tbody>
+            </table>
         </div>
         <div id="gameSpace">
             <table>
