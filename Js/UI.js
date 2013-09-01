@@ -12,7 +12,7 @@ $(function() {
     game = new Game();
     game.board.sumSquareControl();
     layoutBoard();
-    $("#turnSpace").text("It is " + game.whoseTurn() + "'s turn");
+    // $("#turnSpace").text("It is " + game.whoseTurn() + "'s turn");
     var temp = $("#board");
     $("#promotion").hide();
     //Create a seperate method for first click and then another for second click.
@@ -44,7 +44,16 @@ $(function() {
 function downloadPgn () {
     var pgn = "";
     for (var i = 0; i < $("#moveList").children().length; i++) {
-        pgn += (i + 1) + ". " + $("#moveList").children()[i].textContent + " ";
+        
+        // pgn += 
+        for(var j = 0; j < $("#moveList").children()[i].cells.length; j++){
+            pgn += $("#moveList").children()[i].cells[j].textContent + " ";
+        }
+        
+        // function(cell){
+            // pgn += cell.textContent + " ";
+        // })
+        // textContent + " ";
     }
     
     if (pgn != "") {
@@ -52,12 +61,12 @@ function downloadPgn () {
         var fileURL = URL.createObjectURL(b);
         
         var a = document.createElement('a'),
-        e = document.createEvent("MouseEvents");  // simulated click
+        e = document.createEvent("MouseEvents");            // simulated click
         e.initMouseEvent("click", true, false, self, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
         a.setAttribute('href', fileURL);
-        a.setAttribute('target', '_blank');           // fallback behaviour
+        a.setAttribute('target', '_blank');                 // fallback behaviour
         a.setAttribute('download', 'ChessScouterGame.pgn'); // file name
-        a.dispatchEvent(e);                           // download
+        a.dispatchEvent(e);                                 // download
     } else {
         alert("PGN has no contents yet. Make some moves and try again");
     }
@@ -116,7 +125,7 @@ function boardClicks() {
 
 // 'Update' function updates the visual state of the board
 function layoutBoard() {
-    $("#turnSpace").text("It is " + game.whoseTurn() + "'s turn");
+    // $("#turnSpace").text("It is " + game.whoseTurn() + "'s turn");
     $("#board").empty();
     for (var i = 0; i < game.board.grid.length; i++) {
         $("<tr>").attr("id", "tr" + i).addClass("gridLabel").appendTo($("#board"));
