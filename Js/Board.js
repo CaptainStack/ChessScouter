@@ -156,7 +156,7 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
         
         message = this.checkStates();
     } else if (oldX == newX && oldY == newY) {
-        //Cancel selection
+        this.addForks();
     } else {
         message = 'That is an illegal move!';
     }
