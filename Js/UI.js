@@ -111,8 +111,25 @@ function boardClicks() {
         }
         layoutBoard();
         getTableData(firstX, firstY).css("border-color", "blue");
+    } else if (firstClick !== null && game.board.getPiece(firstX, firstY) && game.board.getPiece(firstX, firstY).color === game.whoseTurn()) {   
+        var oldLegalMoves = game.pieceLegalMoves(new Position(firstClick.x, firstClick.y));
+        for (var i = 0; i < oldLegalMoves.length; i++) {
+            game.board.grid[oldLegalMoves[i].x][oldLegalMoves[i].y].legalMove = false;
+        }
+        layoutBoard();
+    
+        firstClick = $(this);
+        firstClick = new Position(firstX, firstY);
+        var piece = game.board.getPiece(firstX, firstY);
+        var legalMoves = game.pieceLegalMoves(new Position(firstX, firstY));
+        if ($("#legalMoves").attr("checked") != undefined) {
+            for (var i = 0; i < legalMoves.length; i++) {
+                game.board.grid[legalMoves[i].x][legalMoves[i].y].legalMove = true;
+            }
+        }
+        layoutBoard();
+        getTableData(firstX, firstY).css("border-color", "blue");
     } else if (firstClick !== null) {
-        // secondClick = $(this);
         secondClick = new Position($(this).context.cellIndex, $(this).context.parentNode.rowIndex);
         movePiece(firstClick, secondClick);
         firstClick = null;
