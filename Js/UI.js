@@ -92,7 +92,7 @@ function movePiece(first, second) {
         var secondY = second.y;
         game.board.movePiece(new Position(firstX, firstY), new Position(secondX, secondY));
     } else {
-        messageUser("It's not your turn!", true);
+        messageUser("It's not your turn!");
     }
 }
 
@@ -119,7 +119,7 @@ function boardClicks() {
         secondClick = null;
         layoutBoard();
     } else {
-        messageUser("It's not your turn!", true);
+        messageUser("It's not your turn!");
     }
 }
 
@@ -273,16 +273,15 @@ function calculateColor (scale) {
 }
 
 // send a message to the user
-function messageUser(message, important) {
+function messageUser(message) {
     if (message !== null) {
         var $messages = $('#messages');
         $messages.empty();
-        var $p = $('<p>').text(message);
-        if (important) $p.addClass('important');
+        var $p = $('<span>').text(message);
         $messages.append($p);
-        $p.fadeOut(7000, function() {
-            $(this).remove();
-        });
+        // $p.fadeOut(7000, function() {
+            // $(this).remove();
+        // });
     }
 }
 

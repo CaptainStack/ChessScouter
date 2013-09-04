@@ -1,9 +1,35 @@
 body, button{
-	font-family: "Segoe UI Light", Helvetica, "Sans-Serif";
+	font-family: "Segoe UI Light", "Segoe UI Web Regular", "Segoe UI Symbol", "Helvetica Neue", "BBAlpha Sans","S60 Sans", Arial, "sans-serif";
 	font-size: 14pt;
 	text-align: center;
+    margin: 0px;
 }
 
+header{
+	overflow: hidden;
+    margin: 0px;
+    text-align: center;
+    text-decoration: none;
+	color: white;
+	background-color: #4f81bc;
+    padding: 0.5%;
+    white-space: nowrap;
+}
+
+header h1{
+    float: left;
+    vertical-align: middle;
+    margin: 0px;
+}
+h1 img{
+    padding-right: 2%;
+}
+header h2{
+    float: right;
+    vertical-align: middle;
+    margin: 0px;
+    padding-right: 1%;
+}
 /* The area that holds the board and pieces. */
 #board{
 	margin-left: auto;
@@ -23,16 +49,7 @@ body, button{
 #gameSpace{
     float: left;
     width: 50%;
-}
-
-#messages {
-    float: left;
-    width:  100px;
-    text-align: left;
-}
-
-.important {
-    color: red;
+    margin-top: 20px;
 }
 
 footer{

@@ -158,7 +158,7 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
     } else if (oldX == newX && oldY == newY) {
         this.addForks();
     } else {
-        message = 'That is an illegal move!';
+        message = 'Invalid Move';
     }
     
     if (message !== null) {
@@ -315,18 +315,18 @@ Board.prototype.addForks = function addForks() {
 Board.prototype.checkStates = function checkStates() {
     if (game.isInStalemate(game.whoseTurn())) {
         $("#board").off();
-        return "stalemate!";
+        return "Stalemate";
     } else if (game.insufficientMatingMaterial()) {
         $("#board").off();
         return "Insufficient pieces for checkmate. Draw!";
     } else if (game.isInCheck(game.whoseTurn())) {
         if (game.isInCheckmate(game.whoseTurn())) {
             $("#board").off();
-            return "checkmate!";
+            return "Checkmate";
         }
-        return "check!";
+        return "Check";
     } else {
-        return null;
+        return "";
     }
 }
 
