@@ -111,7 +111,7 @@ function boardClicks() {
         }
         layoutBoard();
         getTableData(firstX, firstY).css("border-color", "blue");
-    } else if (firstClick !== null && game.board.getPiece(firstX, firstY) && game.board.getPiece(firstX, firstY).color === game.whoseTurn()) {   
+    } else if (firstClick !== null && game.board.getPiece(firstX, firstY) && game.board.getPiece(firstX, firstY).color === game.whoseTurn() && (firstClick.x !== firstX && firstClick.y !== firstY)) {   
         var oldLegalMoves = game.pieceLegalMoves(new Position(firstClick.x, firstClick.y));
         for (var i = 0; i < oldLegalMoves.length; i++) {
             game.board.grid[oldLegalMoves[i].x][oldLegalMoves[i].y].legalMove = false;
@@ -135,7 +135,7 @@ function boardClicks() {
         firstClick = null;
         secondClick = null;
         layoutBoard();
-    } else {
+    } else if (game.board.getPiece(firstX, firstY).color !== game.whoseTurn()) {
         messageUser("It's not your turn!");
     }
 }
