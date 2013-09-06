@@ -80,6 +80,26 @@ Game.prototype.getAllLegalAttacks = function getAllLegalAttacks(player) {
 	}
 }
 
+Game.prototype.getAllLegalMoves = function getAllLegalMoves(player) {
+	try {
+		var moves = [];
+		if (player == "white" || player == "black") {
+			var pieces = this.getPieces(player);
+			for(var i = 0; i < pieces.length; i++) {
+				var pieceMoves = this.pieceLegalMoves(pieces[i].getPosition());
+				for(var j = 0; j < pieceMoves.length; j++) {
+					moves.push(pieceMoves[j]);
+				}
+			}
+			return moves;
+		} else {
+			throw "bad input";
+		}
+	} catch(err) {
+		alert(err + " player must be \"black\" or \"white\"");
+	}
+}
+
 
 //Add try catch behavior
 Game.prototype.isInCheck = function isInCheck(player) {

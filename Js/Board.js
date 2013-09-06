@@ -180,14 +180,38 @@ Board.prototype.sumSquareControl = function sumSquareControl() {
     }
 }
 
-Board.prototype.convertFromAlgebra = function convertFromAlgebra(move) {
+Board.prototype.convertFromAlgebra = function convertFromAlgebra(move, moveIndex) {
     //Qxd7+
-    ["+", "x"].forEach(function(character){
-        move.replace(character, "");
-    });
-    var oldPosition = new Position(move.charCodeAt(0) - 97, move.charAt(1));
-    var newPosition = new Position(move.charCodeAt(move.length - 2) - 97, move.charAt(move.length - 1));
-    this.movePiece(oldPosition, newPosition);
+    // ["+", "x"].forEach(function(character){
+        // move.replace(character, "");
+    // });
+    // var oldPosition = new Position(move.charCodeAt(0) - 97, move.charAt(1));
+    var movePosition = new Position(move.charCodeAt(move.length - 2) - 97, move.charAt(move.length - 1));
+    // this.movePiece(oldPosition, newPosition);
+    
+    
+    var player = "";
+    if (moveIndex % 2 === 0) {
+        player = "white";
+    } else {
+        player = "black";
+    }
+    var possibleMoves = game.getAllLegalMoves(player);
+    
+    for (var i = possibleMoves.length - 1; i >= 0; i--) {
+        if ((possibleMoves[i].x != movePosition.x) || (possibleMoves[i].y != movePosition.y)) {
+            possibleMoves.splice(i, 1);
+        }
+    }
+    if (possibleMoves.length > 1) {
+        alert("Unclear");
+    }
+    else if (possibleMoves.length == 0) {
+        alert("No candidate Piece");
+    }
+    else {
+        alert(possibleMoves[0].x + ", " + possibleMoves[0].y);
+    }
 }
 
 Board.prototype.cloneBoard = function cloneBoard() {
