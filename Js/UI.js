@@ -4,8 +4,8 @@ DOM elements.
 */
 "use strict";
 var BOARD_SIZE = 400;
-var firstClick;
-var secondClick;
+var firstClick = null;
+var secondClick = null;
 var game;
 
 $(function() {
@@ -43,17 +43,10 @@ $(function() {
 
 function downloadPgn () {
     var pgn = "";
-    for (var i = 0; i < $("#moveList").children().length; i++) {
-        
-        // pgn += 
+    for (var i = 0; i < $("#moveList").children().length; i++) {     
         for(var j = 0; j < $("#moveList").children()[i].cells.length; j++){
             pgn += $("#moveList").children()[i].cells[j].textContent + " ";
         }
-        
-        // function(cell){
-            // pgn += cell.textContent + " ";
-        // })
-        // textContent + " ";
     }
     
     if (pgn != "") {
@@ -111,7 +104,7 @@ function boardClicks() {
         }
         layoutBoard();
         getTableData(firstX, firstY).css("border-color", "blue");
-    } else if (firstClick !== null && game.board.getPiece(firstX, firstY) && game.board.getPiece(firstX, firstY).color === game.whoseTurn() && (firstClick.x !== firstX && firstClick.y !== firstY)) {   
+    } else if (firstClick !== null && game.board.getPiece(firstX, firstY) && game.board.getPiece(firstX, firstY).color === game.whoseTurn() && (firstClick.x !== firstX || firstClick.y !== firstY)) {   
         var oldLegalMoves = game.pieceLegalMoves(new Position(firstClick.x, firstClick.y));
         for (var i = 0; i < oldLegalMoves.length; i++) {
             game.board.grid[oldLegalMoves[i].x][oldLegalMoves[i].y].legalMove = false;
@@ -135,7 +128,7 @@ function boardClicks() {
         firstClick = null;
         secondClick = null;
         layoutBoard();
-    } else if (game.board.getPiece(firstX, firstY).color !== game.whoseTurn()) {
+    } else if (game.board.getPiece(firstX, firstY) && game.board.getPiece(firstX, firstY).color !== game.whoseTurn()) {
         messageUser("It's not your turn!");
     }
 }

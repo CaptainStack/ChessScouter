@@ -186,9 +186,8 @@ Board.prototype.convertFromAlgebra = function convertFromAlgebra(move, moveIndex
         // move.replace(character, "");
     // });
     // var oldPosition = new Position(move.charCodeAt(0) - 97, move.charAt(1));
-    var movePosition = new Position(move.charCodeAt(move.length - 2) - 97, move.charAt(move.length - 1));
+    var movePosition = new Position(move.charCodeAt(move.length - 2) - 97, 8 - parseInt(move.charAt(move.length - 1)));
     // this.movePiece(oldPosition, newPosition);
-    
     
     var player = "";
     if (moveIndex % 2 === 0) {
@@ -196,21 +195,25 @@ Board.prototype.convertFromAlgebra = function convertFromAlgebra(move, moveIndex
     } else {
         player = "black";
     }
-    var possibleMoves = game.getAllLegalMoves(player);
+    var validMoves = [];
+    var possiblePiece = game.getPieces(player);
     
-    for (var i = possibleMoves.length - 1; i >= 0; i--) {
-        if ((possibleMoves[i].x != movePosition.x) || (possibleMoves[i].y != movePosition.y)) {
-            possibleMoves.splice(i, 1);
+    for (var i = possiblePiece.length - 1; i >= 0; i--) {
+        var pieceMoves = game.pieceLegalMoves(possiblePiece[i].getPosition());
+        for (var j = pieceMoves.length - 1; j >= 0; j--) {
+            if (pieceMoves[j].x == movePosition.x && pieceMoves[j].y == movePosition.y) {
+                validMoves.push(possiblePiece[i]);
+            }
         }
     }
-    if (possibleMoves.length > 1) {
+    if (validMoves.length > 1) {
         alert("Unclear");
     }
-    else if (possibleMoves.length == 0) {
+    else if (validMoves.length == 0) {
         alert("No candidate Piece");
     }
     else {
-        alert(possibleMoves[0].x + ", " + possibleMoves[0].y);
+        alert(validMoves[0].type + " to " + movePosition.x + ", " + movePosition.y);
     }
 }
 
