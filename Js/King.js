@@ -21,31 +21,31 @@ King.prototype.getPosition = function getPosition() {
 }
 
 King.prototype.getPotentialMoves = function getPotentialMoves(startPosition) {
-	var x = startPosition.x;
-	var y = startPosition.y;
-	var potentialMoves = [
-						new Position(x, y + 1), 
-						new Position(x, y - 1),
-						new Position(x + 1, y),
-						new Position(x - 1, y),
-						new Position(x + 1, y + 1),
-						new Position(x + 1, y - 1),
-						new Position(x - 1, y + 1),
-						new Position(x - 1, y - 1)
-						];
-	for(var i = potentialMoves.length - 1; i >= 0; i--) {
-		if (!game.board.isOnBoard(potentialMoves[i])) {
-			potentialMoves.splice(i, 1);
-		}
-	}
-	return potentialMoves;
+    var x = startPosition.x;
+    var y = startPosition.y;
+    var potentialMoves = [
+                        new Position(x, y + 1), 
+                        new Position(x, y - 1),
+                        new Position(x + 1, y),
+                        new Position(x - 1, y),
+                        new Position(x + 1, y + 1),
+                        new Position(x + 1, y - 1),
+                        new Position(x - 1, y + 1),
+                        new Position(x - 1, y - 1)
+                        ];
+    for(var i = potentialMoves.length - 1; i >= 0; i--) {
+        if (!game.board.isOnBoard(potentialMoves[i])) {
+            potentialMoves.splice(i, 1);
+        }
+    }
+    return potentialMoves;
 }
 
 King.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
     var legalMoves = this.getPotentialMoves(currentPosition);
     
     for(var i = legalMoves.length - 1; i >= 0; i--) {
-        if (game.board.occupiedBy(new Position(legalMoves[i].x, legalMoves[i].y)) == this.color) {
+        if (game.board.occupiedBy(new Position(legalMoves[i].x, legalMoves[i].y)) === this.color) {
             legalMoves.splice(i, 1);
         }
     }
@@ -62,7 +62,7 @@ King.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
             var throughCheck = false;
             var otherAttacks = game.getAllLegalAttacks("black");
             for(var i = 0; i < otherAttacks.length; i++) {
-                if ((otherAttacks[i].x == 5 && otherAttacks[i].y == 7) || (otherAttacks[i].x == 6 && otherAttacks[i].y == 7)) {
+                if ((otherAttacks[i].x === 5 && otherAttacks[i].y === 7) || (otherAttacks[i].x === 6 && otherAttacks[i].y === 7)) {
                     throughCheck = true;
                 }
             }
@@ -81,7 +81,7 @@ King.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
             var throughCheck = false;
             var otherAttacks = game.getAllLegalAttacks("black");
             for(var i = 0; i < otherAttacks.length; i++) {
-                if ((otherAttacks[i].x == 1 && otherAttacks[i].y == 7) || (otherAttacks[i].x == 2 && otherAttacks[i].y == 7) || (otherAttacks[i].x == 3 && otherAttacks[i].y == 7)) {
+                if ((otherAttacks[i].x === 1 && otherAttacks[i].y === 7) || (otherAttacks[i].x === 2 && otherAttacks[i].y === 7) || (otherAttacks[i].x === 3 && otherAttacks[i].y === 7)) {
                     throughCheck = true;
                 }
             }
@@ -100,7 +100,7 @@ King.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
             var throughCheck = false;
             var otherAttacks = game.getAllLegalAttacks("white");
             for(var i = 0; i < otherAttacks.length; i++) {
-                if ((otherAttacks[i].x == 5 && otherAttacks[i].y == 0) || (otherAttacks[i].x == 6 && otherAttacks[i].y == 0)) {
+                if ((otherAttacks[i].x === 5 && otherAttacks[i].y === 0) || (otherAttacks[i].x === 6 && otherAttacks[i].y === 0)) {
                     throughCheck = true;
                 }
             }
@@ -119,7 +119,7 @@ King.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
             var throughCheck = false;
             var otherAttacks = game.getAllLegalAttacks("white");
             for(var i = 0; i < otherAttacks.length; i++) {
-                if ((otherAttacks[i].x == 1 && otherAttacks[i].y == 0) || (otherAttacks[i].x == 2 && otherAttacks[i].y == 0) || (otherAttacks[i].x == 3 && otherAttacks[i].y == 0)) {
+                if ((otherAttacks[i].x === 1 && otherAttacks[i].y === 0) || (otherAttacks[i].x === 2 && otherAttacks[i].y === 0) || (otherAttacks[i].x === 3 && otherAttacks[i].y === 0)) {
                     throughCheck = true;
                 }
             }

@@ -1,25 +1,25 @@
 //This object initializes a board and manages the state of the game.
 "use strict";
 function Game() {    
-	this.turn = 1;
-	this.board = new Board();
+    this.turn = 1;
+    this.board = new Board();
     this.moveHistory = [];
 }
 
 Game.prototype.whoseTurn = function whoseTurn() {
-	if (this.turn % 2 === 0) {
-		return "black";
-	} else {
-		return "white";
-	}
+    if (this.turn % 2 === 0) {
+        return "black";
+    } else {
+        return "white";
+    }
 }
 
 Game.prototype.otherTurn = function otherTurn() {
-	if (this.turn % 2 === 0) {
-		return "white";
-	} else {
-		return "black";
-	}
+    if (this.turn % 2 === 0) {
+        return "white";
+    } else {
+        return "black";
+    }
 }
 
 Game.prototype.otherPlayer = function otherPlayer(player) {
@@ -31,107 +31,107 @@ Game.prototype.otherPlayer = function otherPlayer(player) {
 }
 
 Game.prototype.getPieces = function getPieces(player) {
-	var pieceList = [];
-	try {
-		if (player == "white" || player == "black" || player == "all") {
-			for(var i = 0; i < this.board.grid.length; i++) {
-				for(var j = 0; j < this.board.grid[i].length; j++) {
-					var square = this.board.grid[i][j];
-					if (square.piece !== null) {
-						if (square.piece.color == "white" && player == "white") {
-							pieceList.push(this.board.grid[i][j].piece);
-						} else if (square.piece.color == "black" && player == "black") {
-							pieceList.push(this.board.grid[i][j].piece);
-						} else if (player == "all") {
-							pieceList.push(this.board.grid[i][j].piece);
-						}
-					}
-				}
-			}
-			return pieceList;
-		} else {
-			throw new Error("bad input");
-		}
-	} catch(err) {
-		alert(err + "player must be \"black\" or \"white\" or \"all\"");
-	}
+    var pieceList = [];
+    try {
+        if (player === "white" || player === "black" || player === "all") {
+            for(var i = 0; i < this.board.grid.length; i++) {
+                for(var j = 0; j < this.board.grid[i].length; j++) {
+                    var square = this.board.grid[i][j];
+                    if (square.piece !== null) {
+                        if (square.piece.color === "white" && player === "white") {
+                            pieceList.push(this.board.grid[i][j].piece);
+                        } else if (square.piece.color === "black" && player === "black") {
+                            pieceList.push(this.board.grid[i][j].piece);
+                        } else if (player === "all") {
+                            pieceList.push(this.board.grid[i][j].piece);
+                        }
+                    }
+                }
+            }
+            return pieceList;
+        } else {
+            throw new Error("bad input");
+        }
+    } catch(err) {
+        alert(err + "player must be \"black\" or \"white\" or \"all\"");
+    }
 }
 
 //All pieces have a getAttacks method that is redundant with getLegalMoves. This is because Pawn moves
 //differently from how it attacks. For now it's easier but we should get inheritance working so it's less
 //stupid.
 Game.prototype.getAllLegalAttacks = function getAllLegalAttacks(player) {
-	try {
-		var attacks = [];
-		if (player == "white" || player == "black") {
-			var pieces = this.getPieces(player);
-			for(var i = 0; i < pieces.length; i++) {
-				var pieceAttack = pieces[i].getAttacks(pieces[i].getPosition());
-				for(var j = 0; j < pieceAttack.length; j++) {
-					attacks.push(pieceAttack[j]);
-				}
-			}
-			return attacks;
-		} else {
-			throw "bad input";
-		}
-	} catch(err) {
-		alert(err + " player must be \"black\" or \"white\"");
-	}
+    try {
+        var attacks = [];
+        if (player === "white" || player === "black") {
+            var pieces = this.getPieces(player);
+            for(var i = 0; i < pieces.length; i++) {
+                var pieceAttack = pieces[i].getAttacks(pieces[i].getPosition());
+                for(var j = 0; j < pieceAttack.length; j++) {
+                    attacks.push(pieceAttack[j]);
+                }
+            }
+            return attacks;
+        } else {
+            throw "bad input";
+        }
+    } catch(err) {
+        alert(err + " player must be \"black\" or \"white\"");
+    }
 }
 
 Game.prototype.getAllLegalMoves = function getAllLegalMoves(player) {
-	try {
-		var moves = [];
-		if (player == "white" || player == "black") {
-			var pieces = this.getPieces(player);
-			for(var i = 0; i < pieces.length; i++) {
-				var pieceMoves = this.pieceLegalMoves(pieces[i].getPosition());
-				for(var j = 0; j < pieceMoves.length; j++) {
-					moves.push(pieceMoves[j]);
-				}
-			}
-			return moves;
-		} else {
-			throw "bad input";
-		}
-	} catch(err) {
-		alert(err + " player must be \"black\" or \"white\"");
-	}
+    try {
+        var moves = [];
+        if (player === "white" || player === "black") {
+            var pieces = this.getPieces(player);
+            for(var i = 0; i < pieces.length; i++) {
+                var pieceMoves = this.pieceLegalMoves(pieces[i].getPosition());
+                for(var j = 0; j < pieceMoves.length; j++) {
+                    moves.push(pieceMoves[j]);
+                }
+            }
+            return moves;
+        } else {
+            throw "bad input";
+        }
+    } catch(err) {
+        alert(err + " player must be \"black\" or \"white\"");
+    }
 }
 
 
 //Add try catch behavior
 Game.prototype.isInCheck = function isInCheck(player) {
-	var pieces = game.getPieces(player);
+    var pieces = game.getPieces(player);
     var king = this.findKing(player);
-	var enemyAttacks;
-	if (player == "white") {
-		enemyAttacks = this.getAllLegalAttacks("black");
-	} else {
-		enemyAttacks = this.getAllLegalAttacks("white");
-	}
-	for(var i = 0; i < enemyAttacks.length; i++) {
-		if (enemyAttacks[i].x == king.getPosition().x && enemyAttacks[i].y == king.getPosition().y) {
-			return true;
-			break;
-		}
-	}
+    var enemyAttacks;
+    if (player === "white") {
+        enemyAttacks = this.getAllLegalAttacks("black");
+    } else {
+        enemyAttacks = this.getAllLegalAttacks("white");
+    }
+    for(var i = 0; i < enemyAttacks.length; i++) {
+        if (enemyAttacks[i].x === king.getPosition().x && enemyAttacks[i].y === king.getPosition().y) {
+            return true;
+            break;
+        }
+    }
 }
 
 Game.prototype.findKing = function findKing(player) {
     var pieces = this.getPieces(player);
-	var king = null;
-	var kingFound = false;
+    var king = null;
+    var kingFound = false;
     var counter = 0;
-	// Loop over the board until the king is found
-	while (!kingFound) {
-		if (pieces[counter].image == player + "_king.svg") {
-			king = pieces[counter];
-			kingFound = true;
-		}
-		counter++;
-	}
+    // Loop over the board until the king is found
+    while (!kingFound) {
+        if (pieces[counter].image === player + "_king.svg") {
+            king = pieces[counter];
+            kingFound = true;
+        }
+        counter++;
+    }
     if (kingFound) {
         return king;
     } else {
@@ -259,8 +259,8 @@ Game.prototype.pieceLegalMoves = function pieceLegalMoves(position) {
 Game.prototype.attackedPieces = function attackedPieces(player) {
     var initialAttacks = this.getAllLegalAttacks(this.otherPlayer(player));
     for(var i = initialAttacks.length - 1; i >= 0; i--) {
-        if (this.board.grid[initialAttacks[i].x][initialAttacks[i].y].piece == null ||
-        this.board.grid[initialAttacks[i].x][initialAttacks[i].y].piece.color == this.otherPlayer(player)) {
+        if (this.board.grid[initialAttacks[i].x][initialAttacks[i].y].piece === null ||
+        this.board.grid[initialAttacks[i].x][initialAttacks[i].y].piece.color === this.otherPlayer(player)) {
             initialAttacks.splice(i, 1);
         }
     }
@@ -284,7 +284,7 @@ Game.prototype.getWhiteForks = function getWhiteForks() {
             var afterAttacks = this.attackedPieces("black");
             for (var k = afterAttacks.length - 1; k >= 0; k--) {
                 for (var l = initialAttacks.length - 1; l >= 0; l--) {
-                    if ((afterAttacks[k].x == initialAttacks[l].x) && (afterAttacks[k].y == initialAttacks[l].y)) {
+                    if ((afterAttacks[k].x === initialAttacks[l].x) && (afterAttacks[k].y === initialAttacks[l].y)) {
                         initialAttacks.splice(l, 1);
                         afterAttacks.splice(k, 1);
                         break;

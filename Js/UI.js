@@ -29,13 +29,13 @@ $(function() {
     var ctrlKey = 17, zKey = 90, yKey = 89;
     
     $(document).keydown(function(e) {
-        if (e.keyCode == ctrlKey) ctrlDown = true;
+        if (e.keyCode === ctrlKey) ctrlDown = true;
     }).keyup(function(e){
-        if (e.keyCode == ctrlKey) ctrlDown = false;
+        if (e.keyCode === ctrlKey) ctrlDown = false;
     });
     
     $(document).keydown(function(e){
-        if (ctrlDown && (e.keyCode == zKey)){
+        if (ctrlDown && (e.keyCode === zKey)){
             game.board.undoMove();
         }
     });
@@ -92,7 +92,7 @@ function movePiece(first, second) {
 function boardClicks() {
     var firstX = $(this).context.cellIndex;
     var firstY = $(this).context.parentNode.rowIndex;
-    if (firstClick == null && game.board.getPiece(firstX, firstY) !== null && game.board.getPiece(firstX, firstY).color == game.whoseTurn()) {
+    if (firstClick === null && game.board.getPiece(firstX, firstY) !== null && game.board.getPiece(firstX, firstY).color === game.whoseTurn()) {
         firstClick = $(this);
         firstClick = new Position(firstX, firstY);
         var piece = game.board.getPiece(firstX, firstY);
@@ -237,7 +237,7 @@ function showSimpleSpaceControl() {
     }
     var whiteAttacks = game.getAllLegalAttacks("white");
     for (var i = 0; i < whiteAttacks.length; i++) {
-        if ($(getTableData(whiteAttacks[i].x, whiteAttacks[i].y)).css("background-color") == "rgb(255, 153, 153)" || $(getTableData(whiteAttacks[i].x, whiteAttacks[i].y)).css("background-color") == "rgb(240, 230, 140)") {
+        if ($(getTableData(whiteAttacks[i].x, whiteAttacks[i].y)).css("background-color") === "rgb(255, 153, 153)" || $(getTableData(whiteAttacks[i].x, whiteAttacks[i].y)).css("background-color") === "rgb(240, 230, 140)") {
             getTableData(whiteAttacks[i].x, whiteAttacks[i].y).css("background-color", "rgb(240, 230, 140)");
         } else {
             getTableData(whiteAttacks[i].x, whiteAttacks[i].y).css("background-color", "rgb(153, 235, 153)");
@@ -247,34 +247,34 @@ function showSimpleSpaceControl() {
 }
 
 function calculateColor (scale) {
-    if (scale == 0) {
+    if (scale === 0) {
         return "rgb(240, 230, 140)";
     }
-    else if (scale == 1) {
+    else if (scale === 1) {
         return "#CCF5CC";
     }
-    else if (scale == 2) {
+    else if (scale === 2) {
         return "rgb(153, 235, 153)";
     }
-    else if (scale == 3) {
+    else if (scale === 3) {
         return "#66E066";
     }
-    else if (scale == 4) {
+    else if (scale === 4) {
         return "#33D633";
     }
     else if (scale > 4) {
         return "#00CC00";
     }
-    else if (scale == -1) {
+    else if (scale === -1) {
         return "#FFCCCC";
     }
-    else if (scale == -2) {
+    else if (scale === -2) {
         return "rgb(255, 153, 153)";
     }
-    else if (scale == -3) {
+    else if (scale === -3) {
         return "#FF6666";
     }
-    else if (scale == -4) {
+    else if (scale === -4) {
         return "#FF3333";
     }
     else if (scale < -4) {
@@ -296,7 +296,7 @@ function messageUser(message) {
 }
 
 function getBackgroundColor(x, y) {
-    if ((x % 2 == 0 && y % 2 == 0) || (x % 2 !== 0 && y % 2 !== 0)) {
+    if ((x % 2 === 0 && y % 2 === 0) || (x % 2 !== 0 && y % 2 !== 0)) {
         return "white";
     } else {
         return "lightgrey";

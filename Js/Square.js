@@ -2,9 +2,9 @@
 //holds information such as its position and what piece (if any) occupies it.
 "use strict";
 function Square(x, y, piece) {
-	this.x = x;
-	this.y = y
-	this.piece = piece;
+    this.x = x;
+    this.y = y
+    this.piece = piece;
     this.flair = false;
     this.legalMove = false;
     this.fork = false;

@@ -8,55 +8,55 @@ function Board() {
     
     var grid = [];
     
-	for(var i = 0; i < 8; i++) {
-		var row = [];
-		for(var j = 0; j < 8; j++) {        
-			row[j] = new Square(i, j, null);
-		}
-		grid[i] = row;
-	}
+    for(var i = 0; i < 8; i++) {
+        var row = [];
+        for(var j = 0; j < 8; j++) {        
+            row[j] = new Square(i, j, null);
+        }
+        grid[i] = row;
+    }
     
-	grid[0][0] = new Square(0, 0, new Rook("black"));
-	grid[1][0] = new Square(1, 0, new Knight("black"));
-	grid[2][0] = new Square(2, 0, new Bishop("black"));
-	grid[3][0] = new Square(3, 0, new Queen("black"));
-	grid[4][0] = new Square(4, 0, new King("black"));
-	grid[5][0] = new Square(5, 0, new Bishop("black"));
-	grid[6][0] = new Square(6, 0, new Knight("black"));
-	grid[7][0] = new Square(7, 0, new Rook("black"));
+    grid[0][0] = new Square(0, 0, new Rook("black"));
+    grid[1][0] = new Square(1, 0, new Knight("black"));
+    grid[2][0] = new Square(2, 0, new Bishop("black"));
+    grid[3][0] = new Square(3, 0, new Queen("black"));
+    grid[4][0] = new Square(4, 0, new King("black"));
+    grid[5][0] = new Square(5, 0, new Bishop("black"));
+    grid[6][0] = new Square(6, 0, new Knight("black"));
+    grid[7][0] = new Square(7, 0, new Rook("black"));
 
-	grid[0][1] = new Square(0, 1, new Pawn("black"));
-	grid[1][1] = new Square(1, 1, new Pawn("black"));
-	grid[2][1] = new Square(2, 1, new Pawn("black"));
-	grid[3][1] = new Square(3, 1, new Pawn("black"));
-	grid[4][1] = new Square(4, 1, new Pawn("black"));
-	grid[5][1] = new Square(5, 1, new Pawn("black"));
-	grid[6][1] = new Square(6, 1, new Pawn("black"));
-	grid[7][1] = new Square(7, 1, new Pawn("black"));
+    grid[0][1] = new Square(0, 1, new Pawn("black"));
+    grid[1][1] = new Square(1, 1, new Pawn("black"));
+    grid[2][1] = new Square(2, 1, new Pawn("black"));
+    grid[3][1] = new Square(3, 1, new Pawn("black"));
+    grid[4][1] = new Square(4, 1, new Pawn("black"));
+    grid[5][1] = new Square(5, 1, new Pawn("black"));
+    grid[6][1] = new Square(6, 1, new Pawn("black"));
+    grid[7][1] = new Square(7, 1, new Pawn("black"));
 
-	grid[0][6] = new Square(0, 6, new Pawn("white"));
-	grid[1][6] = new Square(1, 6, new Pawn("white"));
-	grid[2][6] = new Square(2, 6, new Pawn("white"));
-	grid[3][6] = new Square(3, 6, new Pawn("white"));
-	grid[4][6] = new Square(4, 6, new Pawn("white"));
-	grid[5][6] = new Square(5, 6, new Pawn("white"));
-	grid[6][6] = new Square(6, 6, new Pawn("white"));
-	grid[7][6] = new Square(7, 6, new Pawn("white"));
+    grid[0][6] = new Square(0, 6, new Pawn("white"));
+    grid[1][6] = new Square(1, 6, new Pawn("white"));
+    grid[2][6] = new Square(2, 6, new Pawn("white"));
+    grid[3][6] = new Square(3, 6, new Pawn("white"));
+    grid[4][6] = new Square(4, 6, new Pawn("white"));
+    grid[5][6] = new Square(5, 6, new Pawn("white"));
+    grid[6][6] = new Square(6, 6, new Pawn("white"));
+    grid[7][6] = new Square(7, 6, new Pawn("white"));
 
-	grid[0][7] = new Square(0, 7, new Rook("white"));
-	grid[1][7] = new Square(1, 7, new Knight("white"));
-	grid[2][7] = new Square(2, 7, new Bishop("white"));
-	grid[3][7] = new Square(3, 7, new Queen("white"));
-	grid[4][7] = new Square(4, 7, new King("white"));
-	grid[5][7] = new Square(5, 7, new Bishop("white"));
-	grid[6][7] = new Square(6, 7, new Knight("white"));
-	grid[7][7] = new Square(7, 7, new Rook("white"));
+    grid[0][7] = new Square(0, 7, new Rook("white"));
+    grid[1][7] = new Square(1, 7, new Knight("white"));
+    grid[2][7] = new Square(2, 7, new Bishop("white"));
+    grid[3][7] = new Square(3, 7, new Queen("white"));
+    grid[4][7] = new Square(4, 7, new King("white"));
+    grid[5][7] = new Square(5, 7, new Bishop("white"));
+    grid[6][7] = new Square(6, 7, new Knight("white"));
+    grid[7][7] = new Square(7, 7, new Rook("white"));
 
-	for(var i = 2; i < 6; i++) {
-		for(var j = 0; j < 8; j++) {
-			grid[j][i] = new Square(j, i, null);
-		}
-	}
+    for(var i = 2; i < 6; i++) {
+        for(var j = 0; j < 8; j++) {
+            grid[j][i] = new Square(j, i, null);
+        }
+    }
     this.grid = grid;
 }
 
@@ -138,7 +138,7 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
         this.currentMove = new Position(newX, newY);
         this.addForks();
         
-        if (game.whoseTurn() == "white") {
+        if (game.whoseTurn() === "white") {
             // $("#moveList").append("<li>" + this.createMoveString(piece, oldPosition, newPosition, capture) + "</li>");
             $("#moveList").append("<tr>" + "<td>" + ($("#moveList").children().length + 1) + "." + "</td>" + "<td>" + this.createMoveString(piece, oldPosition, newPosition, capture) + "</td>" + "<td></td>" + "</tr>");
         } else {
@@ -155,7 +155,7 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
         }
         
         message = this.checkStates();
-    } else if (oldX == newX && oldY == newY) {
+    } else if (oldX === newX && oldY === newY) {
         this.addForks();
     } else {
         message = 'Invalid Move';
@@ -201,7 +201,7 @@ Board.prototype.convertFromAlgebra = function convertFromAlgebra(move, moveIndex
     for (var i = possiblePiece.length - 1; i >= 0; i--) {
         var pieceMoves = game.pieceLegalMoves(possiblePiece[i].getPosition());
         for (var j = pieceMoves.length - 1; j >= 0; j--) {
-            if (pieceMoves[j].x == movePosition.x && pieceMoves[j].y == movePosition.y) {
+            if (pieceMoves[j].x === movePosition.x && pieceMoves[j].y === movePosition.y) {
                 validMoves.push(possiblePiece[i]);
             }
         }
@@ -209,7 +209,7 @@ Board.prototype.convertFromAlgebra = function convertFromAlgebra(move, moveIndex
     if (validMoves.length > 1) {
         alert("Unclear");
     }
-    else if (validMoves.length == 0) {
+    else if (validMoves.length === 0) {
         alert("No candidate Piece");
     }
     else {
@@ -243,7 +243,7 @@ Board.prototype.undoMove = function undoMove() {
         var currentState = game.moveHistory.pop();
         game.board = currentState;
         
-        if (game.whoseTurn() == "white") {
+        if (game.whoseTurn() === "white") {
             var moveString = $("#moveList").children()[$("#moveList").children().length - 1].textContent;
             $("#moveList").children()[$("#moveList").children().length - 1].textContent = moveString.substring(moveString.indexOf(" "));
         } else {
@@ -266,7 +266,7 @@ Board.prototype.createMoveString = function createMoveString(piece, oldPosition,
         if (piece.type === otherPiece.type && piece !== otherPiece && !piece instanceof Pawn) {
             var otherPosition = otherPiece.getPosition();
             otherPiece.getAttacks(otherPosition).forEach(function(otherMove) {
-                if (otherMove.x == newPosition.x && otherMove.y == newPosition.y) {
+                if (otherMove.x === newPosition.x && otherMove.y === newPosition.y) {
                     if (otherPosition.x !== oldPosition.x) {
                         moveString += String.fromCharCode(97 + oldPosition.x);
                     } else if (otherPosition.y !== oldPosition.y) {
@@ -320,7 +320,7 @@ Board.prototype.completeCastle = function completeCastle(piece, oldPosition, new
 Board.prototype.addFlair = function addFlair(initialAttacks, afterAttacks) {
     for (var i = afterAttacks.length - 1; i >= 0; i--) {
         for (var j = initialAttacks.length - 1; j >= 0; j--) {
-            if ((afterAttacks[i].x == initialAttacks[j].x) && (afterAttacks[i].y == initialAttacks[j].y)) {
+            if ((afterAttacks[i].x === initialAttacks[j].x) && (afterAttacks[i].y === initialAttacks[j].y)) {
                 initialAttacks.splice(j, 1);
                 afterAttacks.splice(i, 1);
                 break;
@@ -360,7 +360,7 @@ Board.prototype.checkStates = function checkStates() {
 Board.prototype.occupiedBy = function occupiedBy(position) {
     var x = position.x;
     var y = position.y;
-    if (this.getPiece(x, y) == null) {
+    if (this.getPiece(x, y) === null) {
         return null;
     } else {
         return this.getPiece(x, y).color;
@@ -373,7 +373,7 @@ Board.prototype.isLegalMove = function isLegalMove(oldPosition, newPosition) {
     var moved = false;
     var initialAttacks = game.attackedPieces(game.otherTurn());
     for (var i = 0; i < legalMoves.length; i++) {
-        if (legalMoves[i].x == newPosition.x && legalMoves[i].y == newPosition.y) {
+        if (legalMoves[i].x === newPosition.x && legalMoves[i].y === newPosition.y) {
             return true;
         }
     }
