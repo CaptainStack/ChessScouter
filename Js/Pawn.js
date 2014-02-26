@@ -41,6 +41,7 @@ Pawn.prototype.getPotentialMoves = function getPotentialMoves(position) {
     }
     return potentialMoves;
 }
+
 Pawn.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
     var potentialMoves = [];
     var x = currentPosition.x;
@@ -114,6 +115,7 @@ Pawn.prototype.getAttacks = function getAttacks(currentPosition) {
     }
     return attacks;
 }
+
 Pawn.prototype.cloneSelf = function cloneSelf() {
     var selfClone = new Pawn(this.color);
     selfClone.color = this.color;

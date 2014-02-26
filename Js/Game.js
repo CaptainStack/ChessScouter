@@ -100,7 +100,6 @@ Game.prototype.getAllLegalMoves = function getAllLegalMoves(player) {
     }
 }
 
-
 //Add try catch behavior
 Game.prototype.isInCheck = function isInCheck(player) {
     var pieces = game.getPieces(player);

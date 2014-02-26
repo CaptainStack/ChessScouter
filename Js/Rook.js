@@ -116,6 +116,7 @@ Rook.prototype.getAttacks = function getAttacks(currentPosition) {
     }
     return legalMoves;
 }
+
 Rook.prototype.cloneSelf = function cloneSelf() {
     var selfClone = new Rook(this.color);
     selfClone.color = this.color;

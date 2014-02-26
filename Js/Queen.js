@@ -131,7 +131,8 @@ Queen.prototype.getPotentialMoves = function getPotentialMoves(position) {
 
 Queen.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
     var legalMoves = [];
-    var allMoves = this.getPotentialMoves(currentPosition)
+    var allMoves = this.getPotentialMoves(currentPosition);
+    
     for(var i = 0; i < allMoves.length; i++) {
         var currVectorMoves = allMoves[i];
         for(var j = 0; j < currVectorMoves.length; j++) {
@@ -167,6 +168,7 @@ Queen.prototype.getAttacks = function getAttacks(currentPosition) {
     }
     return legalMoves;
 }
+
 Queen.prototype.cloneSelf = function cloneSelf() {
     var selfClone = new Queen(this.color);
     selfClone.color = this.color;

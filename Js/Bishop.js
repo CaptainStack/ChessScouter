@@ -89,7 +89,8 @@ Bishop.prototype.getPotentialMoves = function getPotentialMoves(postion) {
 //This method filters poential moves to produce legal moves.
 Bishop.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
     var legalMoves = [];
-    var allMoves = this.getPotentialMoves(currentPosition)
+    var allMoves = this.getPotentialMoves(currentPosition);
+    
     for(var i = 0; i < allMoves.length; i++) {
         var currVectorMoves = allMoves[i];
         for(var j = 0; j < currVectorMoves.length; j++) {
@@ -126,6 +127,7 @@ Bishop.prototype.getAttacks = function getAttacks(currentPosition) {
     }
     return legalMoves;
 }
+
 Bishop.prototype.cloneSelf = function cloneSelf() {
     var selfClone = new Bishop(this.color);
     selfClone.color = this.color;
