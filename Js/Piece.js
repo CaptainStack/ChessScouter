@@ -1,9 +1,9 @@
-function Piece(color){
+function Piece(color) {
     this.color = color;
     this.captured = false;
 }
 
-function Queen(color){
+function Queen(color) {
     this.color = color;
     this.material = 9;
 }

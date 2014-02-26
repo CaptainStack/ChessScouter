@@ -41,7 +41,7 @@ Bishop.prototype.getPotentialMoves = function getPotentialMoves(postion) {
         if (vectorNorthEast === false) {
             addY--;
             addX--;
-            if ( game.board.isOnBoard(new Position(x + addX,y + addY))) {
+            if (game.board.isOnBoard(new Position(x + addX,y + addY))) {
                 northEastMoves.push(new Position (x + addX, y + addY));
             } else {
                 addY = 0;
@@ -51,7 +51,7 @@ Bishop.prototype.getPotentialMoves = function getPotentialMoves(postion) {
         } else if (vectorSouthEast === false) {
             addY++;
             addX--;
-            if ( game.board.isOnBoard(new Position(x + addX,y + addY))) {
+            if (game.board.isOnBoard(new Position(x + addX,y + addY))) {
                 southEastMoves.push(new Position (x + addX, y + addY));
             } else {
                 addY = 0;
@@ -61,7 +61,7 @@ Bishop.prototype.getPotentialMoves = function getPotentialMoves(postion) {
         } else if (vectorNorthWest === false) {
             addY--;
             addX++;
-            if ( game.board.isOnBoard(new Position(x + addX,y + addY))) {
+            if (game.board.isOnBoard(new Position(x + addX,y + addY))) {
                 northWestMoves.push(new Position (x + addX, y + addY));
             } else {
                 addX = 0;
@@ -71,7 +71,7 @@ Bishop.prototype.getPotentialMoves = function getPotentialMoves(postion) {
         } else if (vectorSouthWest === false) {
             addX++;
             addY++;
-            if ( game.board.isOnBoard(new Position(x + addX,y + addY))) {
+            if (game.board.isOnBoard(new Position(x + addX,y + addY))) {
                 southWestMoves.push(new Position (x + addX, y + addY));
             } else {
                 addX = 0;

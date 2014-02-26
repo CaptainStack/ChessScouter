@@ -1,6 +1,6 @@
 //This object initializes a board and manages the state of the game.
 "use strict";
-function Game() {    
+function Game() {
     this.turn = 1;
     this.board = new Board();
     this.moveHistory = [];

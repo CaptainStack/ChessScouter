@@ -42,19 +42,17 @@ Queen.prototype.getPotentialMoves = function getPotentialMoves(position) {
     var northWestMoves = [];
     var southWestMoves = [];
     while(vectorNorth === false || vectorSouth === false || vectorEast === false || vectorWest === false || vectorNorthEast === false || vectorSouthEast === false || vectorNorthWest === false || vectorSouthWest === false) {
-        //North: Y-- South: Y++ East: X-- West: X++ 
         if (vectorNorth === false) {
             addY--;
-            if ( game.board.isOnBoard(new Position(x + addX,y + addY))) {
+            if (game.board.isOnBoard(new Position(x + addX,y + addY))) {
                 northMoves.push(new Position (x + addX, y + addY));
-                //northMoves.push({x: x + addX, y: y + addY});
             } else {
                 addY = 0;
                 vectorNorth = true;
             }
         } else if (vectorSouth === false) {
             addY++;
-            if ( game.board.isOnBoard(new Position(x + addX,y + addY))) {
+            if (game.board.isOnBoard(new Position(x + addX,y + addY))) {
                 southMoves.push(new Position (x + addX, y + addY));
             } else {
                 addY = 0;
@@ -62,7 +60,7 @@ Queen.prototype.getPotentialMoves = function getPotentialMoves(position) {
             }
         } else if (vectorEast === false) {
             addX--;
-            if ( game.board.isOnBoard(new Position(x + addX,y + addY))) {
+            if (game.board.isOnBoard(new Position(x + addX,y + addY))) {
                 eastMoves.push(new Position (x + addX, y + addY));
             } else {
                 addX = 0;
@@ -70,7 +68,7 @@ Queen.prototype.getPotentialMoves = function getPotentialMoves(position) {
             }
         } else if (vectorWest === false) {
             addX++;
-            if ( game.board.isOnBoard(new Position(x + addX,y + addY))) {
+            if (game.board.isOnBoard(new Position(x + addX,y + addY))) {
                 westMoves.push(new Position (x + addX, y + addY));
             } else {
                 addX = 0;
@@ -79,9 +77,8 @@ Queen.prototype.getPotentialMoves = function getPotentialMoves(position) {
         } else if (vectorNorthEast === false) {
             addY--;
             addX--;
-            if ( game.board.isOnBoard(new Position(x + addX,y + addY))) {
+            if (game.board.isOnBoard(new Position(x + addX,y + addY))) {
                 northEastMoves.push(new Position (x + addX, y + addY));
-                //northMoves.push({x: x + addX, y: y + addY});
             } else {
                 addY = 0;
                 addX = 0;
@@ -90,7 +87,7 @@ Queen.prototype.getPotentialMoves = function getPotentialMoves(position) {
         } else if (vectorSouthEast === false) {
             addY++;
             addX--;
-            if ( game.board.isOnBoard(new Position(x + addX,y + addY))) {
+            if (game.board.isOnBoard(new Position(x + addX,y + addY))) {
                 southEastMoves.push(new Position (x + addX, y + addY));
             } else {
                 addY = 0;
@@ -100,7 +97,7 @@ Queen.prototype.getPotentialMoves = function getPotentialMoves(position) {
         } else if (vectorNorthWest === false) {
             addY--;
             addX++;
-            if ( game.board.isOnBoard(new Position(x + addX,y + addY))) {
+            if (game.board.isOnBoard(new Position(x + addX,y + addY))) {
                 northWestMoves.push(new Position (x + addX, y + addY));
             } else {
                 addX = 0;
@@ -110,7 +107,7 @@ Queen.prototype.getPotentialMoves = function getPotentialMoves(position) {
         } else if (vectorSouthWest === false) {
             addX++;
             addY++;
-            if ( game.board.isOnBoard(new Position(x + addX,y + addY))) {
+            if (game.board.isOnBoard(new Position(x + addX,y + addY))) {
                 southWestMoves.push(new Position (x + addX, y + addY));
             } else {
                 addX = 0;

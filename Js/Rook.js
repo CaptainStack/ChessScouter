@@ -37,7 +37,7 @@ Rook.prototype.getPotentialMoves = function getPotentialMoves(position) {
     while(vectorNorth === false || vectorSouth === false || vectorEast === false || vectorWest === false) {
         if (vectorNorth === false) {
             addY--;
-            if ( game.board.isOnBoard(new Position(x + addX,y + addY))) {
+            if (game.board.isOnBoard(new Position(x + addX,y + addY))) {
                 northMoves.push(new Position (x + addX, y + addY));
             } else {
                 addY = 0;
@@ -45,7 +45,7 @@ Rook.prototype.getPotentialMoves = function getPotentialMoves(position) {
             }
         } else if (vectorSouth === false) {
             addY++;
-            if ( game.board.isOnBoard(new Position(x + addX,y + addY))) {
+            if (game.board.isOnBoard(new Position(x + addX,y + addY))) {
                 southMoves.push(new Position (x + addX, y + addY));
             } else {
                 addY = 0;
@@ -53,7 +53,7 @@ Rook.prototype.getPotentialMoves = function getPotentialMoves(position) {
             }
         } else if (vectorEast === false) {
             addX--;
-            if ( game.board.isOnBoard(new Position(x + addX,y + addY))) {
+            if (game.board.isOnBoard(new Position(x + addX,y + addY))) {
                 eastMoves.push(new Position (x + addX, y + addY));
             } else {
                 addX = 0;
@@ -61,7 +61,7 @@ Rook.prototype.getPotentialMoves = function getPotentialMoves(position) {
             }
         } else if (vectorWest === false) {
             addX++;
-            if ( game.board.isOnBoard(new Position(x + addX,y + addY))) {
+            if (game.board.isOnBoard(new Position(x + addX,y + addY))) {
                 westMoves.push(new Position (x + addX, y + addY));
             } else {
                 addX = 0;
