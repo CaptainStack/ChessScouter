@@ -1,6 +1,5 @@
 //This file controls the behavior of the bishop pieces on the board.
 "use strict";
-//Records the color of the piece and whether or not it is captured
 function Bishop(color) {
     this.color = color;
     this.captured = false;
