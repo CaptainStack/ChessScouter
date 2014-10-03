@@ -1,17 +1,17 @@
 body, button{
-	font-family: "Segoe UI Light", "Segoe UI Web Regular", "Segoe UI Symbol", "Helvetica Neue", "BBAlpha Sans","S60 Sans", Arial, "sans-serif";
-	font-size: 14pt;
-	text-align: center;
+    font-family: "Segoe UI Light", "Segoe UI Web Regular", "Segoe UI Symbol", "Helvetica Neue", "BBAlpha Sans","S60 Sans", Arial, "sans-serif";
+    font-size: 14pt;
+    text-align: center;
     margin: 0px;
 }
 
 header{
-	overflow: hidden;
+    overflow: hidden;
     margin: 0px;
     text-align: center;
     text-decoration: none;
-	color: white;
-	background-color: #4f81bc;
+    color: white;
+    background-color: #4f81bc;
     padding: 0.5%;
     white-space: nowrap;
 }
@@ -32,9 +32,9 @@ header h2{
 }
 /* The area that holds the board and pieces. */
 #board{
-	margin-left: auto;
-	margin-right: auto;
-	position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
 }
 /*Gives the board its checkboard pattern*/
 #moveHistory{
@@ -53,9 +53,9 @@ header h2{
 }
 
 footer{
-	position: relative; 
-	bottom: -20px;
-	width: 50%;
+    position: relative;
+    bottom: -20px;
+    width: 50%;
     clear: both;
     margin-left: auto;
     margin-right: auto;
@@ -107,7 +107,7 @@ table{
     margin-right: auto;
 }
 #board td:hover {
-	border-color: blue;
+    border-color: blue;
 }
 .gridLabel{
     font-weight: bold;
