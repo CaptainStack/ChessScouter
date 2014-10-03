@@ -1,7 +1,5 @@
-/*
-This file is the most global function and is what binds the logic and objects to 
-DOM elements.
-*/
+// This file is the most global function and is what binds the logic and objects to DOM elements.
+
 "use strict";
 var BOARD_SIZE = 400;
 var firstClick = null;
