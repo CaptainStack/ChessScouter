@@ -12,8 +12,6 @@ $(function() {
     game = new Game();
     game.board.sumSquareControl();
     layoutBoard();
-    // $("#turnSpace").text("It is " + game.whoseTurn() + "'s turn");
-    var temp = $("#board");
     $("#promotion").hide();
     //Create a seperate method for first click and then another for second click.
     //TODO just pass legal moves to movePiece so you don't need to check twice.
@@ -23,17 +21,17 @@ $(function() {
     $("#filters").on("click", "input", function() {
         layoutBoard();
     })
-    
+
     //Watch for ctrl + z for undo
     var ctrlDown = false;
     var ctrlKey = 17, zKey = 90, yKey = 89;
-    
+
     $(document).keydown(function(e) {
         if (e.keyCode === ctrlKey) ctrlDown = true;
     }).keyup(function(e){
         if (e.keyCode === ctrlKey) ctrlDown = false;
     });
-    
+
     $(document).keydown(function(e){
         if (ctrlDown && (e.keyCode === zKey)){
             game.board.undoMove();
@@ -43,16 +41,16 @@ $(function() {
 
 function downloadPgn () {
     var pgn = "";
-    for (var i = 0; i < $("#moveList").children().length; i++) {     
+    for (var i = 0; i < $("#moveList").children().length; i++) {
         for(var j = 0; j < $("#moveList").children()[i].cells.length; j++){
             pgn += $("#moveList").children()[i].cells[j].textContent + " ";
         }
     }
-    
+
     if (pgn != "") {
         var b = new Blob([pgn], {type: 'pgn'});
         var fileURL = URL.createObjectURL(b);
-        
+
         var a = document.createElement('a'),
         e = document.createEvent("MouseEvents");            // simulated click
         e.initMouseEvent("click", true, false, self, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
@@ -104,13 +102,13 @@ function boardClicks() {
         }
         layoutBoard();
         getTableData(firstX, firstY).css("border-color", "blue");
-    } else if (firstClick !== null && game.board.getPiece(firstX, firstY) && game.board.getPiece(firstX, firstY).color === game.whoseTurn() && (firstClick.x !== firstX || firstClick.y !== firstY)) {   
+    } else if (firstClick !== null && game.board.getPiece(firstX, firstY) && game.board.getPiece(firstX, firstY).color === game.whoseTurn() && (firstClick.x !== firstX || firstClick.y !== firstY)) {
         var oldLegalMoves = game.pieceLegalMoves(new Position(firstClick.x, firstClick.y));
         for (var i = 0; i < oldLegalMoves.length; i++) {
             game.board.grid[oldLegalMoves[i].x][oldLegalMoves[i].y].legalMove = false;
         }
         layoutBoard();
-    
+
         firstClick = $(this);
         firstClick = new Position(firstX, firstY);
         var piece = game.board.getPiece(firstX, firstY);
@@ -243,7 +241,7 @@ function showSimpleSpaceControl() {
             getTableData(whiteAttacks[i].x, whiteAttacks[i].y).css("background-color", "rgb(153, 235, 153)");
         }
     }
-    
+
 }
 
 function calculateColor (scale) {
