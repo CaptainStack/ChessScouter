@@ -98,7 +98,7 @@ Board.prototype.movePiece = function movePiece(oldPosition, newPosition) {
             this.grid[oldX][oldY].piece = null;
             this.grid[newX][newY].piece = piece;
             this.grid[newX][oldY].piece = null;
-        } else{
+        } else {
             this.grid[oldX][oldY].piece = null;
             this.grid[newX][newY].piece = piece;
         }

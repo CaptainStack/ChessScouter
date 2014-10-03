@@ -31,7 +31,7 @@ Pawn.prototype.getPotentialMoves = function getPotentialMoves(position) {
         }
         potentialMoves.push(new Position(x - 1, y - 1));
         potentialMoves.push(new Position(x + 1, y - 1));
-    } else{
+    } else {
         var potentialMoves = [new Position(x, y + 1)];
         if (!this.hasMoved) {
             potentialMoves.push(new Position(x, y + 2));
@@ -104,7 +104,7 @@ Pawn.prototype.getAttacks = function getAttacks(currentPosition) {
     if (this.color === "white") {
         attacks.push(new Position(x - 1, y - 1));
         attacks.push(new Position(x + 1, y - 1));
-    } else{
+    } else {
         attacks.push(new Position(x - 1, y + 1));
         attacks.push(new Position(x + 1, y + 1));
     }

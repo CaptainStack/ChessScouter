@@ -138,7 +138,7 @@ Queen.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
             } else if (game.board.occupiedBy(currVectorMoves[j]) !== this.color) {
                 legalMoves.push(currVectorMoves[j]);
                 break;
-            } else{
+            } else {
                 break;
             }
         }
@@ -157,7 +157,7 @@ Queen.prototype.getAttacks = function getAttacks(currentPosition) {
             } else if (game.board.occupiedBy(currVectorMoves[j]) !== this.color) {
                 legalMoves.push(currVectorMoves[j]);
                 break;
-            } else{
+            } else {
                 legalMoves.push(currVectorMoves[j]);
                 break;
             }

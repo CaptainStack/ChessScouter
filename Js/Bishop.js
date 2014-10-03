@@ -98,7 +98,7 @@ Bishop.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
             } else if (game.board.occupiedBy(currVectorMoves[j]) !== this.color) {
                 legalMoves.push(currVectorMoves[j]);
                 break;
-            } else{
+            } else {
                 break;
             }
         }
@@ -118,7 +118,7 @@ Bishop.prototype.getAttacks = function getAttacks(currentPosition) {
             } else if (game.board.occupiedBy(currVectorMoves[j]) !== this.color) {
                 legalMoves.push(currVectorMoves[j]);
                 break;
-            } else{
+            } else {
                 legalMoves.push(currVectorMoves[j]);
                 break;
             }
