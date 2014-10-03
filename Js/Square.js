@@ -3,7 +3,7 @@
 "use strict";
 function Square(x, y, piece) {
     this.x = x;
-    this.y = y
+    this.y = y;
     this.piece = piece;
     this.flair = false;
     this.legalMove = false;
