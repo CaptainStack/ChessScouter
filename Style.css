@@ -95,7 +95,7 @@ footer{
 }
 .help{
     color: rgb(79, 129, 188);
-    decoration: none;
+    text-decoration: none;
     font-size: 8pt;
 }
 .help:hover{
