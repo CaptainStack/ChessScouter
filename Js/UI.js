@@ -20,7 +20,7 @@ $(function() {
     $("#moveHistory").on("click", "button", downloadPgn);
     $("#filters").on("click", "input", function() {
         layoutBoard();
-    })
+    });
 
     //Watch for ctrl + z for undo
     var ctrlDown = false;
