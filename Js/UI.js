@@ -28,12 +28,12 @@ $(function() {
 
     $(document).keydown(function(e) {
         if (e.keyCode === ctrlKey) ctrlDown = true;
-    }).keyup(function(e){
+    }).keyup(function(e) {
         if (e.keyCode === ctrlKey) ctrlDown = false;
     });
 
-    $(document).keydown(function(e){
-        if (ctrlDown && (e.keyCode === zKey)){
+    $(document).keydown(function(e) {
+        if (ctrlDown && (e.keyCode === zKey)) {
             game.board.undoMove();
         }
     });
@@ -42,7 +42,7 @@ $(function() {
 function downloadPgn () {
     var pgn = "";
     for (var i = 0; i < $("#moveList").children().length; i++) {
-        for(var j = 0; j < $("#moveList").children()[i].cells.length; j++){
+        for(var j = 0; j < $("#moveList").children()[i].cells.length; j++) {
             pgn += $("#moveList").children()[i].cells[j].textContent + " ";
         }
     }
@@ -186,7 +186,7 @@ function showSpaceControl() {
 }
 
 function showLastMove() {
-    if (game.board.previousMove){
+    if (game.board.previousMove) {
         $(getTableData(game.board.previousMove.x, game.board.previousMove.y)).attr("id", "previous");
     }
     if (game.board.currentMove) {
