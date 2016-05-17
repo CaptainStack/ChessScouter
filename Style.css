@@ -1,114 +1,133 @@
-body, button{
-	font-family: "Segoe UI Light", "Segoe UI Web Regular", "Segoe UI Symbol", "Helvetica Neue", "BBAlpha Sans","S60 Sans", Arial, "sans-serif";
-	font-size: 14pt;
-	text-align: center;
+body, button {
+    font-family: "Segoe UI Light", "Segoe UI Web Regular", "Segoe UI Symbol", "Helvetica Neue", "BBAlpha Sans","S60 Sans", Arial, "sans-serif";
+    font-size: 14pt;
+    text-align: center;
     margin: 0px;
 }
 
-header{
-	overflow: hidden;
+header {
+    overflow: hidden;
     margin: 0px;
     text-align: center;
     text-decoration: none;
-	color: white;
-	background-color: #4f81bc;
+    color: white;
+    background-color: #4f81bc;
     padding: 0.5%;
     white-space: nowrap;
 }
 
-header h1{
+header h1 {
     float: left;
     vertical-align: middle;
     margin: 0px;
 }
-h1 img{
+
+h1 img {
     padding-right: 2%;
 }
-header h2{
+header h2 {
     float: right;
     vertical-align: middle;
     margin: 0px;
     padding-right: 1%;
 }
+
 /* The area that holds the board and pieces. */
-#board{
-	margin-left: auto;
-	margin-right: auto;
-	position: relative;
+#board {
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
 }
-/*Gives the board its checkboard pattern*/
-#moveHistory{
+
+#moveHistory {
     float: left;
     width: 25%;
 }
-#filters{
+
+#filters {
     float: left;
     width: 18%;
     text-align: left;
 }
-#gameSpace{
+
+#gameSpace {
     float: left;
     width: 50%;
     margin-top: 20px;
 }
 
-footer{
-	position: relative; 
-	bottom: -20px;
-	width: 50%;
+footer {
+    position: relative;
+    bottom: -20px;
+    width: 50%;
     clear: both;
     margin-left: auto;
     margin-right: auto;
 }
-#moveList td{
+
+#moveList td {
     padding: 0px 0px 5px 5px;
 }
-#board tr{
+
+#board tr {
     vertical-align: middle;
 }
-#board tr td{
+
+/*Gives the board its checkboard pattern*/
+#board tr td {
     background-color: rgb(210, 210, 210);
 }
+
 #board tr:nth-child(even) td:nth-child(odd) {
     background-color: rgb(240, 240, 240);
 }
+
 #board tr:nth-child(odd) td:nth-child(even) {
     background-color: rgb(240, 240, 240);
 }
-#board td{
+
+#board td {
     border: 1px solid white;
     margin: 100px;
     padding: 10px;    
     border-spacing: 10px 5px;
 }
-#board #previous{
+
+#board #previous {
     border: 1px dotted black;
 }
-#board #current{
+
+#board #current {
     border: 1px dotted black;
 }
-#board #previous:hover{
+
+#board #previous:hover {
     border: 1px dotted blue;
 }
-#board #current:hover{
+
+#board #current:hover {
     border: 1px dotted blue;
 }
-.help{
+
+.help {
     color: rgb(79, 129, 188);
-    decoration: none;
+    text-decoration: none;
     font-size: 8pt;
 }
-.help:hover{
+.help:hover {
     font-weight: bold;
     font-size: 14pt;
 }
-table{
+
+table {
     margin-left: auto;
     margin-right: auto;
 }
+
 #board td:hover {
-	border-color: blue;
+    border-color: blue;
 }
+
 .gridLabel{
     font-weight: bold;
 }
@@ -129,6 +148,7 @@ table{
     -moz-animation-iteration-count: infinite;
     -moz-animation-direction: alternate;
 }
+
 @-webkit-keyframes pulse {
     from {
         opacity: .2;
@@ -137,6 +157,7 @@ table{
         opacity: 1;
     }
 }
+
 @-ms-keyframes pulse {
     from {
         opacity: .2;
@@ -145,6 +166,7 @@ table{
         opacity: 1;
     }
 }
+
 @-moz-keyframes pulse {
     from {
         opacity: .2;

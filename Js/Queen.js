@@ -31,8 +31,8 @@ Queen.prototype.getPotentialMoves = function getPotentialMoves(position) {
     var vectorSouthEast = false;
     var vectorNorthWest = false;
     var vectorSouthWest = false;
-    var addX = 0
-    var addY = 0
+    var addX = 0;
+    var addY = 0;
     var northMoves = [];
     var southMoves = [];
     var eastMoves = [];
@@ -138,7 +138,7 @@ Queen.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
             } else if (game.board.occupiedBy(currVectorMoves[j]) !== this.color) {
                 legalMoves.push(currVectorMoves[j]);
                 break;
-            } else{
+            } else {
                 break;
             }
         }
@@ -157,7 +157,7 @@ Queen.prototype.getAttacks = function getAttacks(currentPosition) {
             } else if (game.board.occupiedBy(currVectorMoves[j]) !== this.color) {
                 legalMoves.push(currVectorMoves[j]);
                 break;
-            } else{
+            } else {
                 legalMoves.push(currVectorMoves[j]);
                 break;
             }

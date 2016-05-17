@@ -28,8 +28,8 @@ Rook.prototype.getPotentialMoves = function getPotentialMoves(position) {
     var vectorSouth = false;
     var vectorEast = false;
     var vectorWest = false;
-    var addX = 0
-    var addY = 0
+    var addX = 0;
+    var addY = 0;
     var northMoves = [];
     var southMoves = [];
     var eastMoves = [];
@@ -88,7 +88,7 @@ Rook.prototype.getLegalMoves = function getLegalMoves(currentPosition) {
             } else if (game.board.occupiedBy(currVectorMoves[j]) !== this.color) {
                 legalMoves.push(currVectorMoves[j]);
                 break;
-            } else{
+            } else {
                 break;
             }
         }
@@ -108,7 +108,7 @@ Rook.prototype.getAttacks = function getAttacks(currentPosition) {
             } else if (game.board.occupiedBy(currVectorMoves[j]) !== this.color) {
                 legalMoves.push(currVectorMoves[j]);
                 break;
-            } else{
+            } else {
                 legalMoves.push(currVectorMoves[j]);
                 break;
             }
