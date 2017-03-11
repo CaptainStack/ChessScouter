@@ -10,7 +10,7 @@ function Board() {
     
     for(var i = 0; i < 8; i++) {
         var row = [];
-        for(var j = 0; j < 8; j++) {        
+        for(var j = 0; j < 8; j++) {
             row[j] = new Square(i, j, null);
         }
         grid[i] = row;
